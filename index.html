@@ -151,54 +151,35 @@
       transform: scale(1.05);
     }
 
-    /* Help UI */
-    .help-hint {
-      position: fixed;
-      bottom: 1.2rem;
-      left: 1.2rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      opacity: 0.4;
-      z-index: 999;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-family: var(--font-sans);
-    }
-    
-    .help-hint kbd {
-      background: rgba(148, 163, 184, 0.15);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      font-weight: 600;
-      font-family: var(--font-mono);
-      color: inherit;
-    }
-
+    /* Help Modal UI */
     .help-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(15, 23, 42, 0.75);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 2000;
-      backdrop-filter: blur(2px);
+      z-index: 5000;
+      backdrop-filter: blur(8px);
     }
 
     .help-modal.active {
       display: flex;
+      animation: fadeIn 0.2s ease-out;
+    }
+    
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: scale(0.95); } 
+      to { opacity: 1; transform: scale(1); } 
     }
 
     .help-content {
-      background: var(--code-bg);
+      background: var(--slide-bg);
       border: 1px solid var(--code-border);
       padding: 2.5rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      max-width: 550px;
       width: 90%;
       color: var(--text-main);
     }
@@ -208,24 +189,45 @@
       color: var(--primary);
       text-align: center;
       font-family: var(--font-heading);
+      font-size: 1.8rem;
     }
 
     .help-content ul {
       list-style: none;
       margin-bottom: 2rem;
+      padding: 0;
     }
 
     .help-content li {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 0.8rem;
       border-bottom: 1px solid var(--code-border);
-      padding-bottom: 0.4rem;
-      font-size: 0.95rem;
+      padding-bottom: 0.6rem;
+      font-size: 1rem;
+    }
+    
+    .help-content li:last-child {
+      border-bottom: none;
     }
     
     .help-content li strong {
-      color: var(--secondary);
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    
+    .help-content li kbd {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--primary);
+      box-shadow: 0 2px 0 var(--code-border);
     }
 
     .close-help-btn {
@@ -233,15 +235,18 @@
       background: var(--primary);
       color: white;
       border: none;
-      padding: 0.8rem;
-      border-radius: 6px;
+      padding: 0.9rem;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.2s;
+      font-size: 1.05rem;
+      transition: all 0.2s;
     }
 
     .close-help-btn:hover {
       background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
     }
 
     /* Full-screen width presentation container */
@@ -556,17 +561,111 @@
       background: #181825;
     }
 
-    /* PowerPoint Footer with ONLY page numbers aligned right */
+    /* PowerPoint Footer */
     .slide-footer {
       border-top: 1px solid #e5e7eb;
       padding-top: 0.6rem;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       font-size: 0.8rem;
       color: #9ca3af;
       margin-top: auto;
       flex-shrink: 0;
+      user-select: none; /* Prevents text selection flickering */
+    }
+
+    body.theme-dark .slide-footer {
+      border-color: #313244;
+    }
+
+    .footer-social-links {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .footer-social-links a {
+      color: #9ca3af;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-social-links a:hover {
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .slide-counter {
+      font-weight: 500;
+    }
+
+    .footer-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .footer-nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .footer-nav-btn:hover {
+      background: var(--code-bg);
+      border-color: var(--code-border);
+      color: var(--primary);
+    }
+    
+    .footer-nav-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Inline Help Hint */
+    .help-hint-inline {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-family: inherit;
+    }
+    
+    .help-hint-inline:hover {
+      opacity: 1;
+    }
+    
+    .help-hint-inline kbd {
+      background: rgba(148, 163, 184, 0.15);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: inherit;
     }
 
     /* Title Slide Specifics */
@@ -610,12 +709,13 @@
       right: 1rem;
       z-index: 1000;
       display: none;
+      gap: 0.2rem;
     }
 
     .upload-icon-btn {
-      background: rgba(30, 41, 59, 0.4);
-      color: #94a3b8;
-      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid transparent;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -625,7 +725,7 @@
       justify-content: center;
       font-size: 0.95rem;
       transition: all 0.2s ease;
-      opacity: 0.5;
+      opacity: 0.2;
     }
 
     .upload-icon-btn:hover {
@@ -644,19 +744,21 @@
 <body>
 
   <!-- Help UI -->
-  <div id="helpHint" class="help-hint"><kbd>Alt</kbd> + <kbd>?</kbd></div>
-
   <div id="helpModal" class="help-modal">
     <div class="help-content">
       <h2>Keyboard Shortcuts</h2>
       <ul>
-        <li><strong>Alt + J</strong> / Space / Right Arrow <span>Next Slide</span></li>
-        <li><strong>Alt + K</strong> / Left Arrow <span>Previous Slide</span></li>
-        <li><strong>Home</strong> / <strong>End</strong> <span>First / Last Slide</span></li>
-        <li><strong>Alt + ?</strong> <span>Toggle this help</span></li>
-        <li><strong>Esc</strong> <span>Close help / Exit full-screen code</span></li>
+        <li><strong><kbd>Alt</kbd> + <kbd>J</kbd></strong> <span>Next Slide</span></li>
+        <li><strong><kbd>Alt</kbd> + <kbd>K</kbd></strong> <span>Previous Slide</span></li>
+        <li><strong><kbd>Alt</kbd> + <kbd>.</kbd></strong> <span>Table of Contents</span></li>
+        <li><strong><kbd>Alt</kbd> + <kbd>G</kbd></strong> <span>Go to Slide</span></li>
+        <li><strong><kbd>Alt</kbd> + <kbd>E</kbd></strong> <span>Edit Social Links</span></li>
+        <li><strong><kbd>+</kbd> / <kbd>-</kbd> / <kbd>0</kbd></strong> <span>Zoom TOC / Code Size</span></li>
+        <li><strong><kbd>Home</kbd> / <kbd>End</kbd></strong> <span>First / Last Slide</span></li>
+        <li><strong><kbd>Alt</kbd> + <kbd>?</kbd></strong> <span>Toggle this help</span></li>
+        <li><strong><kbd>Esc</kbd></strong> <span>Close Modals / Code</span></li>
       </ul>
-      <button class="close-help-btn" onclick="toggleHelp()">Close</button>
+      <button class="close-help-btn" onclick="toggleHelp()">Awesome, got it!</button>
     </div>
   </div>
   <!-- Landing / Home Page -->
@@ -681,13 +783,23 @@
     </div>
   </div>
 
-  <!-- Small, Subtle Upload Icon Trigger -->
-  <div class="top-controls">
-    <button class="upload-icon-btn" onclick="document.body.classList.toggle('theme-dark')" title="Toggle Theme (Light/Dark)">
-      🌓
+  <!-- Small, Subtle Top Controls -->
+  <div class="top-controls" style="display: none; gap: 0.2rem;">
+    <button class="upload-icon-btn" onclick="if(window.treeView) window.treeView.show(window.globalSlideData, (idx) => updateSlide(idx), currentSlide)" title="Table of Contents (Alt + .)">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>
+      </svg>
+    </button>
+    <button class="upload-icon-btn" onclick="toggleTheme()" title="Toggle Theme (Light/Dark)">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
     </button>
     <button class="upload-icon-btn" onclick="document.getElementById('fileInput').click()" title="Load / Replace .org File">
-      📁
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+      </svg>
     </button>
     <input type="file" id="fileInput" accept=".org,.txt" />
   </div>
@@ -716,6 +828,26 @@
       const container = btn.closest('.code-block-container');
       const pre = container.querySelector('pre');
       pre.style.removeProperty('font-size');
+    }
+
+    function handleGlobalCodeResize(key) {
+      let targets = document.querySelectorAll('.code-block-container.fullscreen');
+      if (targets.length === 0) {
+        const activeSlide = document.querySelector('.slide.active');
+        if (activeSlide) targets = activeSlide.querySelectorAll('.code-block-container');
+      }
+      
+      targets.forEach(container => {
+        const pre = container.querySelector('pre');
+        if (!pre) return;
+        if (key === '0') {
+          pre.style.removeProperty('font-size');
+        } else {
+          let currentSize = parseFloat(pre.style.fontSize) || parseFloat(window.getComputedStyle(pre).fontSize);
+          let direction = (key === '=' || key === '+') ? 1 : -1;
+          pre.style.setProperty('font-size', (currentSize + (direction * 2)) + 'px', 'important');
+        }
+      });
     }
 
     function copyCode(btn) {
@@ -915,6 +1047,7 @@
         // Always push to keep indices synced, even if empty
         slideObjects.push({
           isTitle: false,
+          level: sec.level,
           title: sec.title,
           breadcrumbs: sec.breadcrumbs,
           body: contentHtml
@@ -1100,8 +1233,9 @@
 
     // Render slides into the PowerPoint container and apply syntax highlighting
     function renderDeck(slideData) {
+      window.globalSlideData = slideData; // Expose for tree_view.js
       document.getElementById('landingPage').style.display = 'none';
-      document.querySelector('.top-controls').style.display = 'block';
+      document.querySelector('.top-controls').style.display = 'flex';
       deckContainer.style.display = 'flex';
 
       deckContainer.innerHTML = '';
@@ -1124,6 +1258,28 @@
           }).join('');
         }
 
+        const footerHtml = `
+          <div class="slide-footer">
+            <div class="footer-social-links">
+              ${window.generateSocialLinksHtml ? window.generateSocialLinksHtml() : ''}
+            </div>
+            <div class="footer-right">
+              <button type="button" class="help-hint-inline" onclick="toggleHelp()" title="Keyboard Shortcuts">
+                <kbd>Alt</kbd> + <kbd>?</kbd>
+              </button>
+              <span class="slide-counter">Slide ${idx + 1} of ${total}</span>
+              <div class="footer-nav">
+                <button class="footer-nav-btn" onclick="prev()" title="Previous Slide (Alt+K)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="footer-nav-btn" onclick="next()" title="Next Slide (Alt+J)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+
         if (s.isTitle) {
           slideEl.innerHTML = `
             <div class="slide-breadcrumbs" style="position: absolute; top: 1.5rem; left: 1.5rem;">${breadcrumbHtml}</div>
@@ -1132,9 +1288,7 @@
               <h2 class="main-subtitle">${s.subtitle}</h2>
               <div class="main-meta">${s.meta}</div>
             </div>
-            <div class="slide-footer">
-              <span>Slide ${idx + 1} of ${total}</span>
-            </div>
+            ${footerHtml}
           `;
         } else {
           slideEl.innerHTML = `
@@ -1145,9 +1299,7 @@
             <div class="slide-body">
               ${s.body}
             </div>
-            <div class="slide-footer">
-              <span>Slide ${idx + 1} of ${total}</span>
-            </div>
+            ${footerHtml}
           `;
         }
 
@@ -1205,22 +1357,72 @@
 
       const key = (e.key || '').toLowerCase();
       
+      // Global +/-/0 for Zooming (TOC or Code Blocks)
+      if (key === '=' || key === '+' || key === '-' || key === '0') {
+        const treeModal = document.getElementById('treeModal');
+        if (window.treeView && treeModal && treeModal.classList.contains('active')) {
+          e.preventDefault();
+          if (key === '=' || key === '+') window.treeView.zoomIn();
+          else if (key === '-') window.treeView.zoomOut();
+          else if (key === '0') window.treeView.fitZoom();
+          return;
+        } else {
+          e.preventDefault();
+          handleGlobalCodeResize(key);
+          return;
+        }
+      }
+
       // Handle Help Toggle (Alt + ? or Alt + /)
-      if (e.altKey && (key === '?' || key === '/')) {
+      if (e.altKey && (key === '?' || key === '/' || e.code === 'Slash')) {
         e.preventDefault();
         e.stopPropagation();
         toggleHelp();
         return;
       }
 
+      // Handle Tree View / TOC Toggle (Alt + .)
+      if (e.altKey && (key === '.' || e.code === 'Period')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.treeView) {
+          window.treeView.show(window.globalSlideData, (index) => updateSlide(index), currentSlide);
+        }
+        return;
+      }
+
+      // Handle Go To Page (Alt + G)
+      if (e.altKey && (key === 'g' || e.code === 'KeyG')) {
+        e.preventDefault();
+        e.stopPropagation();
+        const target = prompt(`Enter slide number (1 - ${slides.length}):`);
+        if (target) {
+          const pageNum = parseInt(target, 10);
+          if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= slides.length) {
+            updateSlide(pageNum - 1);
+          } else {
+            alert(`Invalid slide number. Please enter a number between 1 and ${slides.length}.`);
+          }
+        }
+        return;
+      }
+
+      // Handle Edit Social Links (Alt + E)
+      if (e.altKey && (key === 'e' || e.code === 'KeyE')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.socialLinksEditor) window.socialLinksEditor.open();
+        return;
+      }
+
       // Allow default browser shortcuts (Ctrl, Meta), but we need to intercept Alt if it's Alt+J or Alt+K
       if (e.ctrlKey || e.metaKey) return;
 
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'ArrowDown' || (e.altKey && key === 'j')) {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'ArrowDown' || (e.altKey && (key === 'j' || e.code === 'KeyJ'))) {
         e.preventDefault();
         e.stopPropagation();
         next();
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'ArrowUp' || (e.altKey && key === 'k')) {
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'ArrowUp' || (e.altKey && (key === 'k' || e.code === 'KeyK'))) {
         e.preventDefault();
         e.stopPropagation();
         prev();
@@ -1246,6 +1448,11 @@
       }
     };
 
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('theme-dark');
+      sessionStorage.setItem('orgSlide_theme', isDark ? 'dark' : 'light');
+    }
+
     // Use standard bubbling so we don't interfere with extensions when they process normal keys
     window.addEventListener('keydown', handleKeyNav);
 
@@ -1257,6 +1464,7 @@
       const reader = new FileReader();
       reader.onload = function(evt) {
         const text = evt.target.result;
+        sessionStorage.setItem('orgSlide_savedText', text);
         const parsedSlides = parseOrgMode(text);
         renderDeck(parsedSlides);
       };
@@ -1272,10 +1480,26 @@
         const reader = new FileReader();
         reader.onload = function(evt) {
           const text = evt.target.result;
+          sessionStorage.setItem('orgSlide_savedText', text);
           const parsedSlides = parseOrgMode(text);
           renderDeck(parsedSlides);
         };
         reader.readAsText(file);
+      }
+    });
+
+    // Auto-load on refresh
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('orgSlide_theme') === 'dark') {
+        document.body.classList.add('theme-dark');
+      } else if (sessionStorage.getItem('orgSlide_theme') === 'light') {
+        document.body.classList.remove('theme-dark');
+      }
+
+      const savedText = sessionStorage.getItem('orgSlide_savedText');
+      if (savedText) {
+        const parsedSlides = parseOrgMode(savedText);
+        renderDeck(parsedSlides);
       }
     });
 
@@ -1291,5 +1515,7 @@
       }
     }
   </script>
+  <script src="tree_view.js"></script>
+  <script src="social_links.js"></script>
 </body>
 </html>
