@@ -1,0 +1,39 @@
+#+TITLE: OrgSlide
+#+AUTHOR: Cisco Ramon
+#+DESCRIPTION: A lightweight, responsive presentation renderer for Org-mode files.
+
+* OrgSlide
+
+OrgSlide is a beautiful, single-file HTML presentation engine for Emacs Org-mode files. It runs entirely in the browser—no backend, no database, no complex build steps required. Simply drag and drop your =.org= file into the browser, and watch it instantly transform into a sleek, interactive, PowerPoint-style presentation.
+
+Developed by *Cisco Ramon*.
+- [[https://github.com/CISSSCO][GitHub]]
+- [[https://ciscoramon.netlify.app][Portfolio]]
+- [[https://www.linkedin.com/in/abhi581b/][LinkedIn]]
+
+** Features
+- *Zero Dependencies:* Everything (HTML, CSS, JS) is bundled into a single file (=index.html=).
+- *Client-Side Parsing:* Completely private. Your files are parsed locally using the HTML5 FileReader API.
+- *Light & Dark Themes:* Toggle seamlessly between a clean light mode and a deep, glassmorphic dark mode.
+- *Code Block Superpowers:* Beautiful syntax highlighting, single-click copy buttons, fullscreen toggle, and on-the-fly font size adjustment (=+=/=-=/=↺=).
+- *Intelligent Navigation:* Clickable breadcrumb trees at the top of every slide let you jump instantly to different sections.
+- *Keyboard Driven:* Navigate smoothly without touching the mouse.
+
+** Keyboard Shortcuts
+OrgSlide is designed to avoid conflicts with browser extensions like Vimium.
+- =Alt + J= / =Space= / =Right Arrow= :: Next Slide
+- =Alt + K= / =Left Arrow= :: Previous Slide
+- =Home= / =End= :: First / Last Slide
+- =Alt + ?= :: Open Help Menu
+- =Escape= :: Close Help / Exit Fullscreen Code
+
+** How to Use
+The easiest way to use OrgSlide is directly from the web—no installation required!
+1. Visit the live app at: [[https://cisssco.github.io/OrgSlide/]]
+2. Click the *Load Org File* button (or drag and drop your =.org= file onto the page).
+3. Your presentation will instantly render and you're ready to present!
+
+If you prefer to run it locally, simply clone the repository and open =index.html= in any web browser.
+
+** License
+This project is licensed under the MIT License - feel free to use, modify, and distribute it!
