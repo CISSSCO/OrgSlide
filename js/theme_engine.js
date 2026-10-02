@@ -169,13 +169,18 @@
     if (focusedEl) {
       focusedEl.scrollIntoView({ block: 'nearest' });
     }
+
+    // Live preview
+    if (filteredThemes[focusedIndex]) {
+      applyTheme(filteredThemes[focusedIndex].id);
+    }
   }
 
   function selectTheme(themeId) {
     currentTheme = themeId;
     sessionStorage.setItem('orgSlide_extTheme', currentTheme);
     applyTheme(currentTheme);
-    renderThemeList();
+    window.ThemeEngine.closeModal();
   }
 
   function handleKeydown(e) {
@@ -228,105 +233,6 @@
         document.body.appendChild(modal);
 
         // Styles for command palette
-        const style = document.createElement('style');
-        style.innerHTML = `
-          .command-palette-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 99999;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 10vh;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-          }
-          .command-palette-modal.show {
-            opacity: 1;
-            pointer-events: auto;
-          }
-          .command-palette-content {
-            width: 100%;
-            max-width: 600px;
-            background: var(--bg-workspace);
-            border-radius: 12px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            font-family: var(--font-body);
-            border: 1px solid var(--code-border);
-          }
-          .command-palette-search {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.25rem;
-            border-bottom: 1px solid var(--code-border);
-            gap: 0.75rem;
-          }
-          .command-palette-search input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-main);
-            font-size: 1.2rem;
-            font-family: inherit;
-          }
-          .command-palette-list {
-            max-height: 50vh;
-            overflow-y: auto;
-            padding: 0.5rem;
-          }
-          .theme-option-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            border-radius: 8px;
-            color: var(--text-muted);
-            transition: background 0.1s;
-          }
-          .theme-option-row.focused {
-            background: var(--code-bg);
-            color: var(--text-main);
-          }
-          .theme-option-row.active {
-            color: var(--text-main);
-          }
-          .theme-left {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1rem;
-          }
-          .theme-check {
-            font-family: monospace;
-            font-weight: bold;
-            color: var(--primary);
-            width: 1.2rem;
-          }
-          .theme-colors-pill {
-            display: flex;
-            gap: 4px;
-            padding: 4px 8px;
-            border-radius: 12px;
-            border: 1px solid rgba(128,128,128,0.2);
-            align-items: center;
-          }
-          .theme-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 1px solid rgba(128,128,128,0.3);
-          }
-        `;
-        document.head.appendChild(style);
 
         document.getElementById('themeSearchInput').addEventListener('input', (e) => {
           const query = e.target.value.toLowerCase();
@@ -356,6 +262,7 @@
     closeModal: function() {
       const modal = document.getElementById('themeEngineModal');
       if (modal) modal.classList.remove('show');
+      applyTheme(currentTheme); // Revert preview if canceled
     }
   };
 

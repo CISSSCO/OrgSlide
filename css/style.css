@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Inconsolata:wght@400;500;600&family=Source+Code+Pro:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Ubuntu+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;500;600&family=Anonymous+Pro:wght@400;700&family=Cousine:wght@400;700&family=Victor+Mono:wght@400;500;600&family=Sometype+Mono:wght@400;500;600&family=Lato:wght@400;700&family=Open+Sans:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&family=Noto+Sans:wght@400;500;600&family=Quicksand:wght@400;500;600&family=Raleway:wght@400;500;600&family=Rubik:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Ubuntu:wght@400;500;700&family=Barlow:wght@400;500;600&family=Mulish:wght@400;500;600&family=Kanit:wght@400;500;600&family=Merriweather+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=Lora:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=Syne:wght@400;500;600&family=Cabin:wght@400;500;600&family=Josefin+Sans:wght@400;500;600&display=swap');
 
 :root {
       --bg-workspace: #2b303c;
@@ -738,4 +738,101 @@
 
 body.has-fullscreen-code .top-controls {
   display: none !important;
+}
+
+/* Command Palette Styles (Themes & Fonts) */
+.command-palette-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 99999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.command-palette-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.command-palette-content {
+  width: 100%;
+  max-width: 600px;
+  background: var(--bg-workspace);
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-body);
+  border: 1px solid var(--code-border);
+}
+.command-palette-search {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--code-border);
+  gap: 0.75rem;
+}
+.command-palette-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-size: 1.2rem;
+  font-family: inherit;
+}
+.command-palette-list {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+.theme-option-row, .font-option-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  color: var(--text-muted);
+  transition: background 0.1s;
+}
+.theme-option-row.focused, .font-option-row.focused {
+  background: var(--code-bg);
+  color: var(--text-main);
+}
+.theme-option-row.active, .font-option-row.active {
+  color: var(--text-main);
+}
+.theme-left, .font-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+.theme-check, .font-check {
+  font-family: monospace;
+  font-weight: bold;
+  color: var(--primary);
+  width: 1.2rem;
+}
+.theme-colors-pill {
+  display: flex;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(128,128,128,0.2);
+  align-items: center;
+}
+.theme-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(128,128,128,0.3);
 }
