@@ -1,0 +1,61 @@
+/* Tender Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-tender {
+  --bg-workspace: rgb(248, 252, 254);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #73cef4;
+  --secondary: #c9d05c;
+  --accent: #f43753;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-tender table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-tender table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-tender table.ppt-table tr:nth-child(even) td { background: rgb(248, 252, 254); }
+body.theme-tender code { background: #f1f3f5; color: #73cef4; }
+
+/* Light Syntax Highlighting */
+body.theme-tender .hljs { color: #333333 !important; }
+body.theme-tender .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-tender .hljs-keyword { color: #73cef4 !important; }
+body.theme-tender .hljs-string { color: #c9d05c !important; }
+body.theme-tender .hljs-number { color: #f43753 !important; }
+body.theme-tender .hljs-function { color: #73cef4 !important; }
+body.theme-tender .hljs-title { color: #73cef4 !important; }
+body.theme-tender .hljs-variable { color: #c9d05c !important; }
+body.theme-tender .hljs-built_in { color: #f43753 !important; }
+
+/* DARK MODE */
+body.theme-tender.theme-dark {
+  --bg-workspace: #282828;
+  --slide-bg: #343434;
+  --text-main: #eeeeee;
+  --text-muted: #666666;
+  --primary: #73cef4;
+  --secondary: #c9d05c;
+  --accent: #f43753;
+  --code-bg: #1d1d1d;
+  --code-border: #444444;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-tender.theme-dark table.ppt-table th { background: #1d1d1d; color: #eeeeee; border-color: #444444; }
+body.theme-tender.theme-dark table.ppt-table td { border-color: #1d1d1d; color: #eeeeee; }
+body.theme-tender.theme-dark table.ppt-table tr:nth-child(even) td { background: #343434; }
+body.theme-tender.theme-dark code { background: #1d1d1d; color: #73cef4; }
+
+/* Dark Syntax Highlighting */
+body.theme-tender.theme-dark .hljs { color: #eeeeee !important; }
+body.theme-tender.theme-dark .hljs-comment { color: #666666 !important; font-style: italic; }
+body.theme-tender.theme-dark .hljs-keyword { color: #73cef4 !important; }
+body.theme-tender.theme-dark .hljs-string { color: #c9d05c !important; }
+body.theme-tender.theme-dark .hljs-number { color: #f43753 !important; }
+body.theme-tender.theme-dark .hljs-function { color: #73cef4 !important; }
+body.theme-tender.theme-dark .hljs-title { color: #73cef4 !important; }
+body.theme-tender.theme-dark .hljs-variable { color: #c9d05c !important; }
+body.theme-tender.theme-dark .hljs-built_in { color: #f43753 !important; }

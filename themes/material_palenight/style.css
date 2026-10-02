@@ -1,0 +1,61 @@
+/* Palenight Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-material_palenight {
+  --bg-workspace: rgb(252, 249, 253);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #c792ea;
+  --secondary: #82aaff;
+  --accent: #f07178;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-material_palenight table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-material_palenight table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-material_palenight table.ppt-table tr:nth-child(even) td { background: rgb(252, 249, 253); }
+body.theme-material_palenight code { background: #f1f3f5; color: #c792ea; }
+
+/* Light Syntax Highlighting */
+body.theme-material_palenight .hljs { color: #333333 !important; }
+body.theme-material_palenight .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-material_palenight .hljs-keyword { color: #c792ea !important; }
+body.theme-material_palenight .hljs-string { color: #82aaff !important; }
+body.theme-material_palenight .hljs-number { color: #f07178 !important; }
+body.theme-material_palenight .hljs-function { color: #c792ea !important; }
+body.theme-material_palenight .hljs-title { color: #c792ea !important; }
+body.theme-material_palenight .hljs-variable { color: #82aaff !important; }
+body.theme-material_palenight .hljs-built_in { color: #f07178 !important; }
+
+/* DARK MODE */
+body.theme-material_palenight.theme-dark {
+  --bg-workspace: #292d3e;
+  --slide-bg: #33374a;
+  --text-main: #a6accd;
+  --text-muted: #676e95;
+  --primary: #c792ea;
+  --secondary: #82aaff;
+  --accent: #f07178;
+  --code-bg: #202330;
+  --code-border: #464b63;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-material_palenight.theme-dark table.ppt-table th { background: #202330; color: #a6accd; border-color: #464b63; }
+body.theme-material_palenight.theme-dark table.ppt-table td { border-color: #202330; color: #a6accd; }
+body.theme-material_palenight.theme-dark table.ppt-table tr:nth-child(even) td { background: #33374a; }
+body.theme-material_palenight.theme-dark code { background: #202330; color: #c792ea; }
+
+/* Dark Syntax Highlighting */
+body.theme-material_palenight.theme-dark .hljs { color: #a6accd !important; }
+body.theme-material_palenight.theme-dark .hljs-comment { color: #676e95 !important; font-style: italic; }
+body.theme-material_palenight.theme-dark .hljs-keyword { color: #c792ea !important; }
+body.theme-material_palenight.theme-dark .hljs-string { color: #82aaff !important; }
+body.theme-material_palenight.theme-dark .hljs-number { color: #f07178 !important; }
+body.theme-material_palenight.theme-dark .hljs-function { color: #c792ea !important; }
+body.theme-material_palenight.theme-dark .hljs-title { color: #c792ea !important; }
+body.theme-material_palenight.theme-dark .hljs-variable { color: #82aaff !important; }
+body.theme-material_palenight.theme-dark .hljs-built_in { color: #f07178 !important; }

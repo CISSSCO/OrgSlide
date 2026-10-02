@@ -1,0 +1,61 @@
+/* Material Ocean Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-material_ocean {
+  --bg-workspace: rgb(248, 250, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #82aaff;
+  --secondary: #c792ea;
+  --accent: #ff5370;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-material_ocean table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-material_ocean table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-material_ocean table.ppt-table tr:nth-child(even) td { background: rgb(248, 250, 255); }
+body.theme-material_ocean code { background: #f1f3f5; color: #82aaff; }
+
+/* Light Syntax Highlighting */
+body.theme-material_ocean .hljs { color: #333333 !important; }
+body.theme-material_ocean .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-material_ocean .hljs-keyword { color: #82aaff !important; }
+body.theme-material_ocean .hljs-string { color: #c792ea !important; }
+body.theme-material_ocean .hljs-number { color: #ff5370 !important; }
+body.theme-material_ocean .hljs-function { color: #82aaff !important; }
+body.theme-material_ocean .hljs-title { color: #82aaff !important; }
+body.theme-material_ocean .hljs-variable { color: #c792ea !important; }
+body.theme-material_ocean .hljs-built_in { color: #ff5370 !important; }
+
+/* DARK MODE */
+body.theme-material_ocean.theme-dark {
+  --bg-workspace: #0f111a;
+  --slide-bg: #161823;
+  --text-main: #8f93a2;
+  --text-muted: #464b5d;
+  --primary: #82aaff;
+  --secondary: #c792ea;
+  --accent: #ff5370;
+  --code-bg: #090a0f;
+  --code-border: #212431;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-material_ocean.theme-dark table.ppt-table th { background: #090a0f; color: #8f93a2; border-color: #212431; }
+body.theme-material_ocean.theme-dark table.ppt-table td { border-color: #090a0f; color: #8f93a2; }
+body.theme-material_ocean.theme-dark table.ppt-table tr:nth-child(even) td { background: #161823; }
+body.theme-material_ocean.theme-dark code { background: #090a0f; color: #82aaff; }
+
+/* Dark Syntax Highlighting */
+body.theme-material_ocean.theme-dark .hljs { color: #8f93a2 !important; }
+body.theme-material_ocean.theme-dark .hljs-comment { color: #464b5d !important; font-style: italic; }
+body.theme-material_ocean.theme-dark .hljs-keyword { color: #82aaff !important; }
+body.theme-material_ocean.theme-dark .hljs-string { color: #c792ea !important; }
+body.theme-material_ocean.theme-dark .hljs-number { color: #ff5370 !important; }
+body.theme-material_ocean.theme-dark .hljs-function { color: #82aaff !important; }
+body.theme-material_ocean.theme-dark .hljs-title { color: #82aaff !important; }
+body.theme-material_ocean.theme-dark .hljs-variable { color: #c792ea !important; }
+body.theme-material_ocean.theme-dark .hljs-built_in { color: #ff5370 !important; }

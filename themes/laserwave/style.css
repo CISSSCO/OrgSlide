@@ -1,0 +1,61 @@
+/* LaserWave Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-laserwave {
+  --bg-workspace: rgb(254, 247, 251);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #eb64b9;
+  --secondary: #40b4c4;
+  --accent: #74dfc4;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-laserwave table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-laserwave table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-laserwave table.ppt-table tr:nth-child(even) td { background: rgb(254, 247, 251); }
+body.theme-laserwave code { background: #f1f3f5; color: #eb64b9; }
+
+/* Light Syntax Highlighting */
+body.theme-laserwave .hljs { color: #333333 !important; }
+body.theme-laserwave .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-laserwave .hljs-keyword { color: #eb64b9 !important; }
+body.theme-laserwave .hljs-string { color: #40b4c4 !important; }
+body.theme-laserwave .hljs-number { color: #74dfc4 !important; }
+body.theme-laserwave .hljs-function { color: #eb64b9 !important; }
+body.theme-laserwave .hljs-title { color: #eb64b9 !important; }
+body.theme-laserwave .hljs-variable { color: #40b4c4 !important; }
+body.theme-laserwave .hljs-built_in { color: #74dfc4 !important; }
+
+/* DARK MODE */
+body.theme-laserwave.theme-dark {
+  --bg-workspace: #27212e;
+  --slide-bg: #322b3b;
+  --text-main: #ffffff;
+  --text-muted: #91889b;
+  --primary: #eb64b9;
+  --secondary: #40b4c4;
+  --accent: #74dfc4;
+  --code-bg: #1e1924;
+  --code-border: #4c4258;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-laserwave.theme-dark table.ppt-table th { background: #1e1924; color: #ffffff; border-color: #4c4258; }
+body.theme-laserwave.theme-dark table.ppt-table td { border-color: #1e1924; color: #ffffff; }
+body.theme-laserwave.theme-dark table.ppt-table tr:nth-child(even) td { background: #322b3b; }
+body.theme-laserwave.theme-dark code { background: #1e1924; color: #eb64b9; }
+
+/* Dark Syntax Highlighting */
+body.theme-laserwave.theme-dark .hljs { color: #ffffff !important; }
+body.theme-laserwave.theme-dark .hljs-comment { color: #91889b !important; font-style: italic; }
+body.theme-laserwave.theme-dark .hljs-keyword { color: #eb64b9 !important; }
+body.theme-laserwave.theme-dark .hljs-string { color: #40b4c4 !important; }
+body.theme-laserwave.theme-dark .hljs-number { color: #74dfc4 !important; }
+body.theme-laserwave.theme-dark .hljs-function { color: #eb64b9 !important; }
+body.theme-laserwave.theme-dark .hljs-title { color: #eb64b9 !important; }
+body.theme-laserwave.theme-dark .hljs-variable { color: #40b4c4 !important; }
+body.theme-laserwave.theme-dark .hljs-built_in { color: #74dfc4 !important; }

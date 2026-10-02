@@ -1,0 +1,61 @@
+/* PowerShell Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-powershell {
+  --bg-workspace: rgb(242, 255, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #00ffff;
+  --secondary: #00ff00;
+  --accent: #ff0000;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-powershell table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-powershell table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-powershell table.ppt-table tr:nth-child(even) td { background: rgb(242, 255, 255); }
+body.theme-powershell code { background: #f1f3f5; color: #00ffff; }
+
+/* Light Syntax Highlighting */
+body.theme-powershell .hljs { color: #333333 !important; }
+body.theme-powershell .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-powershell .hljs-keyword { color: #00ffff !important; }
+body.theme-powershell .hljs-string { color: #00ff00 !important; }
+body.theme-powershell .hljs-number { color: #ff0000 !important; }
+body.theme-powershell .hljs-function { color: #00ffff !important; }
+body.theme-powershell .hljs-title { color: #00ffff !important; }
+body.theme-powershell .hljs-variable { color: #00ff00 !important; }
+body.theme-powershell .hljs-built_in { color: #ff0000 !important; }
+
+/* DARK MODE */
+body.theme-powershell.theme-dark {
+  --bg-workspace: #012456;
+  --slide-bg: #023174;
+  --text-main: #eeedf0;
+  --text-muted: #808080;
+  --primary: #00ffff;
+  --secondary: #00ff00;
+  --accent: #ff0000;
+  --code-bg: #001b44;
+  --code-border: #03449e;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-powershell.theme-dark table.ppt-table th { background: #001b44; color: #eeedf0; border-color: #03449e; }
+body.theme-powershell.theme-dark table.ppt-table td { border-color: #001b44; color: #eeedf0; }
+body.theme-powershell.theme-dark table.ppt-table tr:nth-child(even) td { background: #023174; }
+body.theme-powershell.theme-dark code { background: #001b44; color: #00ffff; }
+
+/* Dark Syntax Highlighting */
+body.theme-powershell.theme-dark .hljs { color: #eeedf0 !important; }
+body.theme-powershell.theme-dark .hljs-comment { color: #808080 !important; font-style: italic; }
+body.theme-powershell.theme-dark .hljs-keyword { color: #00ffff !important; }
+body.theme-powershell.theme-dark .hljs-string { color: #00ff00 !important; }
+body.theme-powershell.theme-dark .hljs-number { color: #ff0000 !important; }
+body.theme-powershell.theme-dark .hljs-function { color: #00ffff !important; }
+body.theme-powershell.theme-dark .hljs-title { color: #00ffff !important; }
+body.theme-powershell.theme-dark .hljs-variable { color: #00ff00 !important; }
+body.theme-powershell.theme-dark .hljs-built_in { color: #ff0000 !important; }

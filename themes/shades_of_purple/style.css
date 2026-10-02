@@ -1,0 +1,61 @@
+/* Shades of Purple Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-shades_of_purple {
+  --bg-workspace: rgb(254, 252, 242);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #fad000;
+  --secondary: #9effff;
+  --accent: #ff2c70;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-shades_of_purple table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-shades_of_purple table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-shades_of_purple table.ppt-table tr:nth-child(even) td { background: rgb(254, 252, 242); }
+body.theme-shades_of_purple code { background: #f1f3f5; color: #fad000; }
+
+/* Light Syntax Highlighting */
+body.theme-shades_of_purple .hljs { color: #333333 !important; }
+body.theme-shades_of_purple .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-shades_of_purple .hljs-keyword { color: #fad000 !important; }
+body.theme-shades_of_purple .hljs-string { color: #9effff !important; }
+body.theme-shades_of_purple .hljs-number { color: #ff2c70 !important; }
+body.theme-shades_of_purple .hljs-function { color: #fad000 !important; }
+body.theme-shades_of_purple .hljs-title { color: #fad000 !important; }
+body.theme-shades_of_purple .hljs-variable { color: #9effff !important; }
+body.theme-shades_of_purple .hljs-built_in { color: #ff2c70 !important; }
+
+/* DARK MODE */
+body.theme-shades_of_purple.theme-dark {
+  --bg-workspace: #2d2b55;
+  --slide-bg: #353363;
+  --text-main: #a599e9;
+  --text-muted: #b362ff;
+  --primary: #fad000;
+  --secondary: #9effff;
+  --accent: #ff2c70;
+  --code-bg: #222144;
+  --code-border: #4d4a89;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-shades_of_purple.theme-dark table.ppt-table th { background: #222144; color: #a599e9; border-color: #4d4a89; }
+body.theme-shades_of_purple.theme-dark table.ppt-table td { border-color: #222144; color: #a599e9; }
+body.theme-shades_of_purple.theme-dark table.ppt-table tr:nth-child(even) td { background: #353363; }
+body.theme-shades_of_purple.theme-dark code { background: #222144; color: #fad000; }
+
+/* Dark Syntax Highlighting */
+body.theme-shades_of_purple.theme-dark .hljs { color: #a599e9 !important; }
+body.theme-shades_of_purple.theme-dark .hljs-comment { color: #b362ff !important; font-style: italic; }
+body.theme-shades_of_purple.theme-dark .hljs-keyword { color: #fad000 !important; }
+body.theme-shades_of_purple.theme-dark .hljs-string { color: #9effff !important; }
+body.theme-shades_of_purple.theme-dark .hljs-number { color: #ff2c70 !important; }
+body.theme-shades_of_purple.theme-dark .hljs-function { color: #fad000 !important; }
+body.theme-shades_of_purple.theme-dark .hljs-title { color: #fad000 !important; }
+body.theme-shades_of_purple.theme-dark .hljs-variable { color: #9effff !important; }
+body.theme-shades_of_purple.theme-dark .hljs-built_in { color: #ff2c70 !important; }

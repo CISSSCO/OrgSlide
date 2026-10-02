@@ -1,0 +1,61 @@
+/* GitHub Dark Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-github {
+  --bg-workspace: rgb(246, 250, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #58a6ff;
+  --secondary: #79c0ff;
+  --accent: #ff7b72;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-github table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-github table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-github table.ppt-table tr:nth-child(even) td { background: rgb(246, 250, 255); }
+body.theme-github code { background: #f1f3f5; color: #58a6ff; }
+
+/* Light Syntax Highlighting */
+body.theme-github .hljs { color: #333333 !important; }
+body.theme-github .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-github .hljs-keyword { color: #58a6ff !important; }
+body.theme-github .hljs-string { color: #79c0ff !important; }
+body.theme-github .hljs-number { color: #ff7b72 !important; }
+body.theme-github .hljs-function { color: #58a6ff !important; }
+body.theme-github .hljs-title { color: #58a6ff !important; }
+body.theme-github .hljs-variable { color: #79c0ff !important; }
+body.theme-github .hljs-built_in { color: #ff7b72 !important; }
+
+/* DARK MODE */
+body.theme-github.theme-dark {
+  --bg-workspace: #0d1117;
+  --slide-bg: #161b22;
+  --text-main: #c9d1d9;
+  --text-muted: #8b949e;
+  --primary: #58a6ff;
+  --secondary: #79c0ff;
+  --accent: #ff7b72;
+  --code-bg: #090c10;
+  --code-border: #30363d;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-github.theme-dark table.ppt-table th { background: #090c10; color: #c9d1d9; border-color: #30363d; }
+body.theme-github.theme-dark table.ppt-table td { border-color: #090c10; color: #c9d1d9; }
+body.theme-github.theme-dark table.ppt-table tr:nth-child(even) td { background: #161b22; }
+body.theme-github.theme-dark code { background: #090c10; color: #58a6ff; }
+
+/* Dark Syntax Highlighting */
+body.theme-github.theme-dark .hljs { color: #c9d1d9 !important; }
+body.theme-github.theme-dark .hljs-comment { color: #8b949e !important; font-style: italic; }
+body.theme-github.theme-dark .hljs-keyword { color: #58a6ff !important; }
+body.theme-github.theme-dark .hljs-string { color: #79c0ff !important; }
+body.theme-github.theme-dark .hljs-number { color: #ff7b72 !important; }
+body.theme-github.theme-dark .hljs-function { color: #58a6ff !important; }
+body.theme-github.theme-dark .hljs-title { color: #58a6ff !important; }
+body.theme-github.theme-dark .hljs-variable { color: #79c0ff !important; }
+body.theme-github.theme-dark .hljs-built_in { color: #ff7b72 !important; }

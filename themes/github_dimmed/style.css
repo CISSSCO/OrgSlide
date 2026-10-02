@@ -1,0 +1,61 @@
+/* GitHub Dimmed Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-github_dimmed {
+  --bg-workspace: rgb(246, 250, 254);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #539bf5;
+  --secondary: #8cb6ff;
+  --accent: #f47067;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-github_dimmed table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-github_dimmed table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-github_dimmed table.ppt-table tr:nth-child(even) td { background: rgb(246, 250, 254); }
+body.theme-github_dimmed code { background: #f1f3f5; color: #539bf5; }
+
+/* Light Syntax Highlighting */
+body.theme-github_dimmed .hljs { color: #333333 !important; }
+body.theme-github_dimmed .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-github_dimmed .hljs-keyword { color: #539bf5 !important; }
+body.theme-github_dimmed .hljs-string { color: #8cb6ff !important; }
+body.theme-github_dimmed .hljs-number { color: #f47067 !important; }
+body.theme-github_dimmed .hljs-function { color: #539bf5 !important; }
+body.theme-github_dimmed .hljs-title { color: #539bf5 !important; }
+body.theme-github_dimmed .hljs-variable { color: #8cb6ff !important; }
+body.theme-github_dimmed .hljs-built_in { color: #f47067 !important; }
+
+/* DARK MODE */
+body.theme-github_dimmed.theme-dark {
+  --bg-workspace: #22272e;
+  --slide-bg: #2d333b;
+  --text-main: #adbac7;
+  --text-muted: #768390;
+  --primary: #539bf5;
+  --secondary: #8cb6ff;
+  --accent: #f47067;
+  --code-bg: #1c2128;
+  --code-border: #444c56;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-github_dimmed.theme-dark table.ppt-table th { background: #1c2128; color: #adbac7; border-color: #444c56; }
+body.theme-github_dimmed.theme-dark table.ppt-table td { border-color: #1c2128; color: #adbac7; }
+body.theme-github_dimmed.theme-dark table.ppt-table tr:nth-child(even) td { background: #2d333b; }
+body.theme-github_dimmed.theme-dark code { background: #1c2128; color: #539bf5; }
+
+/* Dark Syntax Highlighting */
+body.theme-github_dimmed.theme-dark .hljs { color: #adbac7 !important; }
+body.theme-github_dimmed.theme-dark .hljs-comment { color: #768390 !important; font-style: italic; }
+body.theme-github_dimmed.theme-dark .hljs-keyword { color: #539bf5 !important; }
+body.theme-github_dimmed.theme-dark .hljs-string { color: #8cb6ff !important; }
+body.theme-github_dimmed.theme-dark .hljs-number { color: #f47067 !important; }
+body.theme-github_dimmed.theme-dark .hljs-function { color: #539bf5 !important; }
+body.theme-github_dimmed.theme-dark .hljs-title { color: #539bf5 !important; }
+body.theme-github_dimmed.theme-dark .hljs-variable { color: #8cb6ff !important; }
+body.theme-github_dimmed.theme-dark .hljs-built_in { color: #f47067 !important; }

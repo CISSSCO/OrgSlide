@@ -1,0 +1,61 @@
+/* Nordic Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-nordic {
+  --bg-workspace: rgb(249, 251, 252);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #88c0d0;
+  --secondary: #81a1c1;
+  --accent: #bf616a;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-nordic table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-nordic table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-nordic table.ppt-table tr:nth-child(even) td { background: rgb(249, 251, 252); }
+body.theme-nordic code { background: #f1f3f5; color: #88c0d0; }
+
+/* Light Syntax Highlighting */
+body.theme-nordic .hljs { color: #333333 !important; }
+body.theme-nordic .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-nordic .hljs-keyword { color: #88c0d0 !important; }
+body.theme-nordic .hljs-string { color: #81a1c1 !important; }
+body.theme-nordic .hljs-number { color: #bf616a !important; }
+body.theme-nordic .hljs-function { color: #88c0d0 !important; }
+body.theme-nordic .hljs-title { color: #88c0d0 !important; }
+body.theme-nordic .hljs-variable { color: #81a1c1 !important; }
+body.theme-nordic .hljs-built_in { color: #bf616a !important; }
+
+/* DARK MODE */
+body.theme-nordic.theme-dark {
+  --bg-workspace: #191d24;
+  --slide-bg: #222731;
+  --text-main: #d8dee9;
+  --text-muted: #4c566a;
+  --primary: #88c0d0;
+  --secondary: #81a1c1;
+  --accent: #bf616a;
+  --code-bg: #12151a;
+  --code-border: #333b49;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-nordic.theme-dark table.ppt-table th { background: #12151a; color: #d8dee9; border-color: #333b49; }
+body.theme-nordic.theme-dark table.ppt-table td { border-color: #12151a; color: #d8dee9; }
+body.theme-nordic.theme-dark table.ppt-table tr:nth-child(even) td { background: #222731; }
+body.theme-nordic.theme-dark code { background: #12151a; color: #88c0d0; }
+
+/* Dark Syntax Highlighting */
+body.theme-nordic.theme-dark .hljs { color: #d8dee9 !important; }
+body.theme-nordic.theme-dark .hljs-comment { color: #4c566a !important; font-style: italic; }
+body.theme-nordic.theme-dark .hljs-keyword { color: #88c0d0 !important; }
+body.theme-nordic.theme-dark .hljs-string { color: #81a1c1 !important; }
+body.theme-nordic.theme-dark .hljs-number { color: #bf616a !important; }
+body.theme-nordic.theme-dark .hljs-function { color: #88c0d0 !important; }
+body.theme-nordic.theme-dark .hljs-title { color: #88c0d0 !important; }
+body.theme-nordic.theme-dark .hljs-variable { color: #81a1c1 !important; }
+body.theme-nordic.theme-dark .hljs-built_in { color: #bf616a !important; }

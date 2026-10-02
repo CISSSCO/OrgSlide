@@ -1,0 +1,61 @@
+/* Catppuccin Frappé Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-catppuccin_frappe {
+  --bg-workspace: rgb(252, 250, 253);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #ca9ee6;
+  --secondary: #e78284;
+  --accent: #8caaee;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-catppuccin_frappe table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-catppuccin_frappe table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-catppuccin_frappe table.ppt-table tr:nth-child(even) td { background: rgb(252, 250, 253); }
+body.theme-catppuccin_frappe code { background: #f1f3f5; color: #ca9ee6; }
+
+/* Light Syntax Highlighting */
+body.theme-catppuccin_frappe .hljs { color: #333333 !important; }
+body.theme-catppuccin_frappe .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-catppuccin_frappe .hljs-keyword { color: #ca9ee6 !important; }
+body.theme-catppuccin_frappe .hljs-string { color: #e78284 !important; }
+body.theme-catppuccin_frappe .hljs-number { color: #8caaee !important; }
+body.theme-catppuccin_frappe .hljs-function { color: #ca9ee6 !important; }
+body.theme-catppuccin_frappe .hljs-title { color: #ca9ee6 !important; }
+body.theme-catppuccin_frappe .hljs-variable { color: #e78284 !important; }
+body.theme-catppuccin_frappe .hljs-built_in { color: #8caaee !important; }
+
+/* DARK MODE */
+body.theme-catppuccin_frappe.theme-dark {
+  --bg-workspace: #303446;
+  --slide-bg: #292c3c;
+  --text-main: #c6d0f5;
+  --text-muted: #a5adce;
+  --primary: #ca9ee6;
+  --secondary: #e78284;
+  --accent: #8caaee;
+  --code-bg: #232634;
+  --code-border: #414559;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-catppuccin_frappe.theme-dark table.ppt-table th { background: #232634; color: #c6d0f5; border-color: #414559; }
+body.theme-catppuccin_frappe.theme-dark table.ppt-table td { border-color: #232634; color: #c6d0f5; }
+body.theme-catppuccin_frappe.theme-dark table.ppt-table tr:nth-child(even) td { background: #292c3c; }
+body.theme-catppuccin_frappe.theme-dark code { background: #232634; color: #ca9ee6; }
+
+/* Dark Syntax Highlighting */
+body.theme-catppuccin_frappe.theme-dark .hljs { color: #c6d0f5 !important; }
+body.theme-catppuccin_frappe.theme-dark .hljs-comment { color: #a5adce !important; font-style: italic; }
+body.theme-catppuccin_frappe.theme-dark .hljs-keyword { color: #ca9ee6 !important; }
+body.theme-catppuccin_frappe.theme-dark .hljs-string { color: #e78284 !important; }
+body.theme-catppuccin_frappe.theme-dark .hljs-number { color: #8caaee !important; }
+body.theme-catppuccin_frappe.theme-dark .hljs-function { color: #ca9ee6 !important; }
+body.theme-catppuccin_frappe.theme-dark .hljs-title { color: #ca9ee6 !important; }
+body.theme-catppuccin_frappe.theme-dark .hljs-variable { color: #e78284 !important; }
+body.theme-catppuccin_frappe.theme-dark .hljs-built_in { color: #8caaee !important; }

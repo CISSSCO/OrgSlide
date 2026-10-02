@@ -1,0 +1,61 @@
+/* Ubuntu Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-ubuntu {
+  --bg-workspace: rgb(253, 245, 243);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #dd4814;
+  --secondary: #ef2929;
+  --accent: #f57900;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-ubuntu table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-ubuntu table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-ubuntu table.ppt-table tr:nth-child(even) td { background: rgb(253, 245, 243); }
+body.theme-ubuntu code { background: #f1f3f5; color: #dd4814; }
+
+/* Light Syntax Highlighting */
+body.theme-ubuntu .hljs { color: #333333 !important; }
+body.theme-ubuntu .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-ubuntu .hljs-keyword { color: #dd4814 !important; }
+body.theme-ubuntu .hljs-string { color: #ef2929 !important; }
+body.theme-ubuntu .hljs-number { color: #f57900 !important; }
+body.theme-ubuntu .hljs-function { color: #dd4814 !important; }
+body.theme-ubuntu .hljs-title { color: #dd4814 !important; }
+body.theme-ubuntu .hljs-variable { color: #ef2929 !important; }
+body.theme-ubuntu .hljs-built_in { color: #f57900 !important; }
+
+/* DARK MODE */
+body.theme-ubuntu.theme-dark {
+  --bg-workspace: #300a24;
+  --slide-bg: #3d0d2d;
+  --text-main: #eeeeec;
+  --text-muted: #a5969f;
+  --primary: #dd4814;
+  --secondary: #ef2929;
+  --accent: #f57900;
+  --code-bg: #26081d;
+  --code-border: #5e1e48;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-ubuntu.theme-dark table.ppt-table th { background: #26081d; color: #eeeeec; border-color: #5e1e48; }
+body.theme-ubuntu.theme-dark table.ppt-table td { border-color: #26081d; color: #eeeeec; }
+body.theme-ubuntu.theme-dark table.ppt-table tr:nth-child(even) td { background: #3d0d2d; }
+body.theme-ubuntu.theme-dark code { background: #26081d; color: #dd4814; }
+
+/* Dark Syntax Highlighting */
+body.theme-ubuntu.theme-dark .hljs { color: #eeeeec !important; }
+body.theme-ubuntu.theme-dark .hljs-comment { color: #a5969f !important; font-style: italic; }
+body.theme-ubuntu.theme-dark .hljs-keyword { color: #dd4814 !important; }
+body.theme-ubuntu.theme-dark .hljs-string { color: #ef2929 !important; }
+body.theme-ubuntu.theme-dark .hljs-number { color: #f57900 !important; }
+body.theme-ubuntu.theme-dark .hljs-function { color: #dd4814 !important; }
+body.theme-ubuntu.theme-dark .hljs-title { color: #dd4814 !important; }
+body.theme-ubuntu.theme-dark .hljs-variable { color: #ef2929 !important; }
+body.theme-ubuntu.theme-dark .hljs-built_in { color: #f57900 !important; }

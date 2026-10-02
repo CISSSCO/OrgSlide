@@ -1,0 +1,61 @@
+/* Tokyo Storm Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-tokyo_night_storm {
+  --bg-workspace: rgb(248, 252, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #7dcfff;
+  --secondary: #bb9af7;
+  --accent: #f7768e;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-tokyo_night_storm table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-tokyo_night_storm table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-tokyo_night_storm table.ppt-table tr:nth-child(even) td { background: rgb(248, 252, 255); }
+body.theme-tokyo_night_storm code { background: #f1f3f5; color: #7dcfff; }
+
+/* Light Syntax Highlighting */
+body.theme-tokyo_night_storm .hljs { color: #333333 !important; }
+body.theme-tokyo_night_storm .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-tokyo_night_storm .hljs-keyword { color: #7dcfff !important; }
+body.theme-tokyo_night_storm .hljs-string { color: #bb9af7 !important; }
+body.theme-tokyo_night_storm .hljs-number { color: #f7768e !important; }
+body.theme-tokyo_night_storm .hljs-function { color: #7dcfff !important; }
+body.theme-tokyo_night_storm .hljs-title { color: #7dcfff !important; }
+body.theme-tokyo_night_storm .hljs-variable { color: #bb9af7 !important; }
+body.theme-tokyo_night_storm .hljs-built_in { color: #f7768e !important; }
+
+/* DARK MODE */
+body.theme-tokyo_night_storm.theme-dark {
+  --bg-workspace: #24283b;
+  --slide-bg: #2a2f45;
+  --text-main: #c0caf5;
+  --text-muted: #565f89;
+  --primary: #7dcfff;
+  --secondary: #bb9af7;
+  --accent: #f7768e;
+  --code-bg: #1f2335;
+  --code-border: #3b4261;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-tokyo_night_storm.theme-dark table.ppt-table th { background: #1f2335; color: #c0caf5; border-color: #3b4261; }
+body.theme-tokyo_night_storm.theme-dark table.ppt-table td { border-color: #1f2335; color: #c0caf5; }
+body.theme-tokyo_night_storm.theme-dark table.ppt-table tr:nth-child(even) td { background: #2a2f45; }
+body.theme-tokyo_night_storm.theme-dark code { background: #1f2335; color: #7dcfff; }
+
+/* Dark Syntax Highlighting */
+body.theme-tokyo_night_storm.theme-dark .hljs { color: #c0caf5 !important; }
+body.theme-tokyo_night_storm.theme-dark .hljs-comment { color: #565f89 !important; font-style: italic; }
+body.theme-tokyo_night_storm.theme-dark .hljs-keyword { color: #7dcfff !important; }
+body.theme-tokyo_night_storm.theme-dark .hljs-string { color: #bb9af7 !important; }
+body.theme-tokyo_night_storm.theme-dark .hljs-number { color: #f7768e !important; }
+body.theme-tokyo_night_storm.theme-dark .hljs-function { color: #7dcfff !important; }
+body.theme-tokyo_night_storm.theme-dark .hljs-title { color: #7dcfff !important; }
+body.theme-tokyo_night_storm.theme-dark .hljs-variable { color: #bb9af7 !important; }
+body.theme-tokyo_night_storm.theme-dark .hljs-built_in { color: #f7768e !important; }

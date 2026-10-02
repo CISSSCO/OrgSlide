@@ -1,0 +1,61 @@
+/* City Lights Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-city_lights {
+  --bg-workspace: rgb(246, 252, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #5ec4ff;
+  --secondary: #8bd49c;
+  --accent: #d98e48;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-city_lights table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-city_lights table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-city_lights table.ppt-table tr:nth-child(even) td { background: rgb(246, 252, 255); }
+body.theme-city_lights code { background: #f1f3f5; color: #5ec4ff; }
+
+/* Light Syntax Highlighting */
+body.theme-city_lights .hljs { color: #333333 !important; }
+body.theme-city_lights .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-city_lights .hljs-keyword { color: #5ec4ff !important; }
+body.theme-city_lights .hljs-string { color: #8bd49c !important; }
+body.theme-city_lights .hljs-number { color: #d98e48 !important; }
+body.theme-city_lights .hljs-function { color: #5ec4ff !important; }
+body.theme-city_lights .hljs-title { color: #5ec4ff !important; }
+body.theme-city_lights .hljs-variable { color: #8bd49c !important; }
+body.theme-city_lights .hljs-built_in { color: #d98e48 !important; }
+
+/* DARK MODE */
+body.theme-city_lights.theme-dark {
+  --bg-workspace: #1d252c;
+  --slide-bg: #252f38;
+  --text-main: #b7c5d3;
+  --text-muted: #718ca1;
+  --primary: #5ec4ff;
+  --secondary: #8bd49c;
+  --accent: #d98e48;
+  --code-bg: #171d23;
+  --code-border: #333f4a;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-city_lights.theme-dark table.ppt-table th { background: #171d23; color: #b7c5d3; border-color: #333f4a; }
+body.theme-city_lights.theme-dark table.ppt-table td { border-color: #171d23; color: #b7c5d3; }
+body.theme-city_lights.theme-dark table.ppt-table tr:nth-child(even) td { background: #252f38; }
+body.theme-city_lights.theme-dark code { background: #171d23; color: #5ec4ff; }
+
+/* Dark Syntax Highlighting */
+body.theme-city_lights.theme-dark .hljs { color: #b7c5d3 !important; }
+body.theme-city_lights.theme-dark .hljs-comment { color: #718ca1 !important; font-style: italic; }
+body.theme-city_lights.theme-dark .hljs-keyword { color: #5ec4ff !important; }
+body.theme-city_lights.theme-dark .hljs-string { color: #8bd49c !important; }
+body.theme-city_lights.theme-dark .hljs-number { color: #d98e48 !important; }
+body.theme-city_lights.theme-dark .hljs-function { color: #5ec4ff !important; }
+body.theme-city_lights.theme-dark .hljs-title { color: #5ec4ff !important; }
+body.theme-city_lights.theme-dark .hljs-variable { color: #8bd49c !important; }
+body.theme-city_lights.theme-dark .hljs-built_in { color: #d98e48 !important; }

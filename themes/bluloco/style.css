@@ -1,0 +1,61 @@
+/* Bluloco Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-bluloco {
+  --bg-workspace: rgb(245, 249, 254);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #3a95fd;
+  --secondary: #ff5252;
+  --accent: #ff9d00;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-bluloco table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-bluloco table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-bluloco table.ppt-table tr:nth-child(even) td { background: rgb(245, 249, 254); }
+body.theme-bluloco code { background: #f1f3f5; color: #3a95fd; }
+
+/* Light Syntax Highlighting */
+body.theme-bluloco .hljs { color: #333333 !important; }
+body.theme-bluloco .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-bluloco .hljs-keyword { color: #3a95fd !important; }
+body.theme-bluloco .hljs-string { color: #ff5252 !important; }
+body.theme-bluloco .hljs-number { color: #ff9d00 !important; }
+body.theme-bluloco .hljs-function { color: #3a95fd !important; }
+body.theme-bluloco .hljs-title { color: #3a95fd !important; }
+body.theme-bluloco .hljs-variable { color: #ff5252 !important; }
+body.theme-bluloco .hljs-built_in { color: #ff9d00 !important; }
+
+/* DARK MODE */
+body.theme-bluloco.theme-dark {
+  --bg-workspace: #282c34;
+  --slide-bg: #2e323b;
+  --text-main: #abb2bf;
+  --text-muted: #5c6370;
+  --primary: #3a95fd;
+  --secondary: #ff5252;
+  --accent: #ff9d00;
+  --code-bg: #21252b;
+  --code-border: #3e4451;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-bluloco.theme-dark table.ppt-table th { background: #21252b; color: #abb2bf; border-color: #3e4451; }
+body.theme-bluloco.theme-dark table.ppt-table td { border-color: #21252b; color: #abb2bf; }
+body.theme-bluloco.theme-dark table.ppt-table tr:nth-child(even) td { background: #2e323b; }
+body.theme-bluloco.theme-dark code { background: #21252b; color: #3a95fd; }
+
+/* Dark Syntax Highlighting */
+body.theme-bluloco.theme-dark .hljs { color: #abb2bf !important; }
+body.theme-bluloco.theme-dark .hljs-comment { color: #5c6370 !important; font-style: italic; }
+body.theme-bluloco.theme-dark .hljs-keyword { color: #3a95fd !important; }
+body.theme-bluloco.theme-dark .hljs-string { color: #ff5252 !important; }
+body.theme-bluloco.theme-dark .hljs-number { color: #ff9d00 !important; }
+body.theme-bluloco.theme-dark .hljs-function { color: #3a95fd !important; }
+body.theme-bluloco.theme-dark .hljs-title { color: #3a95fd !important; }
+body.theme-bluloco.theme-dark .hljs-variable { color: #ff5252 !important; }
+body.theme-bluloco.theme-dark .hljs-built_in { color: #ff9d00 !important; }
