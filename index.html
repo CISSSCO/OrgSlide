@@ -445,27 +445,36 @@
       left: 0;
       width: 100vw;
       height: 100vh;
+      height: 100dvh; /* Better mobile support */
+      max-height: 100dvh; /* Force constrain */
       z-index: 9999;
       margin: 0;
       background: var(--code-bg);
-      padding: 1.5rem;
+      padding: 4rem 1rem 1rem 1rem; /* Extra top padding for fixed buttons */
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
+      overflow: hidden; /* Prevent container scrolling */
     }
 
     .code-block-container.fullscreen pre {
       flex: 1;
-      height: 100% !important;
-      max-height: none;
-      overflow: auto;
+      min-height: 0 !important; /* CRITICAL for flex child scrolling */
+      height: auto !important;
+      max-height: 100% !important;
+      overflow: auto !important;
+      -webkit-overflow-scrolling: touch; /* Fix iOS mobile scrolling */
       font-size: 1.15rem !important;
-      padding-top: 3.5rem !important; /* give space for buttons */
+      padding: 0 0.5rem !important; /* Reset padding since container handles it */
+      box-sizing: border-box !important;
     }
 
     .code-block-container.fullscreen .code-actions {
-      top: 1rem;
-      right: 1.5rem;
+      position: fixed;
+      top: 0.75rem;
+      right: 0.75rem;
       opacity: 1;
+      z-index: 10001;
     }
 
     .code-block-container.fullscreen .code-action-btn {
@@ -832,10 +841,6 @@
 
     function handleGlobalCodeResize(key) {
       let targets = document.querySelectorAll('.code-block-container.fullscreen');
-      if (targets.length === 0) {
-        const activeSlide = document.querySelector('.slide.active');
-        if (activeSlide) targets = activeSlide.querySelectorAll('.code-block-container');
-      }
       
       targets.forEach(container => {
         const pre = container.querySelector('pre');
@@ -1367,9 +1372,13 @@
           else if (key === '0') window.treeView.fitZoom();
           return;
         } else {
-          e.preventDefault();
-          handleGlobalCodeResize(key);
-          return;
+          // ONLY resize code block if it is fullscreen, otherwise let browser handle default zooming
+          const fullscreenCode = document.querySelector('.code-block-container.fullscreen');
+          if (fullscreenCode) {
+            e.preventDefault();
+            handleGlobalCodeResize(key);
+            return;
+          }
         }
       }
 
