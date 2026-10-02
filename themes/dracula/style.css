@@ -1,0 +1,48 @@
+/* Dracula Theme for OrgSlide (Light & Dark Variants) */
+
+/* LIGHT MODE: Dracula Alucard / Light */
+body.theme-dracula {
+  --bg-workspace: #f8f8f2;
+  --slide-bg: #ffffff;
+  --text-main: #282a36;
+  --text-muted: #6272a4;
+  --primary: #bd93f9;
+  --secondary: #ff79c6;
+  --accent: #ff5555;
+  --code-bg: #f1f2f8;
+  --code-border: #bd93f9;
+  
+  --font-heading: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  --font-body: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+
+  background-color: var(--bg-workspace);
+}
+
+body.theme-dracula table.ppt-table th { background: #e9e9f4; color: #282a36; border-color: #bd93f9; }
+body.theme-dracula table.ppt-table td { border-color: #e9e9f4; color: #282a36; }
+body.theme-dracula table.ppt-table tr:nth-child(even) td { background: #f8f8f2; }
+body.theme-dracula .slide-footer { border-color: #e9e9f4; }
+body.theme-dracula code { background: #e9e9f4; color: #ff79c6; }
+
+/* DARK MODE: Classic Dracula */
+body.theme-dracula.theme-dark {
+  --bg-workspace: #191a21;
+  --slide-bg: #21222c;
+  --text-main: #f8f8f2;
+  --text-muted: #6272a4;
+  --primary: #ff79c6;
+  --secondary: #bd93f9;
+  --accent: #50fa7b;
+  --code-bg: #1e1f29; 
+  --code-border: #44475a;
+
+  background-color: var(--bg-workspace);
+}
+
+body.theme-dracula.theme-dark table.ppt-table th { background: #44475a; color: #f8f8f2; border-color: #6272a4; }
+body.theme-dracula.theme-dark table.ppt-table td { border-color: #44475a; color: #f8f8f2; }
+body.theme-dracula.theme-dark table.ppt-table tr:nth-child(even) td { background: #1e1f29; }
+body.theme-dracula.theme-dark .slide-footer { border-color: #44475a; }
+body.theme-dracula.theme-dark code { background: #1e1f29; color: #ff79c6; }
+
+

@@ -1,0 +1,61 @@
+/* Gruvbox Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-gruvbox {
+  --bg-workspace: rgb(254, 248, 243);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #fe8019;
+  --secondary: #b8bb26;
+  --accent: #fb4934;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-gruvbox table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-gruvbox table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-gruvbox table.ppt-table tr:nth-child(even) td { background: rgb(254, 248, 243); }
+body.theme-gruvbox code { background: #f1f3f5; color: #fe8019; }
+
+/* Light Syntax Highlighting */
+body.theme-gruvbox .hljs { color: #333333 !important; }
+body.theme-gruvbox .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-gruvbox .hljs-keyword { color: #fe8019 !important; }
+body.theme-gruvbox .hljs-string { color: #b8bb26 !important; }
+body.theme-gruvbox .hljs-number { color: #fb4934 !important; }
+body.theme-gruvbox .hljs-function { color: #fe8019 !important; }
+body.theme-gruvbox .hljs-title { color: #fe8019 !important; }
+body.theme-gruvbox .hljs-variable { color: #b8bb26 !important; }
+body.theme-gruvbox .hljs-built_in { color: #fb4934 !important; }
+
+/* DARK MODE */
+body.theme-gruvbox.theme-dark {
+  --bg-workspace: #282828;
+  --slide-bg: #3c3836;
+  --text-main: #ebdbb2;
+  --text-muted: #a89984;
+  --primary: #fe8019;
+  --secondary: #b8bb26;
+  --accent: #fb4934;
+  --code-bg: #1d2021;
+  --code-border: #504945;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-gruvbox.theme-dark table.ppt-table th { background: #1d2021; color: #ebdbb2; border-color: #504945; }
+body.theme-gruvbox.theme-dark table.ppt-table td { border-color: #1d2021; color: #ebdbb2; }
+body.theme-gruvbox.theme-dark table.ppt-table tr:nth-child(even) td { background: #3c3836; }
+body.theme-gruvbox.theme-dark code { background: #1d2021; color: #fe8019; }
+
+/* Dark Syntax Highlighting */
+body.theme-gruvbox.theme-dark .hljs { color: #ebdbb2 !important; }
+body.theme-gruvbox.theme-dark .hljs-comment { color: #a89984 !important; font-style: italic; }
+body.theme-gruvbox.theme-dark .hljs-keyword { color: #fe8019 !important; }
+body.theme-gruvbox.theme-dark .hljs-string { color: #b8bb26 !important; }
+body.theme-gruvbox.theme-dark .hljs-number { color: #fb4934 !important; }
+body.theme-gruvbox.theme-dark .hljs-function { color: #fe8019 !important; }
+body.theme-gruvbox.theme-dark .hljs-title { color: #fe8019 !important; }
+body.theme-gruvbox.theme-dark .hljs-variable { color: #b8bb26 !important; }
+body.theme-gruvbox.theme-dark .hljs-built_in { color: #fb4934 !important; }

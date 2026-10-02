@@ -733,3 +733,7 @@
     #fileInput {
       display: none;
     }
+
+body.has-fullscreen-code .top-controls {
+  display: none !important;
+}

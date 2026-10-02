@@ -1,0 +1,61 @@
+/* Matrix Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-matrix {
+  --bg-workspace: rgb(242, 255, 245);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #00ff41;
+  --secondary: #00ff41;
+  --accent: #ffffff;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-matrix table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-matrix table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-matrix table.ppt-table tr:nth-child(even) td { background: rgb(242, 255, 245); }
+body.theme-matrix code { background: #f1f3f5; color: #00ff41; }
+
+/* Light Syntax Highlighting */
+body.theme-matrix .hljs { color: #333333 !important; }
+body.theme-matrix .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-matrix .hljs-keyword { color: #00ff41 !important; }
+body.theme-matrix .hljs-string { color: #00ff41 !important; }
+body.theme-matrix .hljs-number { color: #ffffff !important; }
+body.theme-matrix .hljs-function { color: #00ff41 !important; }
+body.theme-matrix .hljs-title { color: #00ff41 !important; }
+body.theme-matrix .hljs-variable { color: #00ff41 !important; }
+body.theme-matrix .hljs-built_in { color: #ffffff !important; }
+
+/* DARK MODE */
+body.theme-matrix.theme-dark {
+  --bg-workspace: #000000;
+  --slide-bg: #051005;
+  --text-main: #00cc11;
+  --text-muted: #006611;
+  --primary: #00ff41;
+  --secondary: #00ff41;
+  --accent: #ffffff;
+  --code-bg: #000000;
+  --code-border: #003300;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-matrix.theme-dark table.ppt-table th { background: #000000; color: #00cc11; border-color: #003300; }
+body.theme-matrix.theme-dark table.ppt-table td { border-color: #000000; color: #00cc11; }
+body.theme-matrix.theme-dark table.ppt-table tr:nth-child(even) td { background: #051005; }
+body.theme-matrix.theme-dark code { background: #000000; color: #00ff41; }
+
+/* Dark Syntax Highlighting */
+body.theme-matrix.theme-dark .hljs { color: #00cc11 !important; }
+body.theme-matrix.theme-dark .hljs-comment { color: #006611 !important; font-style: italic; }
+body.theme-matrix.theme-dark .hljs-keyword { color: #00ff41 !important; }
+body.theme-matrix.theme-dark .hljs-string { color: #00ff41 !important; }
+body.theme-matrix.theme-dark .hljs-number { color: #ffffff !important; }
+body.theme-matrix.theme-dark .hljs-function { color: #00ff41 !important; }
+body.theme-matrix.theme-dark .hljs-title { color: #00ff41 !important; }
+body.theme-matrix.theme-dark .hljs-variable { color: #00ff41 !important; }
+body.theme-matrix.theme-dark .hljs-built_in { color: #ffffff !important; }

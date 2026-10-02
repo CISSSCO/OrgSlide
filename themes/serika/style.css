@@ -1,0 +1,49 @@
+/* Serika Theme (Light & Dark Variants) */
+
+/* LIGHT MODE: Serika */
+body.theme-serika {
+  --bg-workspace: #d1d1d4;
+  --slide-bg: #e1e1e3;
+  --text-main: #323437;
+  --text-muted: #646669;
+  --primary: #e2b714;
+  --secondary: #323437;
+  --accent: #e2b714;
+  --code-bg: #d1d1d4;
+  --code-border: #646669;
+  background-color: var(--bg-workspace);
+}
+body.theme-serika table.ppt-table th { background: #d1d1d4; color: #323437; border-color: #646669; }
+body.theme-serika table.ppt-table td { border-color: #d1d1d4; color: #323437; }
+body.theme-serika table.ppt-table tr:nth-child(even) td { background: #e1e1e3; }
+body.theme-serika code { background: #d1d1d4; color: #e2b714; }
+
+
+
+/* Light Syntax Highlighting */
+body.theme-serika .hljs { color: #323437 !important; }
+body.theme-serika .hljs-comment { color: #646669 !important; font-style: italic; }
+body.theme-serika .hljs-keyword { color: #e2b714 !important; }
+body.theme-serika .hljs-string { color: #323437 !important; }
+body.theme-serika .hljs-number { color: #e2b714 !important; }
+body.theme-serika .hljs-function { color: #e2b714 !important; }
+body.theme-serika .hljs-title { color: #e2b714 !important; }
+body.theme-serika .hljs-variable { color: #323437 !important; }
+body.theme-serika .hljs-built_in { color: #e2b714 !important; }
+/* DARK MODE: Serika Dark */
+body.theme-serika.theme-dark {
+  --bg-workspace: #2c2e31;
+  --slide-bg: #323437;
+  --text-main: #d1d0c5;
+  --text-muted: #646669;
+  --primary: #e2b714;
+  --secondary: #d1d0c5;
+  --accent: #e2b714;
+  --code-bg: #2c2e31;
+  --code-border: #646669;
+  background-color: var(--bg-workspace);
+}
+body.theme-serika.theme-dark table.ppt-table th { background: #2c2e31; color: #d1d0c5; border-color: #646669; }
+body.theme-serika.theme-dark table.ppt-table td { border-color: #2c2e31; color: #d1d0c5; }
+body.theme-serika.theme-dark table.ppt-table tr:nth-child(even) td { background: #323437; }
+body.theme-serika.theme-dark code { background: #2c2e31; color: #e2b714; }

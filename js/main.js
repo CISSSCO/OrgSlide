@@ -58,6 +58,8 @@ let slides = [];
       const iconExpand = btn.querySelector('.icon-expand');
       const iconCollapse = btn.querySelector('.icon-collapse');
       
+      document.body.classList.toggle('has-fullscreen-code', isFullscreen);
+      
       if (isFullscreen) {
         iconExpand.style.display = 'none';
         iconCollapse.style.display = 'block';
