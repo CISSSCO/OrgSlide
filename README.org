@@ -2,6 +2,7 @@
 #+AUTHOR: Cisco Ramon
 #+DESCRIPTION: A lightweight, responsive presentation renderer for Org-mode files.
 
+* OrgSlide
 OrgSlide is a beautiful, single-file HTML presentation engine for Emacs Org-mode files. It runs entirely in the browser—no backend, no database, no complex build steps required. Simply drag and drop your =.org= file into the browser, and watch it instantly transform into a sleek, interactive, PowerPoint-style presentation.
 
 Developed by *Cisco Ramon*.
@@ -20,15 +21,17 @@ Developed by *Cisco Ramon*.
 
 * Keyboard Shortcuts
 OrgSlide is designed to avoid conflicts with browser extensions like Vimium.
-- =Alt + J= :: Next Slide
-- =Alt + K= :: Previous Slide
-- =Alt + .= :: Open Interactive Table of Contents (Tree/Overview)
-- =Alt + G= :: Go to Slide
-- =Alt + E= :: Edit Social Links (Footer Icons)
-- =+= / =-= / =0= :: Zoom In/Out/Fit (in TOC) or Adjust Code Font Size
-- =Home= / =End= :: First / Last Slide
-- =Alt + ?= :: Open Help Menu
-- =Escape= :: Close Modals / Exit Fullscreen Code
+| Shortcut            | Action                                             |
+|---------------------+----------------------------------------------------|
+| =Alt + J=           | Next Slide                                         |
+| =Alt + K=           | Previous Slide                                     |
+| =Alt + .=           | Open Interactive Table of Contents (Tree/Overview) |
+| =Alt + G=           | Go to Slide                                        |
+| =Alt + E=           | Edit Social Links (Footer Icons)                   |
+| =+= / =-= / =0=     | Zoom In/Out/Fit (in TOC) or Adjust Code Font Size  |
+| =Home= / =End=      | First / Last Slide                                 |
+| =Alt + ?=           | Open Help Menu                                     |
+| =Escape=            | Close Modals / Exit Fullscreen Code                |
 
 * How to Use
 The easiest way to use OrgSlide is directly from the web—no installation required!
