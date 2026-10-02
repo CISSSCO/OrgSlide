@@ -1,0 +1,61 @@
+/* Challenger Deep Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-challenger_deep {
+  --bg-workspace: rgb(249, 253, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #91ddff;
+  --secondary: #ff5458;
+  --accent: #ffe900;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-challenger_deep table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-challenger_deep table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-challenger_deep table.ppt-table tr:nth-child(even) td { background: rgb(249, 253, 255); }
+body.theme-challenger_deep code { background: #f1f3f5; color: #91ddff; }
+
+/* Light Syntax Highlighting */
+body.theme-challenger_deep .hljs { color: #333333 !important; }
+body.theme-challenger_deep .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-challenger_deep .hljs-keyword { color: #91ddff !important; }
+body.theme-challenger_deep .hljs-string { color: #ff5458 !important; }
+body.theme-challenger_deep .hljs-number { color: #ffe900 !important; }
+body.theme-challenger_deep .hljs-function { color: #91ddff !important; }
+body.theme-challenger_deep .hljs-title { color: #91ddff !important; }
+body.theme-challenger_deep .hljs-variable { color: #ff5458 !important; }
+body.theme-challenger_deep .hljs-built_in { color: #ffe900 !important; }
+
+/* DARK MODE */
+body.theme-challenger_deep.theme-dark {
+  --bg-workspace: #1e1e2e;
+  --slide-bg: #26263a;
+  --text-main: #cbe3e7;
+  --text-muted: #565575;
+  --primary: #91ddff;
+  --secondary: #ff5458;
+  --accent: #ffe900;
+  --code-bg: #171724;
+  --code-border: #313149;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-challenger_deep.theme-dark table.ppt-table th { background: #171724; color: #cbe3e7; border-color: #313149; }
+body.theme-challenger_deep.theme-dark table.ppt-table td { border-color: #171724; color: #cbe3e7; }
+body.theme-challenger_deep.theme-dark table.ppt-table tr:nth-child(even) td { background: #26263a; }
+body.theme-challenger_deep.theme-dark code { background: #171724; color: #91ddff; }
+
+/* Dark Syntax Highlighting */
+body.theme-challenger_deep.theme-dark .hljs { color: #cbe3e7 !important; }
+body.theme-challenger_deep.theme-dark .hljs-comment { color: #565575 !important; font-style: italic; }
+body.theme-challenger_deep.theme-dark .hljs-keyword { color: #91ddff !important; }
+body.theme-challenger_deep.theme-dark .hljs-string { color: #ff5458 !important; }
+body.theme-challenger_deep.theme-dark .hljs-number { color: #ffe900 !important; }
+body.theme-challenger_deep.theme-dark .hljs-function { color: #91ddff !important; }
+body.theme-challenger_deep.theme-dark .hljs-title { color: #91ddff !important; }
+body.theme-challenger_deep.theme-dark .hljs-variable { color: #ff5458 !important; }
+body.theme-challenger_deep.theme-dark .hljs-built_in { color: #ffe900 !important; }

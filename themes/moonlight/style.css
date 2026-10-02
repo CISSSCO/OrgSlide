@@ -1,0 +1,61 @@
+/* Moonlight Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-moonlight {
+  --bg-workspace: rgb(248, 250, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #82aaff;
+  --secondary: #ff9800;
+  --accent: #c099ff;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-moonlight table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-moonlight table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-moonlight table.ppt-table tr:nth-child(even) td { background: rgb(248, 250, 255); }
+body.theme-moonlight code { background: #f1f3f5; color: #82aaff; }
+
+/* Light Syntax Highlighting */
+body.theme-moonlight .hljs { color: #333333 !important; }
+body.theme-moonlight .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-moonlight .hljs-keyword { color: #82aaff !important; }
+body.theme-moonlight .hljs-string { color: #ff9800 !important; }
+body.theme-moonlight .hljs-number { color: #c099ff !important; }
+body.theme-moonlight .hljs-function { color: #82aaff !important; }
+body.theme-moonlight .hljs-title { color: #82aaff !important; }
+body.theme-moonlight .hljs-variable { color: #ff9800 !important; }
+body.theme-moonlight .hljs-built_in { color: #c099ff !important; }
+
+/* DARK MODE */
+body.theme-moonlight.theme-dark {
+  --bg-workspace: #222436;
+  --slide-bg: #27293d;
+  --text-main: #c8d3f5;
+  --text-muted: #7a88cf;
+  --primary: #82aaff;
+  --secondary: #ff9800;
+  --accent: #c099ff;
+  --code-bg: #191a27;
+  --code-border: #3e4465;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-moonlight.theme-dark table.ppt-table th { background: #191a27; color: #c8d3f5; border-color: #3e4465; }
+body.theme-moonlight.theme-dark table.ppt-table td { border-color: #191a27; color: #c8d3f5; }
+body.theme-moonlight.theme-dark table.ppt-table tr:nth-child(even) td { background: #27293d; }
+body.theme-moonlight.theme-dark code { background: #191a27; color: #82aaff; }
+
+/* Dark Syntax Highlighting */
+body.theme-moonlight.theme-dark .hljs { color: #c8d3f5 !important; }
+body.theme-moonlight.theme-dark .hljs-comment { color: #7a88cf !important; font-style: italic; }
+body.theme-moonlight.theme-dark .hljs-keyword { color: #82aaff !important; }
+body.theme-moonlight.theme-dark .hljs-string { color: #ff9800 !important; }
+body.theme-moonlight.theme-dark .hljs-number { color: #c099ff !important; }
+body.theme-moonlight.theme-dark .hljs-function { color: #82aaff !important; }
+body.theme-moonlight.theme-dark .hljs-title { color: #82aaff !important; }
+body.theme-moonlight.theme-dark .hljs-variable { color: #ff9800 !important; }
+body.theme-moonlight.theme-dark .hljs-built_in { color: #c099ff !important; }

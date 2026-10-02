@@ -1,0 +1,61 @@
+/* Sublime Material Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-sublime_material {
+  --bg-workspace: rgb(248, 250, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #82aaff;
+  --secondary: #c3e88d;
+  --accent: #f07178;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-sublime_material table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-sublime_material table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-sublime_material table.ppt-table tr:nth-child(even) td { background: rgb(248, 250, 255); }
+body.theme-sublime_material code { background: #f1f3f5; color: #82aaff; }
+
+/* Light Syntax Highlighting */
+body.theme-sublime_material .hljs { color: #333333 !important; }
+body.theme-sublime_material .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-sublime_material .hljs-keyword { color: #82aaff !important; }
+body.theme-sublime_material .hljs-string { color: #c3e88d !important; }
+body.theme-sublime_material .hljs-number { color: #f07178 !important; }
+body.theme-sublime_material .hljs-function { color: #82aaff !important; }
+body.theme-sublime_material .hljs-title { color: #82aaff !important; }
+body.theme-sublime_material .hljs-variable { color: #c3e88d !important; }
+body.theme-sublime_material .hljs-built_in { color: #f07178 !important; }
+
+/* DARK MODE */
+body.theme-sublime_material.theme-dark {
+  --bg-workspace: #263238;
+  --slide-bg: #2f3b43;
+  --text-main: #eeffff;
+  --text-muted: #546e7a;
+  --primary: #82aaff;
+  --secondary: #c3e88d;
+  --accent: #f07178;
+  --code-bg: #1e272c;
+  --code-border: #37474f;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-sublime_material.theme-dark table.ppt-table th { background: #1e272c; color: #eeffff; border-color: #37474f; }
+body.theme-sublime_material.theme-dark table.ppt-table td { border-color: #1e272c; color: #eeffff; }
+body.theme-sublime_material.theme-dark table.ppt-table tr:nth-child(even) td { background: #2f3b43; }
+body.theme-sublime_material.theme-dark code { background: #1e272c; color: #82aaff; }
+
+/* Dark Syntax Highlighting */
+body.theme-sublime_material.theme-dark .hljs { color: #eeffff !important; }
+body.theme-sublime_material.theme-dark .hljs-comment { color: #546e7a !important; font-style: italic; }
+body.theme-sublime_material.theme-dark .hljs-keyword { color: #82aaff !important; }
+body.theme-sublime_material.theme-dark .hljs-string { color: #c3e88d !important; }
+body.theme-sublime_material.theme-dark .hljs-number { color: #f07178 !important; }
+body.theme-sublime_material.theme-dark .hljs-function { color: #82aaff !important; }
+body.theme-sublime_material.theme-dark .hljs-title { color: #82aaff !important; }
+body.theme-sublime_material.theme-dark .hljs-variable { color: #c3e88d !important; }
+body.theme-sublime_material.theme-dark .hljs-built_in { color: #f07178 !important; }

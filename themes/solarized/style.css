@@ -1,0 +1,60 @@
+/* Solarized Theme (Light & Dark Variants) */
+
+/* LIGHT MODE: Solarized Light */
+body.theme-solarized {
+  --bg-workspace: #eee8d5;
+  --slide-bg: #fdf6e3;
+  --text-main: #657b83;
+  --text-muted: #93a1a1;
+  --primary: #2aa198;
+  --secondary: #268bd2;
+  --accent: #dc322f;
+  --code-bg: #eee8d5;
+  --code-border: #93a1a1;
+  background-color: var(--bg-workspace);
+}
+body.theme-solarized table.ppt-table th { background: #eee8d5; color: #657b83; border-color: #93a1a1; }
+body.theme-solarized table.ppt-table td { border-color: #eee8d5; color: #657b83; }
+body.theme-solarized table.ppt-table tr:nth-child(even) td { background: #fdf6e3; }
+body.theme-solarized code { background: #eee8d5; color: #dc322f; }
+
+
+
+/* Light Syntax Highlighting */
+body.theme-solarized .hljs { color: #657b83 !important; }
+body.theme-solarized .hljs-comment { color: #93a1a1 !important; font-style: italic; }
+body.theme-solarized .hljs-keyword { color: #2aa198 !important; }
+body.theme-solarized .hljs-string { color: #268bd2 !important; }
+body.theme-solarized .hljs-number { color: #dc322f !important; }
+body.theme-solarized .hljs-function { color: #2aa198 !important; }
+body.theme-solarized .hljs-title { color: #2aa198 !important; }
+body.theme-solarized .hljs-variable { color: #268bd2 !important; }
+body.theme-solarized .hljs-built_in { color: #dc322f !important; }
+/* DARK MODE: Solarized Dark */
+body.theme-solarized.theme-dark {
+  --bg-workspace: #002b36; /* base03 */
+  --slide-bg: #073642; /* base02 */
+  --text-main: #839496; /* base0 */
+  --text-muted: #586e75; /* base01 */
+  --primary: #2aa198; /* cyan */
+  --secondary: #268bd2; /* blue */
+  --accent: #dc322f; /* red */
+  --code-bg: #002b36; /* base03 for contrast against slide */
+  --code-border: #586e75;
+  background-color: var(--bg-workspace);
+}
+body.theme-solarized.theme-dark table.ppt-table th { background: #002b36; color: #93a1a1; border-color: #586e75; }
+body.theme-solarized.theme-dark table.ppt-table td { border-color: #002b36; color: #839496; }
+body.theme-solarized.theme-dark table.ppt-table tr:nth-child(even) td { background: #073642; }
+body.theme-solarized.theme-dark code { background: #002b36; color: #2aa198; }
+
+/* Solarized Dark Syntax Highlighting */
+body.theme-solarized.theme-dark .hljs { color: #839496 !important; } /* base0 */
+body.theme-solarized.theme-dark .hljs-comment { color: #586e75 !important; font-style: italic; } /* base01 */
+body.theme-solarized.theme-dark .hljs-keyword { color: #859900 !important; } /* green */
+body.theme-solarized.theme-dark .hljs-string { color: #2aa198 !important; } /* cyan */
+body.theme-solarized.theme-dark .hljs-number { color: #d33682 !important; } /* magenta */
+body.theme-solarized.theme-dark .hljs-function { color: #268bd2 !important; } /* blue */
+body.theme-solarized.theme-dark .hljs-title { color: #268bd2 !important; }
+body.theme-solarized.theme-dark .hljs-variable { color: #b58900 !important; } /* yellow */
+body.theme-solarized.theme-dark .hljs-built_in { color: #cb4b16 !important; } /* orange */

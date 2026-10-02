@@ -1,0 +1,61 @@
+/* Dracula Pro Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-dracula_pro {
+  --bg-workspace: rgb(255, 248, 252);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #ff79c6;
+  --secondary: #8aff80;
+  --accent: #ff9580;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-dracula_pro table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-dracula_pro table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-dracula_pro table.ppt-table tr:nth-child(even) td { background: rgb(255, 248, 252); }
+body.theme-dracula_pro code { background: #f1f3f5; color: #ff79c6; }
+
+/* Light Syntax Highlighting */
+body.theme-dracula_pro .hljs { color: #333333 !important; }
+body.theme-dracula_pro .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-dracula_pro .hljs-keyword { color: #ff79c6 !important; }
+body.theme-dracula_pro .hljs-string { color: #8aff80 !important; }
+body.theme-dracula_pro .hljs-number { color: #ff9580 !important; }
+body.theme-dracula_pro .hljs-function { color: #ff79c6 !important; }
+body.theme-dracula_pro .hljs-title { color: #ff79c6 !important; }
+body.theme-dracula_pro .hljs-variable { color: #8aff80 !important; }
+body.theme-dracula_pro .hljs-built_in { color: #ff9580 !important; }
+
+/* DARK MODE */
+body.theme-dracula_pro.theme-dark {
+  --bg-workspace: #22212c;
+  --slide-bg: #2a2936;
+  --text-main: #f8f8f2;
+  --text-muted: #7970a9;
+  --primary: #ff79c6;
+  --secondary: #8aff80;
+  --accent: #ff9580;
+  --code-bg: #1e1d27;
+  --code-border: #454158;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-dracula_pro.theme-dark table.ppt-table th { background: #1e1d27; color: #f8f8f2; border-color: #454158; }
+body.theme-dracula_pro.theme-dark table.ppt-table td { border-color: #1e1d27; color: #f8f8f2; }
+body.theme-dracula_pro.theme-dark table.ppt-table tr:nth-child(even) td { background: #2a2936; }
+body.theme-dracula_pro.theme-dark code { background: #1e1d27; color: #ff79c6; }
+
+/* Dark Syntax Highlighting */
+body.theme-dracula_pro.theme-dark .hljs { color: #f8f8f2 !important; }
+body.theme-dracula_pro.theme-dark .hljs-comment { color: #7970a9 !important; font-style: italic; }
+body.theme-dracula_pro.theme-dark .hljs-keyword { color: #ff79c6 !important; }
+body.theme-dracula_pro.theme-dark .hljs-string { color: #8aff80 !important; }
+body.theme-dracula_pro.theme-dark .hljs-number { color: #ff9580 !important; }
+body.theme-dracula_pro.theme-dark .hljs-function { color: #ff79c6 !important; }
+body.theme-dracula_pro.theme-dark .hljs-title { color: #ff79c6 !important; }
+body.theme-dracula_pro.theme-dark .hljs-variable { color: #8aff80 !important; }
+body.theme-dracula_pro.theme-dark .hljs-built_in { color: #ff9580 !important; }

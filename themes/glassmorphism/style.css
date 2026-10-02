@@ -1,0 +1,113 @@
+/* Mac Glass Theme for OrgSlide (Light & Dark Variants) */
+
+/* LIGHT MODE */
+body.theme-glassmorphism {
+  --slide-bg: rgba(255, 255, 255, 0.4);
+  --text-main: #1d1d1f;
+  --text-muted: #5e5e65;
+  --primary: #0066cc;
+  --secondary: #d946ef;
+  --accent: #ff3b30;
+  --code-bg: rgba(255, 255, 255, 0.5);
+  --code-border: rgba(255, 255, 255, 0.3);
+  
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  --font-heading: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+
+  /* Vivid Mac-like Pastel Mesh Gradient */
+  background: radial-gradient(circle at 0% 0%, #ffdde1, transparent 60%),
+              radial-gradient(circle at 100% 0%, #c4b5fd, transparent 60%),
+              radial-gradient(circle at 0% 100%, #93c5fd, transparent 60%),
+              radial-gradient(circle at 100% 100%, #fbcfe8, transparent 60%),
+              #f8fafc;
+}
+
+/* DARK MODE */
+body.theme-glassmorphism.theme-dark {
+  --slide-bg: rgba(20, 20, 25, 0.45);
+  --text-main: #f5f5f7;
+  --text-muted: #a1a1a6;
+  --primary: #2997ff;
+  --secondary: #a855f7;
+  --accent: #ff453a;
+  --code-bg: rgba(0, 0, 0, 0.4);
+  --code-border: rgba(255, 255, 255, 0.1);
+
+  /* Deep Cosmic Mesh Gradient */
+  background: radial-gradient(circle at 0% 0%, #312e81, transparent 60%),
+              radial-gradient(circle at 100% 0%, #4c1d95, transparent 60%),
+              radial-gradient(circle at 0% 100%, #0f172a, transparent 60%),
+              radial-gradient(circle at 100% 100%, #1e1b4b, transparent 60%),
+              #020617;
+}
+
+body.theme-glassmorphism .slide {
+  background: var(--slide-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+
+body.theme-glassmorphism table.ppt-table th { 
+  background: rgba(128, 128, 128, 0.1); 
+  color: var(--text-main); 
+  border-color: var(--code-border); 
+}
+
+body.theme-glassmorphism table.ppt-table td { 
+  border-color: var(--code-border); 
+  color: var(--text-main); 
+}
+
+body.theme-glassmorphism table.ppt-table tr:nth-child(even) td { 
+  background: rgba(128, 128, 128, 0.05); 
+}
+
+body.theme-glassmorphism .slide-footer { 
+  border-color: var(--code-border); 
+}
+
+body.theme-glassmorphism code { 
+  background: var(--code-bg); 
+  color: var(--text-main); 
+}
+
+body.theme-glassmorphism pre {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.65) !important; /* Higher opacity to wash out background text */
+}
+body.theme-glassmorphism.theme-dark pre {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+  background: rgba(0, 0, 0, 0.65) !important; /* Higher opacity to wash out background text */
+}
+
+/* Modals and Fullscreen Overlays deeply blurred glass */
+body.theme-glassmorphism .help-content,
+body.theme-glassmorphism .tree-modal,
+body.theme-glassmorphism .code-block-container.fullscreen {
+  background: rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--code-border) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+}
+body.theme-glassmorphism.theme-dark .help-content,
+body.theme-glassmorphism.theme-dark .tree-modal,
+body.theme-glassmorphism.theme-dark .code-block-container.fullscreen {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+  background: rgba(20, 20, 25, 0.75) !important;
+}
+
+/* Ensure code block text doesn't break in Dark Mode */
+body.theme-glassmorphism.theme-dark .hljs { color: #f5f5f7 !important; }
+body.theme-glassmorphism.theme-dark .hljs-comment { color: #a1a1a6 !important; font-style: italic; }
+body.theme-glassmorphism.theme-dark .hljs-keyword { color: #2997ff !important; }
+body.theme-glassmorphism.theme-dark .hljs-string { color: #a855f7 !important; }
+body.theme-glassmorphism.theme-dark .hljs-title { color: #ff453a !important; }

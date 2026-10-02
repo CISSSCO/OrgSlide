@@ -1,0 +1,61 @@
+/* Winter is Coming Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-winter_is_coming {
+  --bg-workspace: rgb(248, 250, 255);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #82aaff;
+  --secondary: #21c7a8;
+  --accent: #ecc48d;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-winter_is_coming table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-winter_is_coming table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-winter_is_coming table.ppt-table tr:nth-child(even) td { background: rgb(248, 250, 255); }
+body.theme-winter_is_coming code { background: #f1f3f5; color: #82aaff; }
+
+/* Light Syntax Highlighting */
+body.theme-winter_is_coming .hljs { color: #333333 !important; }
+body.theme-winter_is_coming .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-winter_is_coming .hljs-keyword { color: #82aaff !important; }
+body.theme-winter_is_coming .hljs-string { color: #21c7a8 !important; }
+body.theme-winter_is_coming .hljs-number { color: #ecc48d !important; }
+body.theme-winter_is_coming .hljs-function { color: #82aaff !important; }
+body.theme-winter_is_coming .hljs-title { color: #82aaff !important; }
+body.theme-winter_is_coming .hljs-variable { color: #21c7a8 !important; }
+body.theme-winter_is_coming .hljs-built_in { color: #ecc48d !important; }
+
+/* DARK MODE */
+body.theme-winter_is_coming.theme-dark {
+  --bg-workspace: #011627;
+  --slide-bg: #011e36;
+  --text-main: #d6deeb;
+  --text-muted: #999999;
+  --primary: #82aaff;
+  --secondary: #21c7a8;
+  --accent: #ecc48d;
+  --code-bg: #01111d;
+  --code-border: #1d3b53;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-winter_is_coming.theme-dark table.ppt-table th { background: #01111d; color: #d6deeb; border-color: #1d3b53; }
+body.theme-winter_is_coming.theme-dark table.ppt-table td { border-color: #01111d; color: #d6deeb; }
+body.theme-winter_is_coming.theme-dark table.ppt-table tr:nth-child(even) td { background: #011e36; }
+body.theme-winter_is_coming.theme-dark code { background: #01111d; color: #82aaff; }
+
+/* Dark Syntax Highlighting */
+body.theme-winter_is_coming.theme-dark .hljs { color: #d6deeb !important; }
+body.theme-winter_is_coming.theme-dark .hljs-comment { color: #999999 !important; font-style: italic; }
+body.theme-winter_is_coming.theme-dark .hljs-keyword { color: #82aaff !important; }
+body.theme-winter_is_coming.theme-dark .hljs-string { color: #21c7a8 !important; }
+body.theme-winter_is_coming.theme-dark .hljs-number { color: #ecc48d !important; }
+body.theme-winter_is_coming.theme-dark .hljs-function { color: #82aaff !important; }
+body.theme-winter_is_coming.theme-dark .hljs-title { color: #82aaff !important; }
+body.theme-winter_is_coming.theme-dark .hljs-variable { color: #21c7a8 !important; }
+body.theme-winter_is_coming.theme-dark .hljs-built_in { color: #ecc48d !important; }

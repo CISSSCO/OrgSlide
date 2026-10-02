@@ -1,0 +1,61 @@
+/* Cherry Blossom Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-cherry_blossom {
+  --bg-workspace: rgb(255, 251, 251);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #ffb7b2;
+  --secondary: #ff9eaa;
+  --accent: #ffc1cc;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-cherry_blossom table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-cherry_blossom table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-cherry_blossom table.ppt-table tr:nth-child(even) td { background: rgb(255, 251, 251); }
+body.theme-cherry_blossom code { background: #f1f3f5; color: #ffb7b2; }
+
+/* Light Syntax Highlighting */
+body.theme-cherry_blossom .hljs { color: #333333 !important; }
+body.theme-cherry_blossom .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-cherry_blossom .hljs-keyword { color: #ffb7b2 !important; }
+body.theme-cherry_blossom .hljs-string { color: #ff9eaa !important; }
+body.theme-cherry_blossom .hljs-number { color: #ffc1cc !important; }
+body.theme-cherry_blossom .hljs-function { color: #ffb7b2 !important; }
+body.theme-cherry_blossom .hljs-title { color: #ffb7b2 !important; }
+body.theme-cherry_blossom .hljs-variable { color: #ff9eaa !important; }
+body.theme-cherry_blossom .hljs-built_in { color: #ffc1cc !important; }
+
+/* DARK MODE */
+body.theme-cherry_blossom.theme-dark {
+  --bg-workspace: #1f1a24;
+  --slide-bg: #28232e;
+  --text-main: #f3e8f8;
+  --text-muted: #8f7e9a;
+  --primary: #ffb7b2;
+  --secondary: #ff9eaa;
+  --accent: #ffc1cc;
+  --code-bg: #19151e;
+  --code-border: #42374b;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-cherry_blossom.theme-dark table.ppt-table th { background: #19151e; color: #f3e8f8; border-color: #42374b; }
+body.theme-cherry_blossom.theme-dark table.ppt-table td { border-color: #19151e; color: #f3e8f8; }
+body.theme-cherry_blossom.theme-dark table.ppt-table tr:nth-child(even) td { background: #28232e; }
+body.theme-cherry_blossom.theme-dark code { background: #19151e; color: #ffb7b2; }
+
+/* Dark Syntax Highlighting */
+body.theme-cherry_blossom.theme-dark .hljs { color: #f3e8f8 !important; }
+body.theme-cherry_blossom.theme-dark .hljs-comment { color: #8f7e9a !important; font-style: italic; }
+body.theme-cherry_blossom.theme-dark .hljs-keyword { color: #ffb7b2 !important; }
+body.theme-cherry_blossom.theme-dark .hljs-string { color: #ff9eaa !important; }
+body.theme-cherry_blossom.theme-dark .hljs-number { color: #ffc1cc !important; }
+body.theme-cherry_blossom.theme-dark .hljs-function { color: #ffb7b2 !important; }
+body.theme-cherry_blossom.theme-dark .hljs-title { color: #ffb7b2 !important; }
+body.theme-cherry_blossom.theme-dark .hljs-variable { color: #ff9eaa !important; }
+body.theme-cherry_blossom.theme-dark .hljs-built_in { color: #ffc1cc !important; }

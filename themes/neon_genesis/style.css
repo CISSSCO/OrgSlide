@@ -1,0 +1,61 @@
+/* Neon Genesis Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-neon_genesis {
+  --bg-workspace: rgb(255, 242, 249);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #ff0099;
+  --secondary: #00ffff;
+  --accent: #00ff00;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-neon_genesis table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-neon_genesis table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-neon_genesis table.ppt-table tr:nth-child(even) td { background: rgb(255, 242, 249); }
+body.theme-neon_genesis code { background: #f1f3f5; color: #ff0099; }
+
+/* Light Syntax Highlighting */
+body.theme-neon_genesis .hljs { color: #333333 !important; }
+body.theme-neon_genesis .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-neon_genesis .hljs-keyword { color: #ff0099 !important; }
+body.theme-neon_genesis .hljs-string { color: #00ffff !important; }
+body.theme-neon_genesis .hljs-number { color: #00ff00 !important; }
+body.theme-neon_genesis .hljs-function { color: #ff0099 !important; }
+body.theme-neon_genesis .hljs-title { color: #ff0099 !important; }
+body.theme-neon_genesis .hljs-variable { color: #00ffff !important; }
+body.theme-neon_genesis .hljs-built_in { color: #00ff00 !important; }
+
+/* DARK MODE */
+body.theme-neon_genesis.theme-dark {
+  --bg-workspace: #000000;
+  --slide-bg: #111111;
+  --text-main: #ffffff;
+  --text-muted: #777777;
+  --primary: #ff0099;
+  --secondary: #00ffff;
+  --accent: #00ff00;
+  --code-bg: #050505;
+  --code-border: #333333;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-neon_genesis.theme-dark table.ppt-table th { background: #050505; color: #ffffff; border-color: #333333; }
+body.theme-neon_genesis.theme-dark table.ppt-table td { border-color: #050505; color: #ffffff; }
+body.theme-neon_genesis.theme-dark table.ppt-table tr:nth-child(even) td { background: #111111; }
+body.theme-neon_genesis.theme-dark code { background: #050505; color: #ff0099; }
+
+/* Dark Syntax Highlighting */
+body.theme-neon_genesis.theme-dark .hljs { color: #ffffff !important; }
+body.theme-neon_genesis.theme-dark .hljs-comment { color: #777777 !important; font-style: italic; }
+body.theme-neon_genesis.theme-dark .hljs-keyword { color: #ff0099 !important; }
+body.theme-neon_genesis.theme-dark .hljs-string { color: #00ffff !important; }
+body.theme-neon_genesis.theme-dark .hljs-number { color: #00ff00 !important; }
+body.theme-neon_genesis.theme-dark .hljs-function { color: #ff0099 !important; }
+body.theme-neon_genesis.theme-dark .hljs-title { color: #ff0099 !important; }
+body.theme-neon_genesis.theme-dark .hljs-variable { color: #00ffff !important; }
+body.theme-neon_genesis.theme-dark .hljs-built_in { color: #00ff00 !important; }

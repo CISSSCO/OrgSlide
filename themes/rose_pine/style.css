@@ -1,0 +1,60 @@
+/* Rosé Pine Theme (Light & Dark Variants) */
+
+/* LIGHT MODE: Rosé Pine Dawn */
+body.theme-rose_pine {
+  --bg-workspace: #faf4ed;
+  --slide-bg: #fffaf3;
+  --text-main: #575279;
+  --text-muted: #797593;
+  --primary: #907aa9;
+  --secondary: #d7827e;
+  --accent: #b4637a;
+  --code-bg: #f2e9e1;
+  --code-border: #cecacd;
+  background-color: var(--bg-workspace);
+}
+body.theme-rose_pine table.ppt-table th { background: #f2e9e1; color: #575279; border-color: #cecacd; }
+body.theme-rose_pine table.ppt-table td { border-color: #f2e9e1; color: #575279; }
+body.theme-rose_pine table.ppt-table tr:nth-child(even) td { background: #fffaf3; }
+body.theme-rose_pine code { background: #f2e9e1; color: #b4637a; }
+
+
+
+/* Light Syntax Highlighting */
+body.theme-rose_pine .hljs { color: #575279 !important; }
+body.theme-rose_pine .hljs-comment { color: #797593 !important; font-style: italic; }
+body.theme-rose_pine .hljs-keyword { color: #907aa9 !important; }
+body.theme-rose_pine .hljs-string { color: #d7827e !important; }
+body.theme-rose_pine .hljs-number { color: #b4637a !important; }
+body.theme-rose_pine .hljs-function { color: #907aa9 !important; }
+body.theme-rose_pine .hljs-title { color: #907aa9 !important; }
+body.theme-rose_pine .hljs-variable { color: #d7827e !important; }
+body.theme-rose_pine .hljs-built_in { color: #b4637a !important; }
+/* DARK MODE: Rosé Pine */
+body.theme-rose_pine.theme-dark {
+  --bg-workspace: #191724; /* Base */
+  --slide-bg: #232136; /* Moon base - slightly more purple/rosy */
+  --text-main: #e0def4;
+  --text-muted: #908caa;
+  --primary: #c4a7e7; /* Iris */
+  --secondary: #ebbcba; /* Rose */
+  --accent: #eb6f92; /* Love */
+  --code-bg: #1f1d2e; /* Surface */
+  --code-border: #44415a; /* Highlight High */
+  background-color: var(--bg-workspace);
+}
+body.theme-rose_pine.theme-dark table.ppt-table th { background: #1f1d2e; color: #e0def4; border-color: #44415a; }
+body.theme-rose_pine.theme-dark table.ppt-table td { border-color: #1f1d2e; color: #e0def4; }
+body.theme-rose_pine.theme-dark table.ppt-table tr:nth-child(even) td { background: #232136; }
+body.theme-rose_pine.theme-dark code { background: #1f1d2e; color: #eb6f92; }
+
+/* Rosé Pine Syntax Highlighting */
+body.theme-rose_pine.theme-dark .hljs { color: #e0def4 !important; } /* Text */
+body.theme-rose_pine.theme-dark .hljs-comment { color: #908caa !important; font-style: italic; } /* Muted */
+body.theme-rose_pine.theme-dark .hljs-keyword { color: #31748f !important; } /* Pine */
+body.theme-rose_pine.theme-dark .hljs-string { color: #f6c177 !important; } /* Gold */
+body.theme-rose_pine.theme-dark .hljs-number { color: #ebbcba !important; } /* Rose */
+body.theme-rose_pine.theme-dark .hljs-function { color: #c4a7e7 !important; } /* Iris */
+body.theme-rose_pine.theme-dark .hljs-title { color: #c4a7e7 !important; }
+body.theme-rose_pine.theme-dark .hljs-variable { color: #ebbcba !important; } /* Rose */
+body.theme-rose_pine.theme-dark .hljs-built_in { color: #eb6f92 !important; } /* Love */

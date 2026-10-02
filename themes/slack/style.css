@@ -1,0 +1,61 @@
+/* Slack Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-slack {
+  --bg-workspace: rgb(244, 251, 248);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #2eb67d;
+  --secondary: #e01e5a;
+  --accent: #36c5f0;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-slack table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-slack table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-slack table.ppt-table tr:nth-child(even) td { background: rgb(244, 251, 248); }
+body.theme-slack code { background: #f1f3f5; color: #2eb67d; }
+
+/* Light Syntax Highlighting */
+body.theme-slack .hljs { color: #333333 !important; }
+body.theme-slack .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-slack .hljs-keyword { color: #2eb67d !important; }
+body.theme-slack .hljs-string { color: #e01e5a !important; }
+body.theme-slack .hljs-number { color: #36c5f0 !important; }
+body.theme-slack .hljs-function { color: #2eb67d !important; }
+body.theme-slack .hljs-title { color: #2eb67d !important; }
+body.theme-slack .hljs-variable { color: #e01e5a !important; }
+body.theme-slack .hljs-built_in { color: #36c5f0 !important; }
+
+/* DARK MODE */
+body.theme-slack.theme-dark {
+  --bg-workspace: #220f2e;
+  --slide-bg: #351d45;
+  --text-main: #d1d2d3;
+  --text-muted: #8c769b;
+  --primary: #2eb67d;
+  --secondary: #e01e5a;
+  --accent: #36c5f0;
+  --code-bg: #180a21;
+  --code-border: #4a2f5c;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-slack.theme-dark table.ppt-table th { background: #180a21; color: #d1d2d3; border-color: #4a2f5c; }
+body.theme-slack.theme-dark table.ppt-table td { border-color: #180a21; color: #d1d2d3; }
+body.theme-slack.theme-dark table.ppt-table tr:nth-child(even) td { background: #351d45; }
+body.theme-slack.theme-dark code { background: #180a21; color: #2eb67d; }
+
+/* Dark Syntax Highlighting */
+body.theme-slack.theme-dark .hljs { color: #d1d2d3 !important; }
+body.theme-slack.theme-dark .hljs-comment { color: #8c769b !important; font-style: italic; }
+body.theme-slack.theme-dark .hljs-keyword { color: #2eb67d !important; }
+body.theme-slack.theme-dark .hljs-string { color: #e01e5a !important; }
+body.theme-slack.theme-dark .hljs-number { color: #36c5f0 !important; }
+body.theme-slack.theme-dark .hljs-function { color: #2eb67d !important; }
+body.theme-slack.theme-dark .hljs-title { color: #2eb67d !important; }
+body.theme-slack.theme-dark .hljs-variable { color: #e01e5a !important; }
+body.theme-slack.theme-dark .hljs-built_in { color: #36c5f0 !important; }

@@ -1,0 +1,61 @@
+/* Rosé Pine Moon Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-rose_pine_moon {
+  --bg-workspace: rgb(252, 250, 253);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #c4a7e7;
+  --secondary: #31748f;
+  --accent: #eb6f92;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-rose_pine_moon table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-rose_pine_moon table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-rose_pine_moon table.ppt-table tr:nth-child(even) td { background: rgb(252, 250, 253); }
+body.theme-rose_pine_moon code { background: #f1f3f5; color: #c4a7e7; }
+
+/* Light Syntax Highlighting */
+body.theme-rose_pine_moon .hljs { color: #333333 !important; }
+body.theme-rose_pine_moon .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-rose_pine_moon .hljs-keyword { color: #c4a7e7 !important; }
+body.theme-rose_pine_moon .hljs-string { color: #31748f !important; }
+body.theme-rose_pine_moon .hljs-number { color: #eb6f92 !important; }
+body.theme-rose_pine_moon .hljs-function { color: #c4a7e7 !important; }
+body.theme-rose_pine_moon .hljs-title { color: #c4a7e7 !important; }
+body.theme-rose_pine_moon .hljs-variable { color: #31748f !important; }
+body.theme-rose_pine_moon .hljs-built_in { color: #eb6f92 !important; }
+
+/* DARK MODE */
+body.theme-rose_pine_moon.theme-dark {
+  --bg-workspace: #232136;
+  --slide-bg: #2a2740;
+  --text-main: #e0def4;
+  --text-muted: #908caa;
+  --primary: #c4a7e7;
+  --secondary: #31748f;
+  --accent: #eb6f92;
+  --code-bg: #1c1a29;
+  --code-border: #393552;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-rose_pine_moon.theme-dark table.ppt-table th { background: #1c1a29; color: #e0def4; border-color: #393552; }
+body.theme-rose_pine_moon.theme-dark table.ppt-table td { border-color: #1c1a29; color: #e0def4; }
+body.theme-rose_pine_moon.theme-dark table.ppt-table tr:nth-child(even) td { background: #2a2740; }
+body.theme-rose_pine_moon.theme-dark code { background: #1c1a29; color: #c4a7e7; }
+
+/* Dark Syntax Highlighting */
+body.theme-rose_pine_moon.theme-dark .hljs { color: #e0def4 !important; }
+body.theme-rose_pine_moon.theme-dark .hljs-comment { color: #908caa !important; font-style: italic; }
+body.theme-rose_pine_moon.theme-dark .hljs-keyword { color: #c4a7e7 !important; }
+body.theme-rose_pine_moon.theme-dark .hljs-string { color: #31748f !important; }
+body.theme-rose_pine_moon.theme-dark .hljs-number { color: #eb6f92 !important; }
+body.theme-rose_pine_moon.theme-dark .hljs-function { color: #c4a7e7 !important; }
+body.theme-rose_pine_moon.theme-dark .hljs-title { color: #c4a7e7 !important; }
+body.theme-rose_pine_moon.theme-dark .hljs-variable { color: #31748f !important; }
+body.theme-rose_pine_moon.theme-dark .hljs-built_in { color: #eb6f92 !important; }

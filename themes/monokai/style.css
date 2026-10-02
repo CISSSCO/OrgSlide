@@ -1,0 +1,61 @@
+/* Monokai Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-monokai {
+  --bg-workspace: rgb(254, 244, 247);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #f92672;
+  --secondary: #a6e22e;
+  --accent: #fd971f;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-monokai table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-monokai table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-monokai table.ppt-table tr:nth-child(even) td { background: rgb(254, 244, 247); }
+body.theme-monokai code { background: #f1f3f5; color: #f92672; }
+
+/* Light Syntax Highlighting */
+body.theme-monokai .hljs { color: #333333 !important; }
+body.theme-monokai .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-monokai .hljs-keyword { color: #f92672 !important; }
+body.theme-monokai .hljs-string { color: #a6e22e !important; }
+body.theme-monokai .hljs-number { color: #fd971f !important; }
+body.theme-monokai .hljs-function { color: #f92672 !important; }
+body.theme-monokai .hljs-title { color: #f92672 !important; }
+body.theme-monokai .hljs-variable { color: #a6e22e !important; }
+body.theme-monokai .hljs-built_in { color: #fd971f !important; }
+
+/* DARK MODE */
+body.theme-monokai.theme-dark {
+  --bg-workspace: #272822;
+  --slide-bg: #2f3129;
+  --text-main: #f8f8f2;
+  --text-muted: #75715e;
+  --primary: #f92672;
+  --secondary: #a6e22e;
+  --accent: #fd971f;
+  --code-bg: #1e1f1c;
+  --code-border: #3e3d32;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-monokai.theme-dark table.ppt-table th { background: #1e1f1c; color: #f8f8f2; border-color: #3e3d32; }
+body.theme-monokai.theme-dark table.ppt-table td { border-color: #1e1f1c; color: #f8f8f2; }
+body.theme-monokai.theme-dark table.ppt-table tr:nth-child(even) td { background: #2f3129; }
+body.theme-monokai.theme-dark code { background: #1e1f1c; color: #f92672; }
+
+/* Dark Syntax Highlighting */
+body.theme-monokai.theme-dark .hljs { color: #f8f8f2 !important; }
+body.theme-monokai.theme-dark .hljs-comment { color: #75715e !important; font-style: italic; }
+body.theme-monokai.theme-dark .hljs-keyword { color: #f92672 !important; }
+body.theme-monokai.theme-dark .hljs-string { color: #a6e22e !important; }
+body.theme-monokai.theme-dark .hljs-number { color: #fd971f !important; }
+body.theme-monokai.theme-dark .hljs-function { color: #f92672 !important; }
+body.theme-monokai.theme-dark .hljs-title { color: #f92672 !important; }
+body.theme-monokai.theme-dark .hljs-variable { color: #a6e22e !important; }
+body.theme-monokai.theme-dark .hljs-built_in { color: #fd971f !important; }

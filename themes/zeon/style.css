@@ -1,0 +1,61 @@
+/* Zeon Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-zeon {
+  --bg-workspace: rgb(253, 246, 245);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #e45649;
+  --secondary: #50a14f;
+  --accent: #986801;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-zeon table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-zeon table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-zeon table.ppt-table tr:nth-child(even) td { background: rgb(253, 246, 245); }
+body.theme-zeon code { background: #f1f3f5; color: #e45649; }
+
+/* Light Syntax Highlighting */
+body.theme-zeon .hljs { color: #333333 !important; }
+body.theme-zeon .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-zeon .hljs-keyword { color: #e45649 !important; }
+body.theme-zeon .hljs-string { color: #50a14f !important; }
+body.theme-zeon .hljs-number { color: #986801 !important; }
+body.theme-zeon .hljs-function { color: #e45649 !important; }
+body.theme-zeon .hljs-title { color: #e45649 !important; }
+body.theme-zeon .hljs-variable { color: #50a14f !important; }
+body.theme-zeon .hljs-built_in { color: #986801 !important; }
+
+/* DARK MODE */
+body.theme-zeon.theme-dark {
+  --bg-workspace: #000000;
+  --slide-bg: #151515;
+  --text-main: #fafafa;
+  --text-muted: #a0a1a7;
+  --primary: #e45649;
+  --secondary: #50a14f;
+  --accent: #986801;
+  --code-bg: #0a0a0a;
+  --code-border: #2b2b2b;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-zeon.theme-dark table.ppt-table th { background: #0a0a0a; color: #fafafa; border-color: #2b2b2b; }
+body.theme-zeon.theme-dark table.ppt-table td { border-color: #0a0a0a; color: #fafafa; }
+body.theme-zeon.theme-dark table.ppt-table tr:nth-child(even) td { background: #151515; }
+body.theme-zeon.theme-dark code { background: #0a0a0a; color: #e45649; }
+
+/* Dark Syntax Highlighting */
+body.theme-zeon.theme-dark .hljs { color: #fafafa !important; }
+body.theme-zeon.theme-dark .hljs-comment { color: #a0a1a7 !important; font-style: italic; }
+body.theme-zeon.theme-dark .hljs-keyword { color: #e45649 !important; }
+body.theme-zeon.theme-dark .hljs-string { color: #50a14f !important; }
+body.theme-zeon.theme-dark .hljs-number { color: #986801 !important; }
+body.theme-zeon.theme-dark .hljs-function { color: #e45649 !important; }
+body.theme-zeon.theme-dark .hljs-title { color: #e45649 !important; }
+body.theme-zeon.theme-dark .hljs-variable { color: #50a14f !important; }
+body.theme-zeon.theme-dark .hljs-built_in { color: #986801 !important; }

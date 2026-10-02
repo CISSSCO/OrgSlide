@@ -1,0 +1,61 @@
+/* Andromeda Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-andromeda {
+  --bg-workspace: rgb(242, 253, 252);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #00e8c6;
+  --secondary: #c74ded;
+  --accent: #ffe66d;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-andromeda table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-andromeda table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-andromeda table.ppt-table tr:nth-child(even) td { background: rgb(242, 253, 252); }
+body.theme-andromeda code { background: #f1f3f5; color: #00e8c6; }
+
+/* Light Syntax Highlighting */
+body.theme-andromeda .hljs { color: #333333 !important; }
+body.theme-andromeda .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-andromeda .hljs-keyword { color: #00e8c6 !important; }
+body.theme-andromeda .hljs-string { color: #c74ded !important; }
+body.theme-andromeda .hljs-number { color: #ffe66d !important; }
+body.theme-andromeda .hljs-function { color: #00e8c6 !important; }
+body.theme-andromeda .hljs-title { color: #00e8c6 !important; }
+body.theme-andromeda .hljs-variable { color: #c74ded !important; }
+body.theme-andromeda .hljs-built_in { color: #ffe66d !important; }
+
+/* DARK MODE */
+body.theme-andromeda.theme-dark {
+  --bg-workspace: #23262e;
+  --slide-bg: #2b2e38;
+  --text-main: #d5ced9;
+  --text-muted: #7e8391;
+  --primary: #00e8c6;
+  --secondary: #c74ded;
+  --accent: #ffe66d;
+  --code-bg: #1d1f26;
+  --code-border: #3f4451;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-andromeda.theme-dark table.ppt-table th { background: #1d1f26; color: #d5ced9; border-color: #3f4451; }
+body.theme-andromeda.theme-dark table.ppt-table td { border-color: #1d1f26; color: #d5ced9; }
+body.theme-andromeda.theme-dark table.ppt-table tr:nth-child(even) td { background: #2b2e38; }
+body.theme-andromeda.theme-dark code { background: #1d1f26; color: #00e8c6; }
+
+/* Dark Syntax Highlighting */
+body.theme-andromeda.theme-dark .hljs { color: #d5ced9 !important; }
+body.theme-andromeda.theme-dark .hljs-comment { color: #7e8391 !important; font-style: italic; }
+body.theme-andromeda.theme-dark .hljs-keyword { color: #00e8c6 !important; }
+body.theme-andromeda.theme-dark .hljs-string { color: #c74ded !important; }
+body.theme-andromeda.theme-dark .hljs-number { color: #ffe66d !important; }
+body.theme-andromeda.theme-dark .hljs-function { color: #00e8c6 !important; }
+body.theme-andromeda.theme-dark .hljs-title { color: #00e8c6 !important; }
+body.theme-andromeda.theme-dark .hljs-variable { color: #c74ded !important; }
+body.theme-andromeda.theme-dark .hljs-built_in { color: #ffe66d !important; }

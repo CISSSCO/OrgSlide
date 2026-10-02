@@ -1,0 +1,61 @@
+/* Midnight City Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-midnight_city {
+  --bg-workspace: rgb(249, 249, 254);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #8c91fa;
+  --secondary: #f272a2;
+  --accent: #ffb266;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-midnight_city table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-midnight_city table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-midnight_city table.ppt-table tr:nth-child(even) td { background: rgb(249, 249, 254); }
+body.theme-midnight_city code { background: #f1f3f5; color: #8c91fa; }
+
+/* Light Syntax Highlighting */
+body.theme-midnight_city .hljs { color: #333333 !important; }
+body.theme-midnight_city .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-midnight_city .hljs-keyword { color: #8c91fa !important; }
+body.theme-midnight_city .hljs-string { color: #f272a2 !important; }
+body.theme-midnight_city .hljs-number { color: #ffb266 !important; }
+body.theme-midnight_city .hljs-function { color: #8c91fa !important; }
+body.theme-midnight_city .hljs-title { color: #8c91fa !important; }
+body.theme-midnight_city .hljs-variable { color: #f272a2 !important; }
+body.theme-midnight_city .hljs-built_in { color: #ffb266 !important; }
+
+/* DARK MODE */
+body.theme-midnight_city.theme-dark {
+  --bg-workspace: #141729;
+  --slide-bg: #1a1e36;
+  --text-main: #cfd2e3;
+  --text-muted: #5d648f;
+  --primary: #8c91fa;
+  --secondary: #f272a2;
+  --accent: #ffb266;
+  --code-bg: #0f1120;
+  --code-border: #292d52;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-midnight_city.theme-dark table.ppt-table th { background: #0f1120; color: #cfd2e3; border-color: #292d52; }
+body.theme-midnight_city.theme-dark table.ppt-table td { border-color: #0f1120; color: #cfd2e3; }
+body.theme-midnight_city.theme-dark table.ppt-table tr:nth-child(even) td { background: #1a1e36; }
+body.theme-midnight_city.theme-dark code { background: #0f1120; color: #8c91fa; }
+
+/* Dark Syntax Highlighting */
+body.theme-midnight_city.theme-dark .hljs { color: #cfd2e3 !important; }
+body.theme-midnight_city.theme-dark .hljs-comment { color: #5d648f !important; font-style: italic; }
+body.theme-midnight_city.theme-dark .hljs-keyword { color: #8c91fa !important; }
+body.theme-midnight_city.theme-dark .hljs-string { color: #f272a2 !important; }
+body.theme-midnight_city.theme-dark .hljs-number { color: #ffb266 !important; }
+body.theme-midnight_city.theme-dark .hljs-function { color: #8c91fa !important; }
+body.theme-midnight_city.theme-dark .hljs-title { color: #8c91fa !important; }
+body.theme-midnight_city.theme-dark .hljs-variable { color: #f272a2 !important; }
+body.theme-midnight_city.theme-dark .hljs-built_in { color: #ffb266 !important; }

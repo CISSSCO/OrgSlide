@@ -1,0 +1,61 @@
+/* Everforest Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-everforest {
+  --bg-workspace: rgb(250, 251, 248);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #a7c080;
+  --secondary: #dbbc7f;
+  --accent: #e67e80;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-everforest table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-everforest table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-everforest table.ppt-table tr:nth-child(even) td { background: rgb(250, 251, 248); }
+body.theme-everforest code { background: #f1f3f5; color: #a7c080; }
+
+/* Light Syntax Highlighting */
+body.theme-everforest .hljs { color: #333333 !important; }
+body.theme-everforest .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-everforest .hljs-keyword { color: #a7c080 !important; }
+body.theme-everforest .hljs-string { color: #dbbc7f !important; }
+body.theme-everforest .hljs-number { color: #e67e80 !important; }
+body.theme-everforest .hljs-function { color: #a7c080 !important; }
+body.theme-everforest .hljs-title { color: #a7c080 !important; }
+body.theme-everforest .hljs-variable { color: #dbbc7f !important; }
+body.theme-everforest .hljs-built_in { color: #e67e80 !important; }
+
+/* DARK MODE */
+body.theme-everforest.theme-dark {
+  --bg-workspace: #2b3339;
+  --slide-bg: #323c41;
+  --text-main: #d3c6aa;
+  --text-muted: #859289;
+  --primary: #a7c080;
+  --secondary: #dbbc7f;
+  --accent: #e67e80;
+  --code-bg: #232a2e;
+  --code-border: #475258;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-everforest.theme-dark table.ppt-table th { background: #232a2e; color: #d3c6aa; border-color: #475258; }
+body.theme-everforest.theme-dark table.ppt-table td { border-color: #232a2e; color: #d3c6aa; }
+body.theme-everforest.theme-dark table.ppt-table tr:nth-child(even) td { background: #323c41; }
+body.theme-everforest.theme-dark code { background: #232a2e; color: #a7c080; }
+
+/* Dark Syntax Highlighting */
+body.theme-everforest.theme-dark .hljs { color: #d3c6aa !important; }
+body.theme-everforest.theme-dark .hljs-comment { color: #859289 !important; font-style: italic; }
+body.theme-everforest.theme-dark .hljs-keyword { color: #a7c080 !important; }
+body.theme-everforest.theme-dark .hljs-string { color: #dbbc7f !important; }
+body.theme-everforest.theme-dark .hljs-number { color: #e67e80 !important; }
+body.theme-everforest.theme-dark .hljs-function { color: #a7c080 !important; }
+body.theme-everforest.theme-dark .hljs-title { color: #a7c080 !important; }
+body.theme-everforest.theme-dark .hljs-variable { color: #dbbc7f !important; }
+body.theme-everforest.theme-dark .hljs-built_in { color: #e67e80 !important; }

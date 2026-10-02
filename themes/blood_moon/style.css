@@ -1,0 +1,61 @@
+/* Blood Moon Theme (Light & Dark) */
+
+/* LIGHT MODE */
+body.theme-blood_moon {
+  --bg-workspace: rgb(255, 246, 246);
+  --slide-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --primary: #ff5050;
+  --secondary: #ffc485;
+  --accent: #c60000;
+  --code-bg: #f1f3f5;
+  --code-border: #dddddd;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-blood_moon table.ppt-table th { background: #f1f3f5; color: #333333; border-color: #dddddd; }
+body.theme-blood_moon table.ppt-table td { border-color: #f1f3f5; color: #333333; }
+body.theme-blood_moon table.ppt-table tr:nth-child(even) td { background: rgb(255, 246, 246); }
+body.theme-blood_moon code { background: #f1f3f5; color: #ff5050; }
+
+/* Light Syntax Highlighting */
+body.theme-blood_moon .hljs { color: #333333 !important; }
+body.theme-blood_moon .hljs-comment { color: #888888 !important; font-style: italic; }
+body.theme-blood_moon .hljs-keyword { color: #ff5050 !important; }
+body.theme-blood_moon .hljs-string { color: #ffc485 !important; }
+body.theme-blood_moon .hljs-number { color: #c60000 !important; }
+body.theme-blood_moon .hljs-function { color: #ff5050 !important; }
+body.theme-blood_moon .hljs-title { color: #ff5050 !important; }
+body.theme-blood_moon .hljs-variable { color: #ffc485 !important; }
+body.theme-blood_moon .hljs-built_in { color: #c60000 !important; }
+
+/* DARK MODE */
+body.theme-blood_moon.theme-dark {
+  --bg-workspace: #0c0c0c;
+  --slide-bg: #161616;
+  --text-main: #c6c6c4;
+  --text-muted: #7a7a7a;
+  --primary: #ff5050;
+  --secondary: #ffc485;
+  --accent: #c60000;
+  --code-bg: #050505;
+  --code-border: #303030;
+  background-color: var(--bg-workspace);
+}
+
+body.theme-blood_moon.theme-dark table.ppt-table th { background: #050505; color: #c6c6c4; border-color: #303030; }
+body.theme-blood_moon.theme-dark table.ppt-table td { border-color: #050505; color: #c6c6c4; }
+body.theme-blood_moon.theme-dark table.ppt-table tr:nth-child(even) td { background: #161616; }
+body.theme-blood_moon.theme-dark code { background: #050505; color: #ff5050; }
+
+/* Dark Syntax Highlighting */
+body.theme-blood_moon.theme-dark .hljs { color: #c6c6c4 !important; }
+body.theme-blood_moon.theme-dark .hljs-comment { color: #7a7a7a !important; font-style: italic; }
+body.theme-blood_moon.theme-dark .hljs-keyword { color: #ff5050 !important; }
+body.theme-blood_moon.theme-dark .hljs-string { color: #ffc485 !important; }
+body.theme-blood_moon.theme-dark .hljs-number { color: #c60000 !important; }
+body.theme-blood_moon.theme-dark .hljs-function { color: #ff5050 !important; }
+body.theme-blood_moon.theme-dark .hljs-title { color: #ff5050 !important; }
+body.theme-blood_moon.theme-dark .hljs-variable { color: #ffc485 !important; }
+body.theme-blood_moon.theme-dark .hljs-built_in { color: #c60000 !important; }
