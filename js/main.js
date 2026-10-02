@@ -3,6 +3,10 @@ let slides = [];
     const deckContainer = document.getElementById('deckContainer');
     const fileInput = document.getElementById('fileInput');
 
+    window.refreshSlidesList = function() {
+      slides = document.querySelectorAll('.slide');
+    };
+
     // Code Block Button Actions
     function changeCodeFontSize(btn, direction) {
       const container = btn.closest('.code-block-container');
@@ -94,7 +98,8 @@ let slides = [];
     // Parse Org-mode content into structured slides
     function parseOrgMode(text) {
       const lines = text.split('\n');
-      let docTitle = "PARAM Rudra HPC Experiment";
+      let docTitle = "";
+      let docSubtitle = "";
       let docAuthor = "";
       let docDate = "";
       
@@ -129,6 +134,9 @@ let slides = [];
         // Metadata headers
         let titleMatch = line.match(/^#\+TITLE:\s*(.+)$/i);
         if (titleMatch) { docTitle = titleMatch[1].trim(); continue; }
+
+        let subtitleMatch = line.match(/^#\+SUBTITLE:\s*(.+)$/i);
+        if (subtitleMatch) { docSubtitle = subtitleMatch[1].trim(); continue; }
 
         let authorMatch = line.match(/^#\+AUTHOR:\s*(.+)$/i);
         if (authorMatch) { docAuthor = authorMatch[1].trim(); continue; }
@@ -213,19 +221,28 @@ let slides = [];
       // Convert each parsed section into HTML slides
       let slideObjects = [];
 
+      window.globalDocAuthor = docAuthor;
+      let metaHtml = [];
+      if (docAuthor) metaHtml.push(`<strong>Author:</strong> ${docAuthor}`);
+      if (docDate) metaHtml.push(`<strong>Date:</strong> ${docDate}`);
+
+      const finalDocTitle = docTitle || 'Untitled Presentation';
+
       // Slide 1: Title Slide (index 0)
       slideObjects.push({
         isTitle: true,
-        title: docTitle,
-        subtitle: "Reproducible HPC Experiment Framework & Technical Operations",
-        breadcrumbs: [{ title: docTitle, index: 0 }],
-        meta: `<strong>Cluster:</strong> PARAM Rudra 20 PF<br>` +
-              `<strong>Author:</strong> ${docAuthor || 'C-DAC / PARAM Rudra'}<br>` +
-              `<strong>Date:</strong> ${docDate || '2026'}`
+        title: finalDocTitle,
+        subtitle: docSubtitle,
+        breadcrumbs: [{ title: finalDocTitle, index: 0 }],
+        meta: metaHtml.join('<br>')
       });
 
       // Process each section into slides
       sections.forEach(sec => {
+        if (sec.breadcrumbs.length > 0) {
+          sec.breadcrumbs[0].title = finalDocTitle;
+        }
+        
         let contentHtml = formatOrgLinesToHtml(sec.lines);
         
         // Always push to keep indices synced, even if empty
@@ -469,16 +486,19 @@ let slides = [];
             <div class="slide-breadcrumbs" style="position: absolute; top: 1.5rem; left: 1.5rem;">${breadcrumbHtml}</div>
             <div class="title-center">
               <h1 class="main-title">${s.title}</h1>
-              <h2 class="main-subtitle">${s.subtitle}</h2>
-              <div class="main-meta">${s.meta}</div>
+              ${s.subtitle ? `<h2 class="main-subtitle">${s.subtitle}</h2>` : ''}
+              ${s.meta ? `<div class="main-meta">${s.meta}</div>` : ''}
             </div>
             ${footerHtml}
           `;
         } else {
           slideEl.innerHTML = `
-            <div class="slide-header">
-              <div class="slide-breadcrumbs">${breadcrumbHtml}</div>
-              <h2 class="slide-title">${escapeHtml(s.title)}</h2>
+            <div class="slide-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+              <div style="flex: 1;">
+                <div class="slide-breadcrumbs">${breadcrumbHtml}</div>
+                <h2 class="slide-title">${escapeHtml(s.title)}</h2>
+              </div>
+              <div class="slide-header-logos" style="display: flex; gap: 1rem; align-items: center; justify-content: flex-end; height: 55px;"></div>
             </div>
             <div class="slide-body">
               ${s.body}
@@ -497,9 +517,17 @@ let slides = [];
         });
       }
 
+      if (window.EndSlide) {
+        window.EndSlide.appendSlide(deckContainer);
+      }
+
       slides = document.querySelectorAll('.slide');
       currentSlide = 0;
       updateSlide(0);
+
+      if (window.LogoManager) {
+        window.LogoManager.applyLogos();
+      }
     }
 
     function updateSlide(index) {
