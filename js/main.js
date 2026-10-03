@@ -1,5 +1,5 @@
 let slides = [];
-    let currentSlide = 0;
+    window.currentSlide = 0; let currentSlide = window.currentSlide;
     const deckContainer = document.getElementById('deckContainer');
     const fileInput = document.getElementById('fileInput');
 
@@ -467,8 +467,8 @@ let slides = [];
               ${window.generateSocialLinksHtml ? window.generateSocialLinksHtml() : ''}
             </div>
             <div class="footer-right">
-              <button type="button" class="help-hint-inline" onclick="toggleHelp()" title="Keyboard Shortcuts">
-                <kbd>Alt</kbd> + <kbd>?</kbd>
+              <button class="help-hint-inline" onclick="toggleHelp()" title="Keyboard Shortcuts">
+                <kbd>Alt</kbd>+<kbd>?</kbd>
               </button>
               <span class="slide-counter">Slide ${idx + 1} of ${total}</span>
               <div class="footer-nav">
@@ -546,6 +546,7 @@ let slides = [];
       });
 
       currentSlide = index;
+      window.currentSlide = index;
       window.location.hash = `#${currentSlide + 1}`;
     }
 
@@ -775,3 +776,8 @@ let slides = [];
         updateSlide(parsed - 1);
       }
     }
+
+// Export Hook
+window.setExportedCurrentSlide = function(idx) {
+  currentSlide = idx;
+};

@@ -1,0 +1,154 @@
+/* --------------------------------------------------------------------------
+   NOTEBOOK MODE (.render-mode-notebook)
+   Jupyter Notebook style layout emphasizing linear content
+   -------------------------------------------------------------------------- */
+html:has(body.render-mode-notebook),
+body.render-mode-notebook {
+  overflow-y: auto !important;
+  height: auto !important;
+  background: #ffffff !important; /* Pure white Jupyter Background */
+}
+
+body.render-mode-notebook .deck-container {
+  display: block !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 2rem 2% 5rem 2% !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+body.render-mode-notebook .slide {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+body.render-mode-notebook .slide-header {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  padding: 1rem 1rem 1rem 7.5rem !important;
+}
+
+body.render-mode-notebook .slide-title {
+  font-size: 2rem !important;
+  font-weight: bold !important;
+  color: #333 !important;
+}
+
+body.render-mode-notebook .slide-breadcrumbs,
+body.render-mode-notebook .slide-footer {
+  display: none !important;
+}
+
+body.render-mode-notebook .slide-body {
+  overflow: visible !important;
+  height: auto !important;
+  flex: none !important;
+  line-height: 1.6 !important;
+  padding: 1rem 1rem 1rem 7.5rem !important;
+}
+
+/* Jupyter Markdown Cells */
+body.render-mode-notebook p, 
+body.render-mode-notebook ul, 
+body.render-mode-notebook ol,
+body.render-mode-notebook h1,
+body.render-mode-notebook h2,
+body.render-mode-notebook h3 {
+  color: #333 !important;
+}
+
+/* Make code blocks look EXACTLY like Jupyter cells */
+body.render-mode-notebook .code-block-container {
+  margin: 0.5rem 0 1rem 0 !important;
+  border: 1px solid #cfcfcf !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  background: #f7f7f7 !important;
+}
+
+body.render-mode-notebook .code-block-container::before {
+  content: "In [ ]:" !important;
+  display: block !important;
+  font-family: Monaco, Consolas, "Courier New", monospace !important;
+  color: #303f9f !important;
+  background: transparent !important;
+  position: absolute !important;
+  left: -7rem !important;
+  top: 0.5rem !important;
+  width: 6rem !important;
+  text-align: right !important;
+  font-size: 0.85rem !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+body.render-mode-notebook pre {
+  background: transparent !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: visible !important;
+  color: #333 !important;
+}
+
+/* Active Cell Indication */
+body.render-mode-notebook .slide.active .code-block-container {
+  border: 1px solid #4CAF50 !important;
+}
+
+/* Modal UI Theme Match */
+body.render-mode-notebook .command-palette-content {
+  background: #ffffff !important;
+  border: 1px solid #cfcfcf !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  border-radius: 2px !important;
+}
+
+body.render-mode-notebook .command-palette-content * {
+  color: #333 !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+body.render-mode-notebook #renderModeSearchInput {
+  background: #fff !important;
+  border-bottom: 1px solid #cfcfcf !important;
+}
+
+body.render-mode-notebook .theme-option-row:hover,
+body.render-mode-notebook .theme-option-row.focused {
+  background: #EEEEEE !important;
+  border-left: 3px solid #303f9f !important;
+}
+
+/* Fix fullscreen code block bleeding */
+body.render-mode-notebook .code-block-container.fullscreen {
+  background: #ffffff !important;
+  margin: 0 !important;
+  padding: 2rem !important;
+  border: none !important;
+}
+body.render-mode-notebook .code-block-container.fullscreen pre {
+  background: #f7f7f7 !important;
+  border: 1px solid #cfcfcf !important;
+  margin: 0 !important;
+  padding: 1rem !important;
+}

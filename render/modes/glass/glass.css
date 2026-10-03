@@ -1,0 +1,185 @@
+/* --------------------------------------------------------------------------
+   GLASS MODE (.render-mode-glass)
+   Modern translucent design with frosted glass effects
+   -------------------------------------------------------------------------- */
+html:has(body.render-mode-glass),
+body.render-mode-glass {
+  overflow-y: auto !important;
+  height: auto !important;
+  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%) !important;
+  background-attachment: fixed !important;
+}
+
+/* Glass Dark Mode Gradient */
+html[data-theme="dark"]:has(body.render-mode-glass),
+html[data-theme="dark"] body.render-mode-glass {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%) !important;
+  background-attachment: fixed !important;
+}
+
+body.render-mode-glass .deck-container {
+  display: block !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 3rem 4% !important;
+  color: var(--text-main) !important;
+}
+
+body.render-mode-glass .slide {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 24px !important;
+  
+  padding: 3rem !important;
+  margin-bottom: 3rem !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15) !important;
+}
+
+/* Dark mode slide adjustments */
+html[data-theme="dark"] body.render-mode-glass .slide {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+body.render-mode-glass .slide.active {
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.6) !important;
+}
+
+html[data-theme="dark"] body.render-mode-glass .slide.active {
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+body.render-mode-glass .slide-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding-bottom: 1rem !important;
+  margin-bottom: 2rem !important;
+}
+
+html[data-theme="dark"] body.render-mode-glass .slide-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.render-mode-glass .slide-title {
+  color: #0f172a !important;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5) !important;
+  font-size: 2.2rem !important;
+}
+
+html[data-theme="dark"] body.render-mode-glass .slide-title {
+  color: #f8fafc !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.render-mode-glass .slide-breadcrumbs {
+  color: var(--text-muted) !important;
+}
+
+body.render-mode-glass .slide-body {
+  overflow: visible !important;
+  height: auto !important;
+  flex: none !important;
+  font-size: 1.15rem !important;
+  line-height: 1.7 !important;
+  color: var(--text-main) !important;
+}
+
+body.render-mode-glass .slide-footer {
+  display: none !important;
+}
+
+body.render-mode-glass .code-block-container {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
+}
+
+html[data-theme="dark"] body.render-mode-glass .code-block-container {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.render-mode-glass .code-block-container::before {
+  background: rgba(255, 255, 255, 0.4) !important;
+  color: #0f172a !important;
+}
+
+html[data-theme="dark"] body.render-mode-glass .code-block-container::before {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+}
+
+body.render-mode-glass pre {
+  background: transparent !important;
+  border: none !important;
+  color: inherit !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: visible !important;
+}
+
+/* Modal UI Theme Match */
+body.render-mode-glass .command-palette-content {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 16px !important;
+}
+
+html[data-theme="dark"] body.render-mode-glass .command-palette-content {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.render-mode-glass .command-palette-content * {
+  color: #0f172a !important;
+}
+html[data-theme="dark"] body.render-mode-glass .command-palette-content * {
+  color: #f8fafc !important;
+}
+
+body.render-mode-glass #renderModeSearchInput {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255,255,255,0.4) !important;
+}
+
+body.render-mode-glass .theme-option-row:hover,
+body.render-mode-glass .theme-option-row.focused {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+html[data-theme="dark"] body.render-mode-glass .theme-option-row:hover,
+html[data-theme="dark"] body.render-mode-glass .theme-option-row.focused {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Fix fullscreen code block bleeding */
+body.render-mode-glass .code-block-container.fullscreen {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  margin: 0 !important;
+  padding: 2rem !important;
+}
+html[data-theme="dark"] body.render-mode-glass .code-block-container.fullscreen {
+  background: rgba(0, 0, 0, 0.95) !important;
+}
+body.render-mode-glass .code-block-container.fullscreen pre {
+  margin: 0 !important;
+}

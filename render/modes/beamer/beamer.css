@@ -1,0 +1,64 @@
+/* Academic Beamer Style */
+
+body.render-mode-beamer .slide-header {
+  border-bottom: 3px solid var(--primary);
+  background: linear-gradient(to right, rgba(2, 132, 199, 0.08), transparent);
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+}
+
+body.render-mode-beamer .slide-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+body.render-mode-beamer .code-block-container {
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  height: auto !important;
+  min-height: min-content !important;
+  flex-shrink: 0 !important;
+}
+
+body.render-mode-beamer .code-block-container::before {
+  content: "Listing / Source Code";
+  display: block;
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+body.render-mode-beamer .code-block-container pre {
+  border: none !important;
+  border-radius: 0 0 6px 6px !important;
+  flex: 1;
+  height: auto !important;
+}
+
+body.render-mode-beamer .org-results-label {
+  border-left: 4px solid #059669;
+  border-radius: 0 4px 4px 0;
+}
+
+body.render-mode-beamer ul.ppt-list {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+body.render-mode-beamer ul.ppt-list > li::before {
+  content: "▶";
+  color: var(--secondary);
+  font-size: 0.75rem;
+  margin-right: 0.6rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+

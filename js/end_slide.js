@@ -57,6 +57,9 @@
             ${window.generateSocialLinksHtml ? window.generateSocialLinksHtml() : ''}
           </div>
           <div class="footer-right">
+            <button class="help-hint-inline" onclick="toggleHelp()" title="Keyboard Shortcuts">
+              <kbd>Alt</kbd>+<kbd>?</kbd>
+            </button>
             <span class="slide-counter">End</span>
             <div class="footer-nav">
               <button class="footer-nav-btn" onclick="prev()" title="Previous Slide (Alt+K)">

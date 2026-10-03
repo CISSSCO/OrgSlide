@@ -1,0 +1,58 @@
+/* --------------------------------------------------------------------------
+   DOCUMENT / BOOK MODE (.render-mode-document)
+   Continuous reader mode that flows naturally like an article or textbook
+   -------------------------------------------------------------------------- */
+html:has(body.render-mode-document),
+body.render-mode-document {
+  overflow-y: auto !important;
+  height: auto !important;
+}
+
+body.render-mode-document .deck-container {
+  display: block !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 2rem 4% !important;
+}
+
+body.render-mode-document .slide {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: visible !important;
+  background: var(--slide-bg) !important;
+  border: 1px solid var(--code-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
+  margin-bottom: 2.5rem !important;
+  padding: 3rem 3.5rem !important;
+}
+
+body.render-mode-document .slide.active {
+  border-left: 5px solid var(--primary) !important;
+}
+
+body.render-mode-document .slide-body {
+  overflow: visible !important;
+  height: auto !important;
+  flex: none !important;
+}
+
+body.render-mode-document .slide-footer {
+  margin-top: 2rem !important;
+}
+
+body.render-mode-document .footer-nav {
+  display: none !important; /* Continuous reading does not need next/prev footer buttons */
+}
+
