@@ -1,0 +1,101 @@
+/* --------------------------------------------------------------------------
+   OUTLINE MODE (.render-mode-outline)
+   Minimalistic text-based outline view flowing continuously
+   -------------------------------------------------------------------------- */
+html:has(body.render-mode-outline),
+body.render-mode-outline {
+  overflow-y: auto !important;
+  height: auto !important;
+  background: var(--bg-workspace) !important;
+}
+
+body.render-mode-outline .deck-container {
+  display: block !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 2rem 4% !important;
+  color: var(--text-main) !important;
+}
+
+body.render-mode-outline .slide {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  padding: 0.5rem 1rem !important;
+  border-left: 2px solid var(--code-border) !important;
+  margin-left: 2rem !important;
+}
+
+body.render-mode-outline .slide.active {
+  border-left: 2px solid var(--primary) !important;
+  background: rgba(128,128,128, 0.05) !important;
+}
+
+body.render-mode-outline .slide-header {
+  border-bottom: none !important;
+  margin-bottom: 0.2rem !important;
+  padding-bottom: 0 !important;
+  position: relative !important;
+}
+
+/* Add bullet points to slide headers to look like an outline */
+body.render-mode-outline .slide-header::before {
+  content: "•";
+  position: absolute;
+  left: -2.2rem;
+  top: 0.2rem;
+  color: var(--primary);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+body.render-mode-outline .slide-title {
+  font-size: 1.4rem !important;
+  color: var(--text-main) !important;
+  font-weight: 600 !important;
+}
+
+body.render-mode-outline .slide-breadcrumbs {
+  display: none !important;
+}
+
+body.render-mode-outline .slide-body {
+  overflow: visible !important;
+  height: auto !important;
+  flex: none !important;
+  font-size: 1rem !important;
+  padding-left: 1rem !important;
+  border-left: 1px dashed var(--code-border) !important;
+  margin-left: 0.5rem !important;
+}
+
+body.render-mode-outline .slide-footer {
+  display: none !important;
+}
+
+body.render-mode-outline pre {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: visible !important;
+}
+
+/* Modal UI Theme Match */
+body.render-mode-outline .command-palette-content {
+  border-left: 4px solid var(--primary) !important;
+}
+

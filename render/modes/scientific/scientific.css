@@ -1,0 +1,178 @@
+/* --------------------------------------------------------------------------
+   SCIENTIFIC MODE (.render-mode-scientific)
+   Two-column IEEE academic paper style with serif typography
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+html:has(body.render-mode-scientific),
+body.render-mode-scientific {
+  overflow-y: auto !important;
+  height: auto !important;
+  background: #ffffff !important; /* Pure white background directly on body */
+}
+
+body.render-mode-scientific .deck-container {
+  display: block !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 2rem 4% !important;
+  color: #000000 !important;
+  font-family: 'Libre Baskerville', "Times New Roman", Times, serif !important;
+}
+
+body.render-mode-scientific .deck-container * {
+  color: #000000 !important;
+}
+
+body.render-mode-scientific .slide {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-bottom: 2rem !important;
+  padding: 0 !important;
+  break-inside: avoid;
+}
+
+body.render-mode-scientific .slide-header {
+  border-bottom: 1px solid #000 !important;
+  padding-bottom: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+  text-align: center !important;
+}
+
+/* H1 (Slide Title) */
+body.render-mode-scientific .slide-title {
+  font-family: 'Libre Baskerville', "Times New Roman", Times, serif !important;
+  font-size: 1.8rem !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 1rem !important;
+}
+
+body.render-mode-scientific .slide-breadcrumbs,
+body.render-mode-scientific .slide-footer {
+  display: none !important;
+}
+
+body.render-mode-scientific .slide-body {
+  column-count: 2 !important;
+  column-gap: 0.5in !important;
+  overflow: visible !important;
+  height: auto !important;
+  flex: none !important;
+  text-align: justify !important;
+  line-height: 1.6 !important;
+  font-size: 1rem !important;
+}
+
+/* Internal Headings inside the slide body */
+body.render-mode-scientific .slide-body h1 {
+  font-size: 1.6rem !important;
+  font-weight: bold !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.8rem !important;
+  text-align: center !important;
+}
+
+body.render-mode-scientific .slide-body h2 {
+  font-size: 1.3rem !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  margin-top: 1.2rem !important;
+  margin-bottom: 0.6rem !important;
+}
+
+body.render-mode-scientific .slide-body h3 {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+body.render-mode-scientific .slide-body h4 {
+  font-size: 1rem !important;
+  font-style: italic !important;
+  margin-top: 0.8rem !important;
+  margin-bottom: 0.4rem !important;
+}
+
+/* The first slide (Title) spans the entire width */
+body.render-mode-scientific .slide:first-child .slide-body {
+  column-count: 1 !important;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 3rem !important;
+}
+
+/* Code Blocks Export Fixes */
+body.render-mode-scientific .code-block-container {
+  break-inside: avoid !important;
+  margin-bottom: 1.5rem !important;
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  max-width: 100% !important;
+}
+
+body.render-mode-scientific .code-block-container::before {
+  background: #eee !important;
+  color: #000 !important;
+  border-bottom: 1px solid #000 !important;
+}
+
+body.render-mode-scientific pre {
+  font-size: 0.85rem !important;
+  background: #fff !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: visible !important;
+}
+
+/* Modal UI Theme Match */
+body.render-mode-scientific .command-palette-content {
+  background: #fff !important;
+  border: 2px solid #000 !important;
+  border-radius: 0 !important;
+  box-shadow: 8px 8px 0px rgba(0,0,0,1) !important;
+}
+
+body.render-mode-scientific .command-palette-content * {
+  color: #000 !important;
+  font-family: 'Libre Baskerville', serif !important;
+}
+
+body.render-mode-scientific #renderModeSearchInput {
+  background: #fff !important;
+  border-bottom: 1px solid #000 !important;
+}
+
+body.render-mode-scientific .theme-option-row:hover {
+  background: #f0f0f0 !important;
+}
+body.render-mode-scientific .theme-option-row.focused {
+  background: #e0e0e0 !important;
+  border-left: 4px solid #000 !important;
+}
+
+/* Fix fullscreen code block bleeding */
+body.render-mode-scientific .code-block-container.fullscreen,
+body.render-mode-scientific .code-block-container.fullscreen pre {
+  background: #ffffff !important;
+  color: #000000 !important;
+  margin: 0 !important;
+  padding: 1.5rem !important;
+  border: none !important;
+}

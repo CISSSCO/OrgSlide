@@ -1,0 +1,245 @@
+/* --------------------------------------------------------------------------
+   BOOK MODE (.render-mode-book)
+   Mimics standard LaTeX / PDF book output natively in the browser
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+html:has(body.render-mode-book),
+body.render-mode-book {
+  overflow-y: auto !important;
+  height: auto !important;
+  background: #ffffff !important; /* Pure white background directly on body */
+}
+
+body.render-mode-book .deck-container {
+  display: block !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 3rem 10% 5rem 10% !important; /* Full width with comfortable reading margins */
+  
+  /* LaTeX-like typography */
+  color: #000000 !important;
+  font-family: "Computer Modern", "Computer Modern Serif", "CMU Serif", "Latin Modern Roman", "Crimson Text", "Times New Roman", Times, serif !important;
+  font-size: 1.15rem !important;
+  line-height: 1.6 !important;
+}
+
+body.render-mode-book .slide {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-bottom: 2.5rem !important;
+  padding: 0 !important;
+  page-break-inside: avoid;
+}
+
+body.render-mode-book .slide-header {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Chapter / Section Headings */
+body.render-mode-book .slide-title {
+  font-family: inherit !important;
+  font-size: 1.8rem !important;
+  font-weight: bold !important;
+  color: #000 !important;
+  margin-bottom: 1rem !important;
+}
+
+body.render-mode-book .slide-body h1,
+body.render-mode-book .slide-body h2,
+body.render-mode-book .slide-body h3 {
+  font-weight: bold !important;
+  color: #000 !important;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+body.render-mode-book .slide-breadcrumbs,
+body.render-mode-book .slide-footer {
+  display: none !important;
+}
+
+body.render-mode-book .slide-body {
+  overflow: visible !important;
+  height: auto !important;
+  flex: none !important;
+  text-align: justify !important;
+}
+
+/* LaTeX-style code blocks (no background, no border, monospace) */
+body.render-mode-book .code-block-container {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 1.5rem 0 1.5rem 1.5rem !important; /* simple indent */
+  padding: 0 !important;
+}
+
+body.render-mode-book .code-block-container::before {
+  display: none !important; /* Hide language badges for pure LaTeX look */
+}
+
+body.render-mode-book pre {
+  font-family: "Computer Modern Typewriter", "CMU Typewriter Text", "Courier New", Courier, monospace !important;
+  font-size: 0.95rem !important;
+  color: #000 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: visible !important;
+}
+
+/* Lists */
+body.render-mode-book ul,
+body.render-mode-book ol {
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+  padding-left: 2rem !important;
+}
+
+body.render-mode-book li {
+  margin-bottom: 0.5rem !important;
+}
+
+/* Simple Tables */
+body.render-mode-book table {
+  border-collapse: collapse !important;
+  margin: 2rem auto !important;
+  width: max-content !important;
+}
+
+body.render-mode-book th,
+body.render-mode-book td {
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  text-align: left !important;
+}
+
+body.render-mode-book thead th {
+  border-top: 1px solid #000 !important;
+  border-bottom: 1px solid #000 !important;
+  font-weight: bold !important;
+}
+
+body.render-mode-book tbody tr:last-child td {
+  border-bottom: 1px solid #000 !important;
+}
+
+/* Modal UI Theme Match */
+body.render-mode-book .command-palette-content {
+  background: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 2px !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+}
+
+body.render-mode-book .command-palette-content * {
+  color: #000 !important;
+  font-family: inherit !important;
+}
+
+body.render-mode-book #renderModeSearchInput {
+  background: #fff !important;
+  border-bottom: 1px solid #ccc !important;
+}
+
+body.render-mode-book .theme-option-row:hover,
+body.render-mode-book .theme-option-row.focused {
+  background: #f5f5f5 !important;
+  border-left: 3px solid #000 !important;
+}
+/* Fix fullscreen code block bleeding */
+body.render-mode-book .code-block-container.fullscreen,
+body.render-mode-book .code-block-container.fullscreen pre {
+  background: #ffffff !important;
+  color: #000000 !important;
+  margin: 0 !important;
+  padding: 1.5rem !important;
+  border-radius: 0 !important;
+}
+body.render-mode-book .code-block-container.fullscreen::before { display: none !important; }
+
+/* Ensure code actions do not overlap the code text in book mode since we removed padding */
+body.render-mode-book .code-block-container {
+  padding-top: 2rem !important; /* give space for the icons */
+}
+body.render-mode-book .code-block-container.fullscreen {
+  padding-top: 3.5rem !important; /* more space when fullscreen */
+}
+
+/* ---------------------------------------------------
+   DARK THEME SUPPORT FOR BOOK MODE
+   --------------------------------------------------- */
+html[data-theme="dark"]:has(body.render-mode-book),
+html[data-theme="dark"] body.render-mode-book {
+  background: #111111 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book .deck-container {
+  color: #e4e4e4 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book .slide-title,
+html[data-theme="dark"] body.render-mode-book .slide-body h1,
+html[data-theme="dark"] body.render-mode-book .slide-body h2,
+html[data-theme="dark"] body.render-mode-book .slide-body h3 {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] body.render-mode-book pre {
+  color: #e4e4e4 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book thead th {
+  border-top: 1px solid #777 !important;
+  border-bottom: 1px solid #777 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book tbody tr:last-child td {
+  border-bottom: 1px solid #777 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book .command-palette-content {
+  background: #1e1e1e !important;
+  border: 1px solid #444 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book .command-palette-content * {
+  color: #e4e4e4 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book #renderModeSearchInput {
+  background: #1e1e1e !important;
+  border-bottom: 1px solid #444 !important;
+}
+
+html[data-theme="dark"] body.render-mode-book .theme-option-row:hover,
+html[data-theme="dark"] body.render-mode-book .theme-option-row.focused {
+  background: #2a2a2a !important;
+  border-left: 3px solid #fff !important;
+}
+
+/* Fix fullscreen code block bleeding for dark mode */
+html[data-theme="dark"] body.render-mode-book .code-block-container.fullscreen,
+html[data-theme="dark"] body.render-mode-book .code-block-container.fullscreen pre {
+  background: #111111 !important;
+  color: #e4e4e4 !important;
+}

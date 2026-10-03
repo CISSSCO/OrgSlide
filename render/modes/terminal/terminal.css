@@ -1,0 +1,209 @@
+/* --------------------------------------------------------------------------
+   TERMINAL MODE (.render-mode-terminal)
+   Retro CLI hacker style with glowing text
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+html:has(body.render-mode-terminal),
+body.render-mode-terminal {
+  overflow-y: auto !important;
+  height: auto !important;
+  background: #050505 !important;
+}
+
+body.render-mode-terminal .deck-container {
+  display: block !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 2rem 4% !important;
+  color: #00ff00 !important;
+  font-family: 'VT323', "Courier New", Courier, monospace !important;
+}
+
+body.render-mode-terminal .slide {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  background: #0a0a0a !important;
+  padding: 2.5rem !important;
+  border: 1px solid #00ff00 !important;
+  border-radius: 0 !important;
+  margin-bottom: 3rem !important;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.15), inset 0 0 10px rgba(0, 255, 0, 0.05) !important;
+}
+
+body.render-mode-terminal .slide.active {
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.4), inset 0 0 15px rgba(0, 255, 0, 0.1) !important;
+}
+
+body.render-mode-terminal .slide::before {
+  content: "USER@ORGSLIDE:~/$ ./render_slide.sh";
+  display: block;
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  color: inherit;
+  margin-bottom: 2rem;
+  opacity: 0.7;
+}
+
+body.render-mode-terminal .slide-header {
+  border-bottom: 1px dashed currentcolor !important;
+  padding-bottom: 1rem !important;
+  margin-bottom: 2rem !important;
+}
+
+body.render-mode-terminal .slide-title {
+  font-family: 'VT323', "Courier New", Courier, monospace !important;
+  font-size: 2.5rem !important;
+  color: inherit !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 5px currentcolor !important;
+}
+
+body.render-mode-terminal .slide-breadcrumbs,
+body.render-mode-terminal .slide-footer {
+  display: none !important;
+}
+
+body.render-mode-terminal .slide-body {
+  overflow: visible !important;
+  height: auto !important;
+  flex: none !important;
+  font-size: 1.4rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Force terminal colors, overriding whatever the global theme says */
+body.render-mode-terminal * {
+  color: #00ff00 !important;
+  border-color: #00ff00 !important;
+}
+
+body.render-mode-terminal .code-block-container {
+  border: 1px dashed currentcolor !important;
+  box-shadow: none !important;
+  margin-bottom: 1.5rem !important;
+}
+
+body.render-mode-terminal .code-block-container::before {
+  background: #00ff00 !important;
+  color: #000 !important;
+  border-bottom: 1px dashed #00ff00 !important;
+}
+
+body.render-mode-terminal pre {
+  background: #000000 !important;
+}
+
+body.render-mode-terminal a {
+  text-decoration: underline !important;
+  text-decoration-style: dashed !important;
+}
+
+/* =====================================================================
+   ADAPT TO LIGHT MODE
+   If the user specifically switched their app to Light Mode, 
+   invert the terminal to a "Light Terminal" (like a classic white CLI)
+   ===================================================================== */
+html[data-theme="light"]:has(body.render-mode-terminal),
+html[data-theme="light"] body.render-mode-terminal {
+  background: #ffffff !important;
+}
+
+html[data-theme="light"] body.render-mode-terminal * {
+  color: #111111 !important;
+  border-color: #333333 !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="light"] body.render-mode-terminal .slide {
+  background: #f8f8f8 !important;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1) !important;
+  border: 1px solid #333 !important;
+}
+
+html[data-theme="light"] body.render-mode-terminal .slide.active {
+  box-shadow: 0 0 20px rgba(0,0,0,0.2) !important;
+  border: 2px solid #000 !important;
+}
+
+html[data-theme="light"] body.render-mode-terminal pre {
+  background: #ffffff !important;
+}
+
+html[data-theme="light"] body.render-mode-terminal .code-block-container::before {
+  background: #333 !important;
+  color: #fff !important;
+  border-bottom: 1px dashed #333 !important;
+}
+
+/* Modal UI Theme Match */
+body.render-mode-terminal .command-palette-content {
+  background: #000 !important;
+  border: 1px solid #00ff00 !important;
+  border-radius: 0 !important;
+}
+
+body.render-mode-terminal .command-palette-content * {
+  color: #00ff00 !important;
+  font-family: 'VT323', monospace !important;
+}
+
+body.render-mode-terminal #renderModeSearchInput {
+  background: #000 !important;
+  border-bottom: 1px dashed #00ff00 !important;
+}
+
+body.render-mode-terminal .theme-option-row:hover,
+body.render-mode-terminal .theme-option-row.focused {
+  background: #0a0a0a !important;
+  border-left: 2px solid #00ff00 !important;
+}
+
+/* Light mode terminal modal */
+html[data-theme="light"] body.render-mode-terminal .command-palette-content {
+  background: #fff !important;
+  border: 1px solid #333 !important;
+}
+html[data-theme="light"] body.render-mode-terminal .command-palette-content * {
+  color: #111 !important;
+}
+html[data-theme="light"] body.render-mode-terminal #renderModeSearchInput {
+  background: #fff !important;
+  border-bottom: 1px dashed #333 !important;
+}
+html[data-theme="light"] body.render-mode-terminal .theme-option-row:hover,
+html[data-theme="light"] body.render-mode-terminal .theme-option-row.focused {
+  background: #f0f0f0 !important;
+  border-left: 2px solid #333 !important;
+}
+
+/* Code wrapping for export */
+body.render-mode-terminal pre {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: visible !important;
+}
+
+/* Fix fullscreen code block bleeding */
+body.render-mode-terminal .code-block-container.fullscreen {
+  background: #000000 !important;
+  margin: 0 !important;
+  padding: 1.5rem !important;
+}
+body.render-mode-terminal .code-block-container.fullscreen pre {
+  background: #000000 !important;
+  margin: 0 !important;
+}
+html[data-theme="light"] body.render-mode-terminal .code-block-container.fullscreen,
+html[data-theme="light"] body.render-mode-terminal .code-block-container.fullscreen pre {
+  background: #ffffff !important;
+}
