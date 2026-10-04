@@ -1,0 +1,328 @@
+    /* Full-screen width presentation container */
+    .deck-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--slide-bg);
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      display: none; /* hidden until loaded */
+      flex-direction: column;
+    }
+
+    /* Slide element */
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 3rem 5rem 2.5rem 5rem;
+      background: var(--slide-bg);
+      opacity: 0;
+      visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      overflow-y: hidden; /* Scroll goes to slide-body */
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* PowerPoint Standard Header Area */
+    .slide-header {
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .slide-breadcrumbs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .breadcrumb-btn {
+      background: rgba(2, 132, 199, 0.08);
+      color: var(--secondary);
+      border: 1px solid rgba(2, 132, 199, 0.15);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      transition: all 0.2s;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .breadcrumb-btn:hover {
+      background: rgba(2, 132, 199, 0.2);
+      border-color: rgba(2, 132, 199, 0.4);
+    }
+
+    .breadcrumb-separator {
+      color: #cbd5e1;
+      font-size: 0.75rem;
+    }
+
+    .slide-title {
+      font-family: var(--font-heading);
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    /* Slide Body */
+    .slide-body {
+      flex: 1;
+      display: block; /* Standard flow so floated images wrap text properly */
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      overflow-y: auto;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .slide-body::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .slide-body p {
+      margin-bottom: 0.9rem;
+    }
+
+    /* PowerPoint bullet lists */
+    /* PowerPoint bullet and numbered lists */
+    ul.ppt-list {
+      list-style-type: square;
+      padding-left: 2rem;
+      margin-top: 0.4rem;
+      margin-bottom: 1.1rem;
+    }
+
+    ol.ppt-list {
+      list-style-type: decimal;
+      padding-left: 2rem;
+      margin-top: 0.4rem;
+      margin-bottom: 1.1rem;
+    }
+
+    ul.ppt-list > li,
+    ol.ppt-list > li {
+      margin-bottom: 0.55rem;
+      line-height: 1.6;
+    }
+
+    ul.ppt-list ul.ppt-list,
+    ol.ppt-list ul.ppt-list,
+    ul.ppt-list ol.ppt-list,
+    ol.ppt-list ol.ppt-list {
+      margin-top: 0.35rem;
+      margin-bottom: 0.35rem;
+      padding-left: 1.8rem;
+    }
+
+    ul.ppt-list ul.ppt-list {
+      list-style-type: circle;
+    }
+
+    /* PowerPoint Footer */
+    .slide-footer {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: auto;
+      flex-shrink: 0;
+      user-select: none; /* Prevents text selection flickering */
+    }
+
+    body.theme-dark .slide-footer {
+      border-color: #313244;
+      color: var(--text-muted);
+    }
+
+    .footer-social-links {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .footer-social-links a,
+    .footer-btn,
+    .footer-nav-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: #9ca3af;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      line-height: 1;
+      text-decoration: none;
+      width: 20px;
+      height: 20px;
+      box-shadow: none;
+    }
+
+    body.theme-dark .footer-social-links a,
+    body.theme-dark .footer-btn,
+    body.theme-dark .footer-nav-btn {
+      color: var(--text-muted);
+    }
+
+    .footer-social-links a:hover,
+    .footer-btn:hover,
+    .footer-nav-btn:hover {
+      color: var(--primary);
+      transform: scale(1.15);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .footer-social-links a svg,
+    .footer-btn svg,
+    .footer-nav-btn svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .slide-counter {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      font-weight: 500;
+      margin: 0 0.15rem;
+      cursor: pointer;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .slide-counter:hover {
+      color: var(--primary);
+      background: rgba(148, 163, 184, 0.15);
+    }
+
+    body.theme-dark .slide-counter {
+      color: var(--text-muted);
+    }
+
+    body.theme-dark .slide-counter:hover {
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Title Slide Specifics */
+    .title-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+    }
+
+    .main-title {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .main-subtitle {
+      font-size: 1.6rem;
+      color: var(--secondary);
+      font-weight: 600;
+      margin-bottom: 2.5rem;
+    }
+
+    .main-meta {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      border-top: 1px solid #d1d5db;
+      padding-top: 1.8rem;
+      width: 60%;
+    }
+
+    /* Small, Subtle Upload Icon Trigger Button (Top Right) */
+    .top-controls {
+      position: fixed;
+      top: 0.75rem;
+      right: 1rem;
+      z-index: 1000;
+      display: none;
+      gap: 0.2rem;
+    }
+
+    .upload-icon-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      opacity: 0.2;
+    }
+
+    .upload-icon-btn:hover {
+      opacity: 1;
+      background: rgba(30, 41, 59, 0.9);
+      color: #ffffff;
+      border-color: rgba(148, 163, 184, 0.6);
+      transform: scale(1.05);
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+body.has-fullscreen-code .top-controls {
+  display: none !important;
+}
+
+/* Hidden Slides toggle feature */
+.hidden-slide {
+  display: none !important;
+}

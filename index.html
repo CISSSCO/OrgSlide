@@ -11,6 +11,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -35,11 +48,61 @@
       <button class="close-help-btn" onclick="toggleHelp()">Awesome, got it!</button>
     </div>
   </div>
+  
+  <!-- Folder Explorer Modal -->
+  <div id="folderModal" class="help-modal">
+    <div class="help-content" style="max-width: 800px; width: 95%; max-height: 85vh; display: flex; flex-direction: column;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <h2 style="margin: 0;">Workspace Explorer</h2>
+        <button class="close-help-btn" style="margin: 0;" onclick="window.FolderManager.hideModal()">Close</button>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">All uploaded folders and files are securely stored in your browser's local storage for this session.</p>
+      
+      <div id="folderContentsList" style="flex: 1; overflow-y: auto; text-align: left; padding-right: 0.5rem;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Go To Slide Modal -->
+  <div id="goToSlideModal" class="help-modal">
+    <div class="help-content" style="max-width: 380px; text-align: center;">
+      <h2 style="margin-bottom: 0.5rem;">Go to Slide</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+        Enter slide number (1 – <span id="goToMaxSlide">1</span>):
+      </p>
+      <form onsubmit="event.preventDefault(); window.submitGoToSlide();" style="display: flex; gap: 0.6rem; justify-content: center; align-items: center;">
+        <input type="number" id="goToSlideInput" min="1" style="width: 110px; font-size: 1.25rem; font-weight: bold; text-align: center; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--code-border); background: var(--code-bg); color: var(--text-main); font-family: var(--font-mono); outline: none;" />
+        <button type="submit" class="load-btn" style="padding: 0.6rem 1.4rem; font-size: 1rem;">Go</button>
+      </form>
+      <button class="close-help-btn" style="margin-top: 1.2rem; padding: 0.6rem;" onclick="window.closeGoToSlideModal()">Cancel</button>
+    </div>
+  </div>
+
   <!-- Landing / Home Page -->
-  <div id="landingPage" class="landing-page">
+  <div id="landingPage" class="landing-page active">
     <div class="landing-content">
       <h1>OrgSlide</h1>
       <p style="margin-bottom: 2rem;">A lightweight, responsive presentation renderer for Org-mode files.</p>
+      
+      <div style="margin-bottom: 2rem; display: flex; gap: 1rem; justify-content: center;">
+        <button onclick="const fi = document.getElementById('fileInput'); if (fi) { fi.value = ''; fi.click(); }" class="load-btn">Upload .org File</button>
+        <button onclick="document.getElementById('folderInput').click()" class="load-btn" title="Upload a folder containing your .org file and local images">Upload Folder</button>
+        <button id="viewFolderBtn" onclick="window.FolderManager.showModal()" class="load-btn" style="display: none; background: #10b981;" title="View contents of the currently uploaded folder">View Uploaded Folder</button>
+        <button id="returnToSlidesBtn" class="load-btn" style="display: none; background: var(--secondary);" onclick="document.getElementById('landingPage').classList.remove('active')" title="Return to current presentation">Resume Presentation</button>
+        <button onclick="window.loadManual()" class="load-btn" style="background: var(--secondary);" title="Read OrgSlide Manual">Read Manual</button>
+      </div>
+
+      <!-- Recently Opened Documents -->
+      <div id="recentDocsContainer" class="recent-docs-container" style="display: none;">
+        <div class="recent-docs-header">
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.92rem; color: var(--text-muted);">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Recently Opened Documents</span>
+          </div>
+          <button class="clear-recent-btn" onclick="window.RecentDocs.clear()" title="Clear recent list">Clear List</button>
+        </div>
+        <div id="recentDocsList" class="recent-docs-list"></div>
+      </div>
       
       <div class="developer-info">
         <p>Developed by <strong>Cisco Ramon</strong></p>
@@ -53,7 +116,7 @@
         </p>
       </div>
 
-      <button class="load-btn" onclick="document.getElementById('fileInput').click()">Load Org File</button>
+      
     </div>
   </div>
 
@@ -97,7 +160,7 @@
         <line x1="12" y1="15" x2="12" y2="3"></line>
       </svg>
     </button>
-    <button class="upload-icon-btn" onclick="document.getElementById('fileInput').click()" title="Load / Replace .org File">
+    <button class="upload-icon-btn" onclick="document.getElementById('landingPage').classList.add('active'); if (window.RecentDocs) window.RecentDocs.render();" title="Open Main Menu (Home)">
       <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
       </svg>
@@ -107,6 +170,7 @@
       <svg class="icon-collapse-page" style="display:none;" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
     </button>
     <input type="file" id="fileInput" accept=".org,.txt" />
+    <input type="file" id="folderInput" webkitdirectory multiple style="display: none;" />
   </div>
 
   <!-- PowerPoint Slide Canvas -->
@@ -122,6 +186,10 @@
   <script src="js/end_slide.js"></script>
   <script src="js/theme_engine.js"></script>
   <script src="js/font_engine.js"></script>
+  <script src="js/folder_manager.js"></script>
+  <script src="js/interact.js"></script>
+  <script src="js/image_manager.js"></script>
+  <script src="js/recent_docs.js"></script>
   <script src="js/main.js"></script>
   <script src="js/tree_view.js"></script>
   <script src="js/logo_manager.js"></script>

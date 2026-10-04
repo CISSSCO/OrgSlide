@@ -14,7 +14,26 @@ let slides = [];
       let currentSize = parseFloat(pre.style.fontSize) || parseFloat(window.getComputedStyle(pre).fontSize);
       let newSize = currentSize + (direction * 2);
       pre.style.setProperty('font-size', newSize + 'px', 'important');
+      
+      // Save globally for all code blocks or specific one? It's easier to apply globally or by index
+      // Let's save a map by index
+      let fonts = JSON.parse(sessionStorage.getItem('orgSlide_codeFonts') || '{}');
+      const blocks = Array.from(document.querySelectorAll('pre'));
+      const index = blocks.indexOf(pre);
+      fonts[index] = newSize;
+      sessionStorage.setItem('orgSlide_codeFonts', JSON.stringify(fonts));
     }
+    
+    // Function to restore code fonts
+    window.restoreCodeFonts = function() {
+      let fonts = JSON.parse(sessionStorage.getItem('orgSlide_codeFonts') || '{}');
+      const blocks = Array.from(document.querySelectorAll('pre'));
+      for (let i in fonts) {
+         if (blocks[i]) {
+            blocks[i].style.setProperty('font-size', fonts[i] + 'px', 'important');
+         }
+      }
+    };
 
     function resetCodeFontSize(btn) {
       const container = btn.closest('.code-block-container');
@@ -61,20 +80,22 @@ let slides = [];
       document.body.classList.toggle('has-fullscreen-code', isFullscreen);
       
       if (isFullscreen) {
-        iconExpand.style.display = 'none';
-        iconCollapse.style.display = 'block';
+        if (iconExpand) iconExpand.style.setProperty('display', 'none', 'important');
+        if (iconCollapse) iconCollapse.style.setProperty('display', 'block', 'important');
         btn.setAttribute('title', 'Exit Fullscreen');
       } else {
-        iconExpand.style.display = 'block';
-        iconCollapse.style.display = 'none';
+        if (iconExpand) iconExpand.style.setProperty('display', 'block', 'important');
+        if (iconCollapse) iconCollapse.style.setProperty('display', 'none', 'important');
         btn.setAttribute('title', 'Toggle Fullscreen');
       }
     }
 
     // Wrap raw code string with UI actions
     function generateCodeBlockHTML(codeLang, rawCode) {
+      const displayLang = codeLang === 'plaintext' ? 'text' : codeLang;
       return `
         <div class="code-block-container">
+          <div class="code-language-badge">${displayLang}</div>
           <div class="code-actions">
             <button class="code-action-btn font-size-btn" title="Reset Font Size" onclick="resetCodeFontSize(this)">
               <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
@@ -145,6 +166,13 @@ let slides = [];
 
         let dateMatch = line.match(/^#\+DATE:\s*(.+)$/i);
         if (dateMatch) { docDate = dateMatch[1].trim(); continue; }
+
+        let endMsgMatch = line.match(/^#\+(?:END_MESSAGE|THANK_YOU|THANKS):\s*(.+)$/i);
+        if (endMsgMatch) {
+          if (!window.socialLinksData) window.socialLinksData = {};
+          window.socialLinksData.endMessage = endMsgMatch[1].trim();
+          continue;
+        }
 
         // Skip Reveal.js attributes, standard options, and unhandled metadata
         // We only want to keep #+begin_, #+end_, and #+RESULTS: which are handled later
@@ -268,18 +296,24 @@ let slides = [];
       let codeBuffer = [];
       let inColonBlock = false;
       let colonBuffer = [];
-      let inList = false;
       let inTable = false;
       let tableRows = [];
+      let listStack = []; // [{ type: 'ul' | 'ol', indent: number }]
+
+      const closeList = () => {
+        while (listStack.length > 0) {
+          const popped = listStack.pop();
+          html += popped.type === 'ol' ? "</li></ol>" : "</li></ul>";
+        }
+      };
 
       for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
 
         // Code block begin: #+begin_src bash or #+begin_example
-        let srcStart = line.match(/^#\+begin_src(?:\s+([a-zA-Z0-9_-]+))?/i);
-        let exStart = line.match(/^#\+begin_example/i);
+        let srcStart = line.match(/^\s*#\+begin_src(?:\s+([a-zA-Z0-9_-]+))?/i);
+        let exStart = line.match(/^\s*#\+begin_example/i);
         if (srcStart || exStart) {
-          if (inList) { html += "</ul>"; inList = false; }
           if (inTable) { html += renderTable(tableRows); tableRows = []; inTable = false; }
           if (inColonBlock) {
             html += generateCodeBlockHTML("plaintext", colonBuffer.join('\n'));
@@ -293,7 +327,7 @@ let slides = [];
         }
 
         // Code block end: #+end_src or #+end_example
-        if (line.match(/^#\+end_src/i) || line.match(/^#\+end_example/i)) {
+        if (line.match(/^\s*#\+end_src/i) || line.match(/^\s*#\+end_example/i)) {
           inCodeBlock = false;
           let rawCode = codeBuffer.join('\n');
           html += generateCodeBlockHTML(codeLang, rawCode);
@@ -308,7 +342,6 @@ let slides = [];
 
         // #+RESULTS:
         if (line.trim().match(/^#\+RESULTS:/i)) {
-          if (inList) { html += "</ul>"; inList = false; }
           if (inTable) { html += renderTable(tableRows); tableRows = []; inTable = false; }
           if (inColonBlock) {
             html += generateCodeBlockHTML("plaintext", colonBuffer.join('\n'));
@@ -320,10 +353,9 @@ let slides = [];
         }
 
         // Colon blocks (literal lines)
-        let colonMatch = line.match(/^:\s?(.*)$/);
+        let colonMatch = line.match(/^\s*:\s?(.*)$/);
         if (colonMatch) {
           if (!inColonBlock) {
-            if (inList) { html += "</ul>"; inList = false; }
             if (inTable) { html += renderTable(tableRows); tableRows = []; inTable = false; }
             inColonBlock = true;
           }
@@ -338,7 +370,7 @@ let slides = [];
 
         // Tables in org-mode: | col1 | col2 |
         if (line.trim().startsWith('|')) {
-          if (inList) { html += "</ul>"; inList = false; }
+          closeList();
           if (!line.includes('---')) { // skip separator lines |---+---|
             tableRows.push(line);
           }
@@ -350,51 +382,111 @@ let slides = [];
           inTable = false;
         }
 
-        // Bullet lists: - item or + item
-        let listMatch = line.match(/^\s*[-+]\s+(.*)$/);
-        if (listMatch) {
-          if (!inList) {
-            html += `<ul class="ppt-list">`;
-            inList = true;
+        // List items: numbered (1. or 1)) or bullets (- or + or indented *)
+        let numMatch = line.match(/^(\s*)(\d+)[.)]\s+(.*)$/);
+        let bulletMatch = line.match(/^(\s*)([-+])\s+(.*)$/) || line.match(/^(\s{2,})\*\s+(.*)$/);
+
+        if (numMatch || bulletMatch) {
+          const currentIndent = (numMatch || bulletMatch)[1].length;
+          const itemType = numMatch ? 'ol' : 'ul';
+          const itemNum = numMatch ? parseInt(numMatch[2], 10) : null;
+          const itemContent = numMatch ? numMatch[3] : bulletMatch[3];
+
+          if (listStack.length === 0) {
+            if (itemType === 'ol') {
+              html += `<ol class="ppt-list"${itemNum !== null ? ` start="${itemNum}"` : ''}>`;
+            } else {
+              html += `<ul class="ppt-list">`;
+            }
+            listStack.push({ type: itemType, indent: currentIndent });
+            html += `<li${itemNum !== null ? ` value="${itemNum}"` : ''}>${formatInlineOrg(itemContent)}`;
+          } else {
+            const top = listStack[listStack.length - 1];
+
+            if (currentIndent > top.indent) {
+              // Indented nested list inside the current <li>
+              if (itemType === 'ol') {
+                html += `<ol class="ppt-list"${itemNum !== null ? ` start="${itemNum}"` : ''}>`;
+              } else {
+                html += `<ul class="ppt-list">`;
+              }
+              listStack.push({ type: itemType, indent: currentIndent });
+              html += `<li${itemNum !== null ? ` value="${itemNum}"` : ''}>${formatInlineOrg(itemContent)}`;
+            } else if (currentIndent < top.indent) {
+              // Un-indent: close nested lists until reaching currentIndent or lower
+              while (listStack.length > 0 && listStack[listStack.length - 1].indent > currentIndent) {
+                const popped = listStack.pop();
+                html += popped.type === 'ol' ? "</li></ol>" : "</li></ul>";
+              }
+
+              if (listStack.length > 0 && listStack[listStack.length - 1].indent === currentIndent) {
+                const currentTop = listStack[listStack.length - 1];
+                if (currentTop.type === itemType) {
+                  html += `</li><li${itemNum !== null ? ` value="${itemNum}"` : ''}>${formatInlineOrg(itemContent)}`;
+                } else {
+                  const popped = listStack.pop();
+                  html += popped.type === 'ol' ? "</li></ol>" : "</li></ul>";
+                  if (itemType === 'ol') {
+                    html += `<ol class="ppt-list"${itemNum !== null ? ` start="${itemNum}"` : ''}>`;
+                  } else {
+                    html += `<ul class="ppt-list">`;
+                  }
+                  listStack.push({ type: itemType, indent: currentIndent });
+                  html += `<li${itemNum !== null ? ` value="${itemNum}"` : ''}>${formatInlineOrg(itemContent)}`;
+                }
+              } else {
+                if (itemType === 'ol') {
+                  html += `<ol class="ppt-list"${itemNum !== null ? ` start="${itemNum}"` : ''}>`;
+                } else {
+                  html += `<ul class="ppt-list">`;
+                }
+                listStack.push({ type: itemType, indent: currentIndent });
+                html += `<li${itemNum !== null ? ` value="${itemNum}"` : ''}>${formatInlineOrg(itemContent)}`;
+              }
+            } else {
+              // Same indent
+              if (top.type === itemType) {
+                html += `</li><li${itemNum !== null ? ` value="${itemNum}"` : ''}>${formatInlineOrg(itemContent)}`;
+              } else {
+                const popped = listStack.pop();
+                html += popped.type === 'ol' ? "</li></ol>" : "</li></ul>";
+                if (itemType === 'ol') {
+                  html += `<ol class="ppt-list"${itemNum !== null ? ` start="${itemNum}"` : ''}>`;
+                } else {
+                  html += `<ul class="ppt-list">`;
+                }
+                listStack.push({ type: itemType, indent: currentIndent });
+                html += `<li${itemNum !== null ? ` value="${itemNum}"` : ''}>${formatInlineOrg(itemContent)}`;
+              }
+            }
           }
-          html += `<li>${formatInlineOrg(listMatch[1])}</li>`;
           continue;
         }
 
-        // Numbered lists: 1. item
-        let numMatch = line.match(/^\s*(\d+)\.\s+(.*)$/);
-        if (numMatch) {
-          if (!inList) {
-            html += `<ol class="ppt-list">`;
-            inList = true;
-          }
-          html += `<li>${formatInlineOrg(numMatch[2])}</li>`;
+        // Blank lines
+        if (line.trim().length === 0) {
           continue;
         }
 
-        // End of list if blank line
-        if (inList && line.trim() === '') {
-          html += inList === 'ol' ? `</ol>` : `</ul>`;
-          inList = false;
+        // If it's a regular text line, and we are in a list, check indentation
+        if (listStack.length > 0) {
+           if (line.match(/^\s+/)) {
+             html += `<p>${formatInlineOrg(line.trim())}</p>`;
+             continue;
+           } else {
+             closeList();
+           }
         }
 
-        if (line.trim().length > 0) {
-          html += `<p>${formatInlineOrg(line)}</p>`;
-        }
+        html += `<p>${formatInlineOrg(line)}</p>`;
       }
 
-      if (inList) html += "</ul>";
       if (inTable) html += renderTable(tableRows);
       
-      // If a colon block was open at end of section, close it
       if (inColonBlock && colonBuffer.length > 0) {
         html += generateCodeBlockHTML("plaintext", colonBuffer.join('\n'));
       }
-
-      // If a code block wasn't explicitly closed at end of section, close it
-      if (inCodeBlock && codeBuffer.length > 0) {
-        html += generateCodeBlockHTML(codeLang, codeBuffer.join('\n'));
-      }
+      closeList();
 
       return html;
     }
@@ -415,15 +507,138 @@ let slides = [];
       return html;
     }
 
+    function isImageSource(url) {
+      if (!url) return false;
+      const clean = url.trim();
+      if (clean.startsWith('data:image/')) return true;
+      if (clean.includes('avatars.githubusercontent.com') || 
+          clean.includes('images.unsplash.com') ||
+          clean.includes('img.shields.io')) return true;
+      
+      const pathOnly = clean.split('?')[0].split('#')[0];
+      if (/\.(jpeg|jpg|gif|png|svg|webp|bmp|ico)$/i.test(pathOnly)) return true;
+
+      const filename = pathOnly.split('/').pop();
+      if (window.ImageOverrides && (window.ImageOverrides[clean] || (filename && window.ImageOverrides[filename]))) return true;
+      if (window.LocalFolderImages && (window.LocalFolderImages[clean] || (filename && window.LocalFolderImages[filename]))) return true;
+
+      return false;
+    }
+
     function formatInlineOrg(str) {
       // *bold* -> <strong>
       str = str.replace(/\*([^\*]+)\*/g, '<strong>$1</strong>');
       // =code= or ~code~ -> <code>
       str = str.replace(/[=~]([^=~]+)[=~]/g, '<code>$1</code>');
-      // [[url][text]] -> link
-      str = str.replace(/\[\[([^\]]+)\]\[([^\]]+)\]\]/g, '<a href="$1" target="_blank" style="color: var(--secondary);">$2</a>');
-      // [[url]] -> link
-      str = str.replace(/\[\[([^\]]+)\]\]/g, '<a href="$1" target="_blank" style="color: var(--secondary);">$1</a>');
+      // [[url][text]] or [[url][image_url]] -> link
+      str = str.replace(/\[\[([^\]]+)\]\[([^\]]+)\]\]/g, (match, href, content) => {
+        const trimmed = content.trim();
+        if (isImageSource(trimmed)) {
+          const isAvatar = trimmed.includes('avatars.githubusercontent.com');
+          if (isAvatar) {
+            return `<div class="developer-avatar-container" style="float: left; margin: 0.3rem 2.2rem 1.2rem 0;"><a href="${href}" target="_blank" title="Click to view Cisco Ramon on GitHub" class="developer-avatar-link"><img src="${trimmed}" alt="Cisco Ramon" class="developer-avatar-img" style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: transform 0.2s; border: 3.5px solid var(--primary); display: block;" onmouseover="this.style.transform='scale(1.06)';" onmouseout="this.style.transform='scale(1)';" /></a></div>`;
+          }
+          return `<a href="${href}" target="_blank" title="Open ${href}" style="display: inline-block; cursor: pointer; text-decoration: none; margin: 0.3rem;"><img src="${trimmed}" alt="Link" style="vertical-align: middle; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" /></a>`;
+        }
+        return `<a href="${href}" target="_blank" style="color: var(--secondary);">${content}</a>`;
+      });
+      // [[url]] -> image or link
+      str = str.replace(/\[\[([^\]]+)\]\]/g, (match, url) => {
+        const cleanUrl = url.trim();
+        if (!isImageSource(cleanUrl)) {
+          return `<a href="${cleanUrl}" target="_blank" style="color: var(--secondary);">${cleanUrl}</a>`;
+        }
+
+        let src = cleanUrl;
+        let originalUrl = cleanUrl;
+        
+        if (src.toLowerCase().startsWith('file:')) {
+            src = src.substring(5);
+        }
+        
+        // Expansion for local paths
+        if (src.startsWith('~/')) {
+            src = '/home/cisco581b/' + src.substring(2);
+        }
+        if (src.startsWith('/')) {
+            src = 'file://' + src;
+        }
+
+        const filename = originalUrl.split('/').pop().split('?')[0].split('#')[0];
+        
+        // 1. Check window.ImageOverrides (supports originalUrl, clean path, or filename)
+        if (window.ImageOverrides) {
+          if (window.ImageOverrides[originalUrl]) {
+            src = window.ImageOverrides[originalUrl];
+          } else if (window.ImageOverrides[src]) {
+            src = window.ImageOverrides[src];
+          } else if (filename && window.ImageOverrides[filename]) {
+            src = window.ImageOverrides[filename];
+          }
+        }
+        
+        // 2. Check window.LocalFolderImages if not an overridden data: or web URL
+        if (!src.startsWith('data:') && !src.startsWith('http://') && !src.startsWith('https://')) {
+          if (window.LocalFolderImages) {
+            const blob = window.LocalFolderImages[originalUrl] || 
+                         window.LocalFolderImages[src] || 
+                         (filename ? window.LocalFolderImages[filename] : null);
+            if (blob && !src.startsWith('blob:')) {
+              src = URL.createObjectURL(blob);
+            }
+          }
+        }
+                        
+        // Treat confirmed image [[url]] tags as images with interactive container
+        return `<div class="org-image-container align-center">
+          <div class="image-toolbar">
+            <button onclick="window.ImageManager.setAlignment(this, 'left')" data-align="left" title="Align Left (Float Left)">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="13" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <button onclick="window.ImageManager.setAlignment(this, 'center')" data-align="center" class="active" title="Align Center">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <button onclick="window.ImageManager.setAlignment(this, 'middle')" data-align="middle" title="Middle / Inline">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="6" width="16" height="12" rx="2"></rect><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line></svg>
+            </button>
+            <button onclick="window.ImageManager.setAlignment(this, 'right')" data-align="right" title="Align Right (Float Right)">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="11" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button onclick="window.ImageManager.scaleImage(this, -0.15)" title="Scale Smaller (-15%)">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button onclick="window.ImageManager.scaleImage(this, 0.15)" title="Scale Larger (+15%)">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button onclick="window.ImageManager.setWidthPreset(this, '100%')" title="Full Width (100%)">
+              <span style="font-size: 10px; font-weight: bold; letter-spacing: -0.5px;">100%</span>
+            </button>
+            <button onclick="window.ImageManager.resetSize(this)" title="Reset Original Size">
+              <span style="font-size: 10px; font-weight: bold;">1:1</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button onclick="window.Interact.enableFreeMode(this)" title="Free Move / 8-Way Resize">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polyline points="5 9 2 12 5 15"></polyline><polyline points="9 5 12 2 15 5"></polyline><polyline points="19 9 22 12 19 15"></polyline><polyline points="9 19 12 22 15 19"></polyline><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line></svg>
+            </button>
+            <button onclick="window.ImageManager.toggleLock(this)" data-action="lock" title="Lock / Fix Position">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+            </button>
+            <button onclick="window.ImageManager.toggleFullscreen(this)" title="Zoom Fullscreen">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button onclick="window.ImageManager.handleBrokenImage(this.closest('.org-image-container').querySelector('img'))" title="Fix Broken Link / Manually Override Image" style="color: var(--secondary);">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+            </button>
+            <button onclick="window.ImageManager.removeOverride('${escapeHtml(originalUrl)}', this)" title="Reset Image Override" style="color: var(--accent);">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+          <img src="${src}" alt="${escapeHtml(url)}" data-original-url="${escapeHtml(originalUrl)}" class="org-image" referrerpolicy="no-referrer" />
+          <div class="inline-resize-handle" title="Drag to resize"></div>
+        </div>`;
+      });
       return str;
     }
 
@@ -436,8 +651,10 @@ let slides = [];
 
     // Render slides into the PowerPoint container and apply syntax highlighting
     function renderDeck(slideData) {
+      const returnBtn = document.getElementById('returnToSlidesBtn');
+      if (returnBtn) returnBtn.style.display = 'inline-block';
       window.globalSlideData = slideData; // Expose for tree_view.js
-      document.getElementById('landingPage').style.display = 'none';
+      document.getElementById('landingPage').style.display = ''; document.getElementById('landingPage').classList.remove('active');
       document.querySelector('.top-controls').style.display = 'flex';
       deckContainer.style.display = 'flex';
 
@@ -467,16 +684,26 @@ let slides = [];
               ${window.generateSocialLinksHtml ? window.generateSocialLinksHtml() : ''}
             </div>
             <div class="footer-right">
-              <button class="help-hint-inline" onclick="toggleHelp()" title="Keyboard Shortcuts">
-                <kbd>Alt</kbd>+<kbd>?</kbd>
+              <button class="footer-btn" onclick="loadManual()" title="OrgSlide Documentation">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
               </button>
-              <span class="slide-counter">Slide ${idx + 1} of ${total}</span>
+              <button class="footer-btn" onclick="toggleHelp()" title="Keyboard Shortcuts (Alt+?)">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </button>
+              <span class="slide-counter" onclick="window.openGoToSlideModal()" title="Go to slide (Alt+G)">Slide ${idx + 1} of ${total}</span>
               <div class="footer-nav">
-                <button class="footer-nav-btn" onclick="prev()" title="Previous Slide (Alt+K)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <button class="footer-btn" onclick="prev()" title="Previous Slide (Alt+K)">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
-                <button class="footer-nav-btn" onclick="next()" title="Next Slide (Alt+J)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <button class="footer-btn" onclick="next()" title="Next Slide (Alt+J)">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
               </div>
             </div>
@@ -524,11 +751,35 @@ let slides = [];
       }
 
       slides = document.querySelectorAll('.slide');
-      currentSlide = 0;
-      updateSlide(0);
+
+      // 1. Determine starting slide before calling updateSlide so hash is never clobbered
+      let initialSlide = 0;
+      const initialHash = window.location.hash.replace('#', '');
+      const parsedHash = parseInt(initialHash, 10);
+      let savedSlide = NaN;
+      try {
+        savedSlide = parseInt(sessionStorage.getItem('orgSlide_currentSlide') || localStorage.getItem('orgSlide_currentSlide'), 10);
+      } catch(e) {}
+
+      if (!isNaN(parsedHash) && parsedHash >= 1 && parsedHash <= slides.length) {
+        initialSlide = parsedHash - 1;
+      } else if (!isNaN(savedSlide) && savedSlide >= 0 && savedSlide < slides.length) {
+        initialSlide = savedSlide;
+      }
+
+      currentSlide = initialSlide;
+      window.currentSlide = initialSlide;
+      updateSlide(initialSlide);
 
       if (window.LogoManager) {
         window.LogoManager.applyLogos();
+      }
+      
+      if (window.ImageManager && window.ImageManager.restoreLayouts) {
+        window.ImageManager.restoreLayouts();
+      }
+      if (window.restoreCodeFonts) {
+        window.restoreCodeFonts();
       }
     }
 
@@ -547,15 +798,31 @@ let slides = [];
 
       currentSlide = index;
       window.currentSlide = index;
-      window.location.hash = `#${currentSlide + 1}`;
+      
+      const newHash = `#${currentSlide + 1}`;
+      if (window.location.hash !== newHash) {
+        window.location.hash = newHash;
+      }
+      try {
+        sessionStorage.setItem('orgSlide_currentSlide', index);
+        localStorage.setItem('orgSlide_currentSlide', index);
+      } catch(e) {}
     }
 
     function next() {
-      if (currentSlide < slides.length - 1) updateSlide(currentSlide + 1);
+      let nextIndex = currentSlide + 1;
+      while (nextIndex < slides.length && slides[nextIndex].classList.contains('hidden-slide')) {
+         nextIndex++;
+      }
+      if (nextIndex < slides.length) updateSlide(nextIndex);
     }
 
     function prev() {
-      if (currentSlide > 0) updateSlide(currentSlide - 1);
+      let prevIndex = currentSlide - 1;
+      while (prevIndex >= 0 && slides[prevIndex].classList.contains('hidden-slide')) {
+         prevIndex--;
+      }
+      if (prevIndex >= 0) updateSlide(prevIndex);
     }
 
     function toggleHelp() {
@@ -614,15 +881,7 @@ let slides = [];
       if (e.altKey && (key === 'g' || e.code === 'KeyG')) {
         e.preventDefault();
         e.stopPropagation();
-        const target = prompt(`Enter slide number (1 - ${slides.length}):`);
-        if (target) {
-          const pageNum = parseInt(target, 10);
-          if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= slides.length) {
-            updateSlide(pageNum - 1);
-          } else {
-            alert(`Invalid slide number. Please enter a number between 1 and ${slides.length}.`);
-          }
-        }
+        window.openGoToSlideModal();
         return;
       }
 
@@ -652,6 +911,13 @@ let slides = [];
         e.preventDefault();
         updateSlide(slides.length - 1);
       } else if (e.key === 'Escape') {
+        const goToModal = document.getElementById('goToSlideModal');
+        if (goToModal && goToModal.classList.contains('active')) {
+          e.preventDefault();
+          window.closeGoToSlideModal();
+          return;
+        }
+
         const helpModal = document.getElementById('helpModal');
         if (helpModal && helpModal.classList.contains('active')) {
           e.preventDefault();
@@ -664,6 +930,45 @@ let slides = [];
         if (fullscreenBtn) {
           toggleFullscreenCode(fullscreenBtn);
         }
+      }
+    };
+
+    window.openGoToSlideModal = function() {
+      const modal = document.getElementById('goToSlideModal');
+      if (!modal) return;
+      const maxSpan = document.getElementById('goToMaxSlide');
+      const input = document.getElementById('goToSlideInput');
+      const total = slides && slides.length > 0 ? slides.length : 1;
+      if (maxSpan) maxSpan.textContent = total;
+      if (input) {
+        input.max = total;
+        input.value = currentSlide + 1;
+      }
+      modal.classList.add('active');
+      setTimeout(() => {
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      }, 50);
+    };
+
+    window.closeGoToSlideModal = function() {
+      const modal = document.getElementById('goToSlideModal');
+      if (modal) modal.classList.remove('active');
+    };
+
+    window.submitGoToSlide = function() {
+      const input = document.getElementById('goToSlideInput');
+      if (!input) return;
+      const val = parseInt(input.value, 10);
+      const total = slides && slides.length > 0 ? slides.length : 1;
+      if (!isNaN(val) && val >= 1 && val <= total) {
+        updateSlide(val - 1);
+        window.closeGoToSlideModal();
+      } else {
+        input.focus();
+        input.select();
       }
     };
 
@@ -718,6 +1023,51 @@ let slides = [];
     // Use standard bubbling so we don't interfere with extensions when they process normal keys
     window.addEventListener('keydown', handleKeyNav);
 
+    // Folder Upload Handler (Delegates to FolderManager)
+    const folderInput = document.getElementById('folderInput');
+    if (folderInput) {
+      folderInput.addEventListener('change', function(e) {
+        if (window.FolderManager) {
+          window.FolderManager.handleUpload(e);
+        }
+      });
+    }
+
+    // Reset document presentation state on new upload (starts from first slide, clears stale image overrides/layouts)
+    window.resetPresentationState = function() {
+      try {
+        sessionStorage.removeItem('orgSlide_currentSlide');
+        localStorage.removeItem('orgSlide_currentSlide');
+      } catch(e) {}
+      window.location.hash = '#1';
+      currentSlide = 0;
+      window.currentSlide = 0;
+
+      // Clear image layouts & stale link overrides for the previous presentation
+      try {
+        sessionStorage.removeItem('orgSlide_imageLayouts');
+        localStorage.removeItem('orgSlide_imageLayouts');
+      } catch(e) {}
+
+      window.ImageOverrides = {};
+      try {
+        sessionStorage.removeItem('orgSlide_imageOverrides');
+        localStorage.removeItem('orgSlide_imageOverrides');
+      } catch(e) {}
+
+      if (window.FolderManager && window.FolderManager.db) {
+        try {
+          const tx = window.FolderManager.db.transaction('imageOverrides', 'readwrite');
+          tx.objectStore('imageOverrides').clear();
+        } catch(e) {}
+      }
+
+      try {
+        sessionStorage.removeItem('orgSlide_codeFonts');
+        localStorage.removeItem('orgSlide_codeFonts');
+      } catch(e) {}
+    };
+
     // File Upload Handler (Parses any uploaded .org or .txt file)
     fileInput.addEventListener('change', function(e) {
       const file = e.target.files[0];
@@ -726,11 +1076,26 @@ let slides = [];
       const reader = new FileReader();
       reader.onload = function(evt) {
         const text = evt.target.result;
-        sessionStorage.setItem('orgSlide_savedText', text);
+        
+        // Fresh upload: reset to slide 1 and clear previous document state
+        if (window.resetPresentationState) {
+          window.resetPresentationState();
+        }
+
+        try {
+          sessionStorage.setItem('orgSlide_savedText', text);
+          localStorage.setItem('orgSlide_savedText', text);
+        } catch(err) {}
+
+        if (window.RecentDocs) {
+          window.RecentDocs.addDoc(file.name, text);
+        }
+
         const parsedSlides = parseOrgMode(text);
         renderDeck(parsedSlides);
       };
       reader.readAsText(file);
+      fileInput.value = ''; // Ensure re-uploading the same file triggers change
     });
 
     // Support drag and drop of any .org file onto the window
@@ -742,7 +1107,20 @@ let slides = [];
         const reader = new FileReader();
         reader.onload = function(evt) {
           const text = evt.target.result;
-          sessionStorage.setItem('orgSlide_savedText', text);
+
+          if (window.resetPresentationState) {
+            window.resetPresentationState();
+          }
+
+          try {
+            sessionStorage.setItem('orgSlide_savedText', text);
+            localStorage.setItem('orgSlide_savedText', text);
+          } catch(err) {}
+
+          if (window.RecentDocs) {
+            window.RecentDocs.addDoc(file.name, text);
+          }
+
           const parsedSlides = parseOrgMode(text);
           renderDeck(parsedSlides);
         };
@@ -751,17 +1129,31 @@ let slides = [];
     });
 
     // Auto-load on refresh
-    window.addEventListener('DOMContentLoaded', () => {
-      if (sessionStorage.getItem('orgSlide_theme') === 'dark') {
+    window.addEventListener('DOMContentLoaded', async () => {
+      const savedTheme = sessionStorage.getItem('orgSlide_theme') || localStorage.getItem('orgSlide_theme');
+      if (savedTheme === 'dark') {
         document.body.classList.add('theme-dark');
-      } else if (sessionStorage.getItem('orgSlide_theme') === 'light') {
+      } else if (savedTheme === 'light') {
         document.body.classList.remove('theme-dark');
       }
 
-      const savedText = sessionStorage.getItem('orgSlide_savedText');
+      // Wait for FolderManager and DB overrides to load before rendering!
+      if (window.FolderManager && window.FolderManager.init) {
+        try {
+          await window.FolderManager.init();
+        } catch(e) {
+          console.error("FolderManager init error:", e);
+        }
+      }
+
+      const savedText = sessionStorage.getItem('orgSlide_savedText') || localStorage.getItem('orgSlide_savedText');
       if (savedText) {
         const parsedSlides = parseOrgMode(savedText);
         renderDeck(parsedSlides);
+      }
+
+      if (window.RecentDocs) {
+        window.RecentDocs.render();
       }
     });
 
@@ -769,11 +1161,17 @@ let slides = [];
       handleHash();
     });
 
+    window.addEventListener('hashchange', () => {
+      handleHash();
+    });
+
     function handleHash() {
       const hash = window.location.hash.replace('#', '');
       const parsed = parseInt(hash, 10);
-      if (!isNaN(parsed) && parsed >= 1 && slides.length > 0 && parsed <= slides.length) {
-        updateSlide(parsed - 1);
+      if (!isNaN(parsed) && parsed >= 1 && slides && slides.length > 0 && parsed <= slides.length) {
+        if (currentSlide !== (parsed - 1)) {
+          updateSlide(parsed - 1);
+        }
       }
     }
 
@@ -781,3 +1179,37 @@ let slides = [];
 window.setExportedCurrentSlide = function(idx) {
   currentSlide = idx;
 };
+
+    window.loadManual = async function() {
+      try {
+        const response = await fetch('manual.org');
+        if (!response.ok) throw new Error("Failed to load manual.org");
+        const text = await response.text();
+        
+        // Hide landing page if active
+        document.getElementById('landingPage').classList.remove('active');
+        
+        // Ensure standard theme defaults for manual
+        document.body.className = '';
+        document.body.classList.add('theme-light');
+        document.body.classList.add('render-mode-slide');
+        
+        if (window.resetPresentationState) {
+          window.resetPresentationState();
+        }
+        try {
+          sessionStorage.setItem('orgSlide_savedText', text);
+          localStorage.setItem('orgSlide_savedText', text);
+        } catch(e) {}
+
+        if (window.RecentDocs) {
+          window.RecentDocs.addDoc("manual.org", text);
+        }
+
+        const slidesData = parseOrgMode(text);
+        window.globalSlideData = slidesData;
+        renderDeck(slidesData);
+      } catch (err) {
+        alert("Error loading the manual: " + err.message);
+      }
+    };

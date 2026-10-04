@@ -1,0 +1,440 @@
+    /* Org Results Label */
+    .org-results-label {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #059669; /* Emerald green */
+      background: #d1fae5;
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid #a7f3d0;
+    }
+
+    /* Tables */
+    table.ppt-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.6rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    table.ppt-table th {
+      background: #e2e8f0;
+      color: #0f172a;
+      text-align: left;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid #cbd5e1;
+      font-weight: 700;
+    }
+
+    body.theme-dark table.ppt-table th {
+      background: #313244;
+      color: #cdd6f4;
+      border-color: #45475a;
+    }
+
+    table.ppt-table td {
+      padding: 0.55rem 0.85rem;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+    }
+
+    body.theme-dark table.ppt-table td {
+      border-color: #313244;
+      color: #a6adc8;
+    }
+
+    table.ppt-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    body.theme-dark table.ppt-table tr:nth-child(even) td {
+      background: #181825;
+    }
+
+/* Image Formatting for Org files */
+.org-image {
+  max-width: 100%;
+  max-height: 42vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  display: block;
+  transition: box-shadow 0.2s ease;
+}
+
+/* Local Image Container */
+.org-image-container {
+  position: relative;
+  display: inline-block;
+  max-width: 600px;
+  margin: 1rem 0;
+  border-radius: 8px;
+  min-height: 24px;
+  min-width: 24px;
+  box-sizing: border-box;
+  transition: outline 0.15s ease;
+}
+
+.org-image-container.free-mode {
+  max-width: none !important;
+}
+
+.org-image-container.free-mode .org-image {
+  max-height: none !important;
+  width: 100%;
+  height: 100%;
+}
+
+.developer-avatar-container {
+  float: left;
+  margin: 0.2rem 2.2rem 1rem 0;
+}
+
+.developer-avatar-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+  border: 3.5px solid var(--primary);
+  display: block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.developer-avatar-link:hover .developer-avatar-img {
+  transform: scale(1.06);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.org-image-container:hover {
+  outline: 2px dashed rgba(59, 130, 246, 0.35);
+  outline-offset: 3px;
+}
+
+/* Alignments: content adjusts naturally around images */
+.org-image-container.align-left {
+  float: left;
+  margin: 0.4rem 1.8rem 1rem 0;
+  clear: left;
+  max-width: 60%;
+}
+
+.org-image-container.align-right {
+  float: right;
+  margin: 0.4rem 0 1rem 1.8rem;
+  clear: right;
+  max-width: 60%;
+}
+
+.org-image-container.align-center {
+  float: none;
+  margin: 1.5rem auto;
+  display: block;
+  clear: both;
+  text-align: center;
+}
+
+.org-image-container.align-center img.org-image {
+  margin: 0 auto !important;
+}
+
+.org-image-container.align-middle {
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0.5rem 1.2rem;
+  max-width: 48%;
+}
+
+/* Locked / Fixed Position State */
+.org-image-container.is-locked {
+  border: none !important;
+  outline: none !important;
+}
+
+.org-image-container.is-locked:hover {
+  outline: none !important;
+}
+
+.org-image-container.is-locked .resize-handle,
+.org-image-container.is-locked .inline-resize-handle,
+.org-image-container.is-locked .drag-handle {
+  display: none !important;
+}
+
+.org-image-container.is-locked img.org-image {
+  cursor: default !important;
+}
+
+/* Inline Corner Resize Handle (usable while floating/inline) */
+.inline-resize-handle {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 14px;
+  height: 14px;
+  background: var(--secondary, #3b82f6);
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  cursor: nwse-resize;
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.org-image-container:hover .inline-resize-handle {
+  opacity: 1;
+}
+
+.org-image-container.free-mode .inline-resize-handle,
+.org-image-container.is-locked .inline-resize-handle {
+  display: none !important;
+}
+
+.image-toolbar {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(15, 23, 42, 0.92);
+  padding: 0.3rem 0.45rem;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 30;
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.image-toolbar .toolbar-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255,255,255,0.2);
+  margin: 0 2px;
+}
+
+.org-image-container:hover .image-toolbar {
+  opacity: 1;
+}
+
+.image-toolbar button {
+  background: transparent;
+  color: #f8fafc;
+  border: none;
+  padding: 0.25rem 0.35rem;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+}
+
+.image-toolbar button:hover {
+  background: rgba(255,255,255,0.22);
+  transform: scale(1.06);
+}
+
+.image-toolbar button.active {
+  background: var(--secondary, #3b82f6) !important;
+  color: #ffffff !important;
+}
+
+
+.org-image-container img.org-image {
+  margin: 0 !important; /* Reset margin since container handles it */
+}
+
+.org-image-container img.org-image.broken {
+  min-width: 300px;
+  min-height: 150px;
+  background: var(--code-bg);
+  border: 2px dashed var(--code-border);
+  color: transparent; /* Hides default broken image icon alt text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-upload-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(15, 23, 42, 0.75);
+  color: #f8fafc;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 10;
+}
+
+.image-upload-btn:hover {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* Show button on hover OR permanently if image is broken */
+.org-image-container:hover .image-upload-btn,
+.org-image-container.is-broken .image-upload-btn {
+  opacity: 1;
+}
+
+/* Fallback for when the broken image alt text tries to show */
+.org-image-container.is-broken::after {
+  content: none;
+}
+
+.broken-image-ui {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--code-bg);
+  border-radius: 8px;
+  z-index: 5;
+  padding: 1rem;
+}
+
+/* Free Mode Interaction Elements */
+.org-image-container.free-mode {
+  resize: none !important;
+  z-index: 50;
+  border: 1px dashed rgba(128,128,128,0.5);
+}
+
+.org-image-container.free-mode img.org-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Maintain aspect ratio without stretching if resized weirdly */
+}
+
+.drag-handle {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: 60;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.org-image-container.free-mode:hover .drag-handle {
+  display: flex;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  border: 1px solid white;
+  border-radius: 50%;
+  display: none;
+  z-index: 60;
+}
+
+.org-image-container.free-mode:hover .resize-handle {
+  display: block;
+}
+
+.resize-nw { top: -5px; left: -5px; cursor: nwse-resize; }
+.resize-ne { top: -5px; right: -5px; cursor: nesw-resize; }
+.resize-sw { bottom: -5px; left: -5px; cursor: nesw-resize; }
+.resize-se { bottom: -5px; right: -5px; cursor: nwse-resize; }
+.resize-n { top: -5px; left: 50%; transform: translateX(-50%); cursor: ns-resize; }
+.resize-s { bottom: -5px; left: 50%; transform: translateX(-50%); cursor: ns-resize; }
+.resize-e { top: 50%; right: -5px; transform: translateY(-50%); cursor: ew-resize; }
+.resize-w { top: 50%; left: -5px; transform: translateY(-50%); cursor: ew-resize; }
+
+
+/* Fullscreen Image Zoom */
+.org-image-container.fullscreen-img {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  z-index: 99999 !important;
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(8px);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  resize: none !important;
+  border-radius: 0 !important;
+}
+
+.org-image-container.fullscreen-img img.org-image {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  cursor: default !important;
+}
+
+.org-image-container.fullscreen-img .image-toolbar {
+  top: 1rem !important;
+  right: 1rem !important;
+  left: auto !important;
+  background: rgba(15, 23, 42, 0.9) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  transform: scale(1.2);
+}
+
+.org-image-container.fullscreen-img .resize-handle {
+  display: none !important;
+}
+
+/* Improve UI of resize handles */
+.resize-handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: #ffffff !important;
+  border: 2px solid var(--secondary) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+  border-radius: 50% !important;
+}
+.org-image-container.free-mode {
+  border: 2px dashed var(--secondary) !important;
+}

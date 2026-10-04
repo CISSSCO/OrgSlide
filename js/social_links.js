@@ -1,6 +1,6 @@
 (function() {
   const defaultSocialLinks = {
-    endMessage: "Thanks and Open to questions.",
+    endMessage: "Thank you for listening...",
     name: "",
     slogan: "",
     github: "https://github.com/CISSSCO",
@@ -10,6 +10,9 @@
   };
 
   window.socialLinksData = JSON.parse(sessionStorage.getItem('orgSlide_socialLinks')) || defaultSocialLinks;
+  if (!window.socialLinksData.endMessage || window.socialLinksData.endMessage === "Thanks and Open to questions.") {
+    window.socialLinksData.endMessage = "Thank you for listening...";
+  }
 
   const icons = {
     github: `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`,
@@ -62,7 +65,7 @@
         <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; text-align: left;">
           <div>
             <label style="display:block; margin-bottom: 0.3rem; font-size: 0.85rem; font-weight: bold; color: var(--primary);">End Message</label>
-            <input type="text" id="social-in-endmsg" placeholder="e.g. Thanks and Open to questions." style="width:100%; padding: 0.6rem; background: var(--code-bg); border: 1px solid var(--code-border); color: var(--text-main); border-radius: 6px;">
+            <input type="text" id="social-in-endmsg" placeholder="e.g. Thank you for listening..." style="width:100%; padding: 0.6rem; background: var(--code-bg); border: 1px solid var(--code-border); color: var(--text-main); border-radius: 6px;">
           </div>
           <div>
             <label style="display:block; margin-bottom: 0.3rem; font-size: 0.85rem; font-weight: bold; color: var(--primary);">Name (Author)</label>
@@ -112,7 +115,7 @@
 
     window.socialLinksEditor = {
       open: function() {
-        document.getElementById('social-in-endmsg').value = window.socialLinksData.endMessage !== undefined ? window.socialLinksData.endMessage : "Thanks and Open to questions.";
+        document.getElementById('social-in-endmsg').value = window.socialLinksData.endMessage !== undefined ? window.socialLinksData.endMessage : "Thank you for listening...";
         document.getElementById('social-in-name').value = window.socialLinksData.name || "";
         document.getElementById('social-in-slogan').value = window.socialLinksData.slogan || "";
         document.getElementById('social-in-github').value = window.socialLinksData.github || "";

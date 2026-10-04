@@ -1,0 +1,216 @@
+/* Code Block Containers & Sticky, Dimmer Action Buttons */
+.code-block-container {
+  position: relative;
+  margin: 0.6rem 0 1.1rem 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Sticky top toolbar: sticks to top of code block and doesn't scroll off with code content */
+.code-actions {
+  position: sticky;
+  top: 0.5rem;
+  float: right;
+  margin-top: 0.4rem;
+  margin-right: 0.5rem;
+  margin-bottom: -2.2rem; /* Avoid pushing pre code content down */
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  z-index: 20;
+  opacity: 0.35; /* Dimmer default appearance */
+  transition: opacity 0.2s ease;
+}
+
+.code-block-container:hover .code-actions,
+.code-actions:focus-within {
+  opacity: 0.75; /* Subtly visible on container hover */
+}
+
+.code-actions:hover {
+  opacity: 1; /* Fully visible when directly interacting */
+}
+
+/* Dimmer, sleek, refined buttons */
+.code-action-btn,
+.code-actions .copy-btn,
+.code-actions button {
+  background: rgba(148, 163, 184, 0.15) !important;
+  color: var(--text-muted, #94a3b8) !important;
+  border: 1px solid rgba(148, 163, 184, 0.2) !important;
+  border-radius: 5px !important;
+  padding: 0.25rem 0.35rem !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease !important;
+  backdrop-filter: blur(4px) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+
+.code-action-btn:hover,
+.code-actions .copy-btn:hover,
+.code-actions button:hover {
+  background: rgba(148, 163, 184, 0.35) !important;
+  color: var(--text-main, #0f172a) !important;
+  border-color: rgba(148, 163, 184, 0.45) !important;
+  transform: scale(1.05) !important;
+}
+
+body.theme-dark .code-action-btn,
+body.theme-dark .code-actions .copy-btn,
+body.theme-dark .code-actions button {
+  background: rgba(30, 41, 59, 0.4) !important;
+  color: #94a3b8 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.theme-dark .code-action-btn:hover,
+body.theme-dark .code-actions .copy-btn:hover,
+body.theme-dark .code-actions button:hover {
+  background: rgba(51, 65, 85, 0.8) !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.code-action-btn svg,
+.code-actions button svg {
+  width: 0.95rem !important;
+  height: 0.95rem !important;
+  pointer-events: none !important;
+}
+
+/* Fullscreen toggle icon states: normal shows expand, fullscreen shows collapse (fullscreen out) */
+.fullscreen-btn .icon-collapse {
+  display: none !important;
+}
+.fullscreen-btn .icon-expand {
+  display: block !important;
+}
+
+.code-block-container.fullscreen .fullscreen-btn .icon-collapse {
+  display: block !important;
+}
+.code-block-container.fullscreen .fullscreen-btn .icon-expand {
+  display: none !important;
+}
+
+/* Language Badge: positioned on the right corner, dimmed like previous design */
+.code-language-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--text-muted);
+  color: var(--slide-bg);
+  padding: 0.15rem 0.6rem;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  border-bottom-left-radius: 6px;
+  border-top-right-radius: 6px;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.45; /* Dimmer appearance */
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* When action buttons are hovered or active, smoothly fade out the language badge */
+.code-block-container:hover .code-language-badge,
+.code-block-container:focus-within .code-language-badge {
+  opacity: 0;
+}
+
+/* Fullscreen Code Block Styling */
+.code-block-container.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  z-index: 9999;
+  margin: 0;
+  background: var(--code-bg);
+  padding: 4rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.code-block-container.fullscreen pre {
+  flex: 1;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: 100% !important;
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
+  font-size: 1.15rem !important;
+  padding: 0 0.5rem !important;
+  box-sizing: border-box !important;
+}
+
+.code-block-container.fullscreen .code-actions {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  margin: 0;
+  opacity: 0.85;
+  z-index: 10001;
+}
+
+.code-block-container.fullscreen .code-action-btn {
+  padding: 0.45rem;
+}
+
+/* Clean Code Blocks */
+pre {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border) !important;
+  border-radius: 6px !important;
+  padding: 1rem 1.25rem !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  color: #1e293b !important;
+  overflow-x: auto;
+  margin: 0 !important;
+  height: auto !important;
+  min-height: fit-content !important;
+  box-sizing: border-box !important;
+  white-space: pre !important;
+  display: block !important;
+  max-width: 100%;
+}
+
+pre code {
+  font-family: inherit !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+code {
+  font-family: var(--font-mono);
+  background: #f1f5f9;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #0f172a;
+}
+
+body.theme-dark code {
+  background: #313244;
+  color: #cdd6f4;
+}

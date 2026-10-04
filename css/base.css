@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Inconsolata:wght@400;500;600&family=Source+Code+Pro:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Ubuntu+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;500;600&family=Anonymous+Pro:wght@400;700&family=Cousine:wght@400;700&family=Victor+Mono:wght@400;500;600&family=Sometype+Mono:wght@400;500;600&family=Lato:wght@400;700&family=Open+Sans:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&family=Noto+Sans:wght@400;500;600&family=Quicksand:wght@400;500;600&family=Raleway:wght@400;500;600&family=Rubik:wght@400;500;600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Ubuntu:wght@400;500;700&family=Barlow:wght@400;500;600&family=Mulish:wght@400;500;600&family=Kanit:wght@400;500;600&family=Merriweather+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=Lora:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=Syne:wght@400;500;600&family=Cabin:wght@400;500;600&family=Josefin+Sans:wght@400;500;600&display=swap');
+
+:root {
+      --bg-workspace: #2b303c;
+      --slide-bg: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --primary: #1e3a8a;       /* Deep Navy */
+      --secondary: #0284c7;     /* Tech Blue */
+      --accent: #b91c1c;        /* Warning Red */
+      --code-bg: #f8fafc;
+      --code-border: #cbd5e1;
+      --font-heading: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas, Menlo, Monaco, 'Courier New', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: var(--slide-bg); /* Enforces no black borders */
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.theme-dark {
+      --bg-workspace: #11111b;
+      --slide-bg: #1e1e2e;
+      --text-main: #cdd6f4;
+      --text-muted: #a6adc8;
+      --primary: #89b4fa;
+      --secondary: #74c7ec;
+      --accent: #f38ba8;
+      --code-bg: #181825;
+      --code-border: #313244;
+    }
+
+    body.theme-dark .hljs {
+      color: #cdd6f4 !important;
+      background: transparent !important;
+    }
+    body.theme-dark .hljs-comment {
+      color: #a6adc8 !important;
+    }
