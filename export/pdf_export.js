@@ -1,10 +1,20 @@
 window.PreparePDFPreview = function(iframeDoc) {
-  const removeSelectors = ['.top-controls', '.footer-nav', 'script', '.command-palette-modal', '#helpModal', '.help-hint-inline'];
+  const removeSelectors = [
+    '.top-controls', '.footer-nav', 'script', '.command-palette-modal',
+    '#helpModal', '.help-hint-inline', '#landingPage', '#folderModal',
+    '#goToSlideModal', '.help-modal'
+  ];
   removeSelectors.forEach(sel => iframeDoc.querySelectorAll(sel).forEach(el => el.remove()));
 
   const pdfStyles = iframeDoc.createElement('style');
   pdfStyles.textContent = `
-    html, body { overflow: visible !important; height: auto !important; display: block !important; }
+    html, body { 
+      overflow: visible !important; 
+      height: auto !important; 
+      display: block !important; 
+      background: var(--slide-bg, #ffffff) !important;
+      color: var(--text-main, #000000) !important;
+    }
     .slide-content, .slide-body { overflow: visible !important; }
     /* Hide scrollbar in the iframe so it looks cleaner in print */
     ::-webkit-scrollbar { display: none; }
@@ -18,17 +28,24 @@ window.PreparePDFPreview = function(iframeDoc) {
     container.style.height = 'auto';
   }
 
+  const isContinuous = iframeDoc.body.className.includes('render-mode-document') ||
+                       iframeDoc.body.className.includes('render-mode-book') ||
+                       iframeDoc.body.className.includes('render-mode-paper') ||
+                       iframeDoc.body.className.includes('render-mode-scientific') ||
+                       iframeDoc.body.className.includes('render-mode-outline');
+
   iframeDoc.querySelectorAll('.slide').forEach(s => {
     s.style.display = 'flex'; // Keep flex for standard PDF to push footer
     s.style.opacity = '1';
     s.style.visibility = 'visible';
     s.style.position = 'relative';
-    s.style.height = '1080px';
-    s.style.width = '1920px';
-    s.style.margin = '0';
+    if (!isContinuous) {
+      s.style.height = '1080px';
+      s.style.width = '1920px';
+      s.style.pageBreakAfter = 'always';
+    }
+    s.style.margin = '0 auto';
     s.style.boxShadow = 'none';
-    s.style.border = 'none';
-    s.style.pageBreakAfter = 'always'; 
   });
 };
 
@@ -42,7 +59,11 @@ window.ExportPDF = function(iframeDoc, onComplete) {
 };
 
 window.PrepareExtendedPDFPreview = function(iframeDoc) {
-  const removeSelectors = ['.top-controls', '.footer-nav', 'script', '.command-palette-modal', '#helpModal', '.help-hint-inline'];
+  const removeSelectors = [
+    '.top-controls', '.footer-nav', 'script', '.command-palette-modal',
+    '#helpModal', '.help-hint-inline', '#landingPage', '#folderModal',
+    '#goToSlideModal', '.help-modal'
+  ];
   removeSelectors.forEach(sel => iframeDoc.querySelectorAll(sel).forEach(el => el.remove()));
 
   const pdfStyles = iframeDoc.createElement('style');
@@ -53,6 +74,8 @@ window.PrepareExtendedPDFPreview = function(iframeDoc) {
       overflow: visible !important; 
       height: auto !important; 
       flex: none !important; 
+      background: var(--slide-bg, #ffffff) !important;
+      color: var(--text-main, #000000) !important;
     }
     
     pre, .code-block-container, .org-results-label, .ppt-table, .ppt-list li { 
@@ -75,16 +98,23 @@ window.PrepareExtendedPDFPreview = function(iframeDoc) {
   `;
   iframeDoc.head.appendChild(pdfStyles);
 
+  const isContinuous = iframeDoc.body.className.includes('render-mode-document') ||
+                       iframeDoc.body.className.includes('render-mode-book') ||
+                       iframeDoc.body.className.includes('render-mode-paper') ||
+                       iframeDoc.body.className.includes('render-mode-scientific') ||
+                       iframeDoc.body.className.includes('render-mode-outline');
+
   iframeDoc.querySelectorAll('.slide').forEach(s => {
     s.style.opacity = '1';
     s.style.visibility = 'visible';
     s.style.position = 'relative';
-    s.style.minHeight = '1080px';
-    s.style.width = '1920px';
-    s.style.margin = '0';
+    if (!isContinuous) {
+      s.style.minHeight = '1080px';
+      s.style.width = '1920px';
+      s.style.pageBreakAfter = 'always';
+    }
+    s.style.margin = '0 auto';
     s.style.boxShadow = 'none';
-    s.style.border = 'none';
-    s.style.pageBreakAfter = 'always';
   });
 };
 

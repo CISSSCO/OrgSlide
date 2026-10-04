@@ -798,6 +798,7 @@ let slides = [];
 
       currentSlide = index;
       window.currentSlide = index;
+      window.updateSlide = updateSlide;
       
       const newHash = `#${currentSlide + 1}`;
       if (window.location.hash !== newHash) {
