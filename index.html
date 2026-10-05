@@ -84,12 +84,13 @@
       <h1>OrgSlide</h1>
       <p style="margin-bottom: 2rem;">A lightweight, responsive presentation renderer for Org-mode files.</p>
       
-      <div style="margin-bottom: 2rem; display: flex; gap: 1rem; justify-content: center;">
+      <div style="margin-bottom: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
         <button onclick="const fi = document.getElementById('fileInput'); if (fi) { fi.value = ''; fi.click(); }" class="load-btn">Upload .org File</button>
         <button onclick="document.getElementById('folderInput').click()" class="load-btn" title="Upload a folder containing your .org file and local images">Upload Folder</button>
         <button id="viewFolderBtn" onclick="window.FolderManager.showModal()" class="load-btn" style="display: none; background: #10b981;" title="View contents of the currently uploaded folder">View Uploaded Folder</button>
         <button id="returnToSlidesBtn" class="load-btn" style="display: none; background: var(--secondary);" onclick="document.getElementById('landingPage').classList.remove('active')" title="Return to current presentation">Resume Presentation</button>
         <button onclick="window.loadManual()" class="load-btn" style="background: var(--secondary);" title="Read OrgSlide Manual">Read Manual</button>
+        <button id="clearSessionBtn" onclick="window.clearSession ? window.clearSession() : (sessionStorage.clear(), localStorage.removeItem('orgSlide_savedText'), alert('Session cleared!'))" class="load-btn" style="background: #ef4444;" title="Clear session storage">Clear Session</button>
       </div>
 
       <!-- Recently Opened Documents -->

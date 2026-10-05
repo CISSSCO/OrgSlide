@@ -1214,3 +1214,19 @@ window.setExportedCurrentSlide = function(idx) {
         alert("Error loading the manual: " + err.message);
       }
     };
+
+    window.clearSession = function() {
+      try {
+        sessionStorage.clear();
+        localStorage.removeItem('orgSlide_savedText');
+        localStorage.removeItem('orgSlide_currentSlide');
+        if (window.location.hash) {
+          history.replaceState(null, null, window.location.pathname + window.location.search);
+        }
+        const returnBtn = document.getElementById('returnToSlidesBtn');
+        if (returnBtn) returnBtn.style.display = 'none';
+        alert('Session cleared! Refreshing will start on the main menu.');
+      } catch (err) {
+        console.error('Error clearing session:', err);
+      }
+    };
