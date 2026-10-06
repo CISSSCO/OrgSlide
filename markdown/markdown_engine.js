@@ -53,9 +53,41 @@
   // Helper to load sample markdown presentation
   window.loadMarkdownSample = async function() {
     try {
-      const response = await fetch('sample.md');
-      if (!response.ok) throw new Error("Failed to load sample.md");
-      const text = await response.text();
+      let text = null;
+
+      // Candidate locations to fetch from
+      const candidates = [
+        'sample.md',
+        './sample.md',
+        (typeof window !== 'undefined' && window.location && window.location.pathname) ? (window.location.pathname.replace(/\/[^/]*$/, '') + '/sample.md') : null,
+        'https://raw.githubusercontent.com/CISSSCO/OrgSlide/bugFixes/sample.md',
+        'https://raw.githubusercontent.com/CISSSCO/OrgSlide/master/sample.md'
+      ].filter(Boolean);
+
+      for (const url of candidates) {
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            const candidateText = await response.text();
+            // Verify it is actual Markdown content and not an HTML 404 error page
+            if (candidateText && !candidateText.trim().toLowerCase().startsWith('<!doctype html>') && !candidateText.trim().startsWith('<html')) {
+              text = candidateText;
+              break;
+            }
+          }
+        } catch (e) {
+          // ignore network error and try next candidate
+        }
+      }
+
+      // If network fetch fails (e.g. GitHub Pages Jekyll 404 or offline), fall back to embedded sample content
+      if (!text && window.EMBEDDED_SAMPLE_MD) {
+        text = window.EMBEDDED_SAMPLE_MD;
+      }
+
+      if (!text) {
+        throw new Error("Failed to load sample.md from server or local sources");
+      }
 
       const landing = document.getElementById('landingPage');
       if (landing) {
