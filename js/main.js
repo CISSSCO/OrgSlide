@@ -371,7 +371,7 @@ let slides = [];
         // Tables in org-mode: | col1 | col2 |
         if (line.trim().startsWith('|')) {
           closeList();
-          if (!line.includes('---')) { // skip separator lines |---+---|
+          if (!/^\|[-+ ]+\|$/.test(line.trim())) { // skip separator lines |---+---|
             tableRows.push(line);
           }
           inTable = true;
@@ -495,7 +495,12 @@ let slides = [];
       if (rows.length === 0) return "";
       let html = `<table class="ppt-table">`;
       for (let i = 0; i < rows.length; i++) {
-        let cols = rows[i].split('|').map(c => c.trim()).filter((c, idx, arr) => idx > 0 && idx < arr.length - 1);
+        let rowLine = rows[i];
+        // Protect escaped pipes \| and pipes inside =...=, ==...==, ~...~, ~~...~~, or `...`
+        rowLine = rowLine.replace(/\\\|/g, '\x01PIPE\x01');
+        rowLine = rowLine.replace(/(`+|~+|=+)([\s\S]*?)\1/g, (m) => m.replace(/\|/g, '\x01PIPE\x01'));
+
+        let cols = rowLine.split('|').map(c => c.replace(/\x01PIPE\x01/g, '|').trim()).filter((c, idx, arr) => idx > 0 && idx < arr.length - 1);
         let tag = (i === 0) ? 'th' : 'td';
         html += "<tr>";
         cols.forEach(col => {
@@ -526,11 +531,20 @@ let slides = [];
     }
 
     function formatInlineOrg(str) {
-      // *bold* -> <strong>
-      str = str.replace(/\*([^\*]+)\*/g, '<strong>$1</strong>');
-      // =code= or ~code~ -> <code>
-      str = str.replace(/[=~]([^=~]+)[=~]/g, '<code>$1</code>');
-      // [[url][text]] or [[url][image_url]] -> link
+      if (!str) return '';
+
+      // 1. Stash all inline code blocks (=code=, ==code==, ~code~, ~~code~~, or `code`) so their contents are never parsed as images, links, or bold!
+      const codeStash = [];
+      str = str.replace(/(=+|~+|`+)([^\s\n\r](?:[\s\S]*?[^\s\n\r])?)\1/g, (match, delimiter, codeContent) => {
+        const placeholder = `\x01ORGX${codeStash.length}\x02`;
+        codeStash.push(`<code>${escapeHtml(codeContent)}</code>`);
+        return placeholder;
+      });
+
+      // 2. Format *bold*
+      str = str.replace(/\*([^*\n\r]+)\*/g, '<strong>$1</strong>');
+
+      // 3. [[url][text]] or [[url][image_url]] -> link
       str = str.replace(/\[\[([^\]]+)\]\[([^\]]+)\]\]/g, (match, href, content) => {
         const trimmed = content.trim();
         if (isImageSource(trimmed)) {
@@ -639,6 +653,12 @@ let slides = [];
           <div class="inline-resize-handle" title="Drag to resize"></div>
         </div>`;
       });
+
+      // 4. Restore stashed inline code blocks safely!
+      str = str.replace(/\x01ORGX(\d+)\x02/g, (match, index) => {
+        return codeStash[parseInt(index, 10)] || '';
+      });
+
       return str;
     }
 
