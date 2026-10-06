@@ -524,6 +524,26 @@
       setTimeout(() => this.centerZoom(), 10);
     },
     
+    toggleVisibility: function(event, index) {
+      event.stopPropagation();
+      
+      const slidesList = document.querySelectorAll('.slide');
+      const slideElem = slidesList[index];
+      if (!slideElem) return;
+
+      if (event.target.checked) {
+          slideElem.classList.remove('hidden-slide');
+      } else {
+          slideElem.classList.add('hidden-slide');
+      }
+      
+      // Update item visual state if needed
+      const item = event.target.closest('a.tree-item');
+      if (item) {
+        if (!event.target.checked) item.style.opacity = '0.5';
+        else item.style.opacity = '1';
+      }
+    },
     goTo: function(index) {
       // Decouple to guarantee clicks don't double-trigger things
       setTimeout(() => {
@@ -588,11 +608,17 @@
          item.style.textDecoration = 'none'; // Prevent default hyperlink underline
          item.style.color = 'inherit';
          
+         const slidesList = document.querySelectorAll('.slide');
+         const isHidden = slidesList[node.index] && slidesList[node.index].classList.contains('hidden-slide');
+         if (isHidden) item.style.opacity = '0.5';
+
          // Guarantee bulletproof navigation
          item.onclick = (e) => { 
             e.preventDefault(); 
             e.stopPropagation(); 
-            self.goTo(node.index); 
+            if (slidesList[node.index] && !slidesList[node.index].classList.contains('hidden-slide')) {
+               self.goTo(node.index); 
+            }
          };
 
          let badgeHtml = '';
@@ -618,6 +644,10 @@
          item.innerHTML = `
             <div class="tree-item-title">
               <div class="tree-item-name">
+                <input type="checkbox" class="slide-visibility-toggle" title="Toggle slide visibility" 
+                   ${isHidden ? '' : 'checked'}
+                   onclick="window.treeView.toggleVisibility(event, ${node.index})"
+                   style="margin-right: 8px; cursor: pointer;">
                 ${badgeHtml}
                 <span>${node.slide.title}</span>
                 ${collapseHtml}

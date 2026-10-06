@@ -1,0 +1,239 @@
+    /* Landing Page */
+    .landing-page {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--bg-workspace);
+      background: radial-gradient(circle at center, var(--slide-bg) 0%, var(--bg-workspace) 100%);
+      color: var(--text-main);
+      z-index: -1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 3rem 1rem;
+      box-sizing: border-box;
+    }
+    
+    .landing-page.active {
+      z-index: 2000;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .landing-content {
+      margin: auto; /* Centers when space allows, scrolls smoothly when overflowing */
+      text-align: center;
+      padding: 2.5rem 2.2rem;
+      border: 1px solid var(--code-border);
+      border-radius: 16px;
+      background: var(--slide-bg);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      max-width: 660px;
+      width: 92%;
+      color: var(--text-main);
+      box-sizing: border-box;
+    }
+    
+    .landing-content h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-heading);
+    }
+    
+    .landing-content p {
+      color: var(--text-muted);
+    }
+
+    .developer-info {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    
+    .developer-info a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .developer-info a:hover {
+      text-decoration: underline;
+    }
+
+    .dev-links {
+      margin: 0.5rem 0;
+    }
+    
+    .repo-link {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .load-btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: bold;
+    }
+    
+    .load-btn:hover {
+      background: var(--secondary);
+      transform: scale(1.05);
+    }
+
+/* Enhanced Button Layout */
+.landing-content > div:nth-of-type(1) {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.landing-content .load-btn {
+  flex: 1 1 calc(50% - 1rem); /* 2 per row */
+  min-width: 180px;
+  white-space: nowrap; /* Prevent awkward word wrapping */
+}
+
+/* If there are 3 buttons, make the 3rd one span full or just let them wrap nicely */
+@media (max-width: 600px) {
+  .landing-content .load-btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* Recently Opened Documents */
+.recent-docs-container {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  backdrop-filter: blur(6px);
+}
+
+.recent-docs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--code-border);
+}
+
+.clear-recent-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.clear-recent-btn:hover {
+  color: var(--accent);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.recent-docs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+}
+
+.recent-doc-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 0.85rem;
+  background: var(--slide-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.recent-doc-item:hover {
+  background: var(--code-bg);
+  border-color: var(--primary);
+  transform: translateX(3px);
+}
+
+.recent-doc-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+
+.recent-doc-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+
+.recent-doc-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.recent-doc-open-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  padding: 0.2rem 0.55rem;
+  background: rgba(148, 163, 184, 0.15);
+  border: 1px solid var(--code-border);
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.recent-doc-item:hover .recent-doc-open-tag {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.recent-doc-remove {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.recent-doc-remove:hover {
+  color: var(--accent);
+  background: rgba(239, 68, 68, 0.15);
+}

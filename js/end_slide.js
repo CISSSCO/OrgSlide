@@ -7,11 +7,11 @@
 
       const data = window.socialLinksData || {};
       
-      let endMessage = "Thanks and Open to questions.";
+      let endMessage = "Thank you for listening...";
       if (data.endMessage !== undefined) {
         const msg = data.endMessage.trim();
         if (msg.toLowerCase() === 'na') endMessage = '';
-        else if (msg !== '') endMessage = msg;
+        else if (msg !== '' && msg !== 'Thanks and Open to questions.') endMessage = msg;
       }
 
       const name = (data.name && data.name.trim() !== '' && data.name.trim().toLowerCase() !== 'na') 
@@ -57,16 +57,13 @@
             ${window.generateSocialLinksHtml ? window.generateSocialLinksHtml() : ''}
           </div>
           <div class="footer-right">
-            <button class="help-hint-inline" onclick="toggleHelp()" title="Keyboard Shortcuts">
-              <kbd>Alt</kbd>+<kbd>?</kbd>
-            </button>
-            <span class="slide-counter">End</span>
+            <span class="slide-counter" onclick="window.openGoToSlideModal()" title="Go to slide (Alt+G)">End</span>
             <div class="footer-nav">
-              <button class="footer-nav-btn" onclick="prev()" title="Previous Slide (Alt+K)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <button class="footer-btn" onclick="prev()" title="Previous Slide (Alt+K)">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
               </button>
-              <button class="footer-nav-btn" disabled style="opacity: 0.3; cursor: not-allowed;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <button class="footer-btn" disabled style="opacity: 0.3; cursor: not-allowed;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </button>
             </div>
           </div>
@@ -76,7 +73,6 @@
       slideEl.innerHTML = `
         <div class="title-center" style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
           ${endMessage ? `<h1 class="main-title" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 2rem;">${endMessage}</h1>` : ''}
-          
           ${name ? `<h2 style="font-size: 2.2rem; color: var(--secondary); font-family: var(--font-heading); margin-bottom: ${slogan ? '0.5rem' : '2.5rem'}; font-weight: bold;">${name}</h2>` : ''}
           ${slogan ? `<p style="font-size: 1.3rem; color: var(--text-muted); font-style: italic; margin-bottom: 2.5rem; max-width: 600px; line-height: 1.5;">"${slogan}"</p>` : ''}
           

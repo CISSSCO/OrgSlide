@@ -110,14 +110,130 @@
     document.body.appendChild(modal);
 
     const iframe = document.getElementById('previewIframe');
-    iframe.onload = () => {
-      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-      if (mode === 'pdf' && window.PreparePDFPreview) {
-        window.PreparePDFPreview(iframeDoc);
-      } else if (mode === 'pdf_extended' && window.PrepareExtendedPDFPreview) {
-        window.PrepareExtendedPDFPreview(iframeDoc);
+    function initIframePreview() {
+      try {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!iframeDoc || !iframeDoc.body) return;
+
+        const deck = iframeDoc.querySelector('.deck-container');
+        if (deck) {
+          deck.style.display = (mode === 'pdf' || mode === 'pdf_extended' || mode === 'doc' || mode === 'pptx') ? 'block' : 'flex';
+        }
+
+        if (mode === 'pdf' && window.PreparePDFPreview) {
+          window.PreparePDFPreview(iframeDoc);
+        } else if (mode === 'pdf_extended' && window.PrepareExtendedPDFPreview) {
+          window.PrepareExtendedPDFPreview(iframeDoc);
+        } else if (mode === 'pptx') {
+          const removeSelectors = [
+            '.top-controls', '.footer-nav', 'script', '.command-palette-modal',
+            '#helpModal', '.help-hint-inline', '#landingPage', '#folderModal',
+            '#goToSlideModal', '.help-modal'
+          ];
+          removeSelectors.forEach(sel => iframeDoc.querySelectorAll(sel).forEach(el => el.remove()));
+
+          if (deck) {
+            deck.style.display = 'block';
+            deck.style.overflow = 'visible';
+            deck.style.height = 'auto';
+            deck.style.padding = '2rem 1rem';
+          }
+          iframeDoc.querySelectorAll('.slide').forEach(s => {
+            s.style.display = 'flex';
+            s.style.opacity = '1';
+            s.style.visibility = 'visible';
+            s.style.position = 'relative';
+            s.style.width = '100%';
+            s.style.maxWidth = '1000px';
+            s.style.minHeight = '560px';
+            s.style.margin = '0 auto 2rem auto';
+            s.style.boxShadow = '0 8px 30px rgba(0,0,0,0.12)';
+            s.style.borderRadius = '8px';
+            s.style.background = 'var(--slide-bg, #ffffff)';
+          });
+        } else if (mode === 'doc') {
+          const removeSelectors = [
+            '.top-controls', '.footer-nav', 'script', '.command-palette-modal',
+            '#helpModal', '.help-hint-inline', '#landingPage', '#folderModal',
+            '#goToSlideModal', '.help-modal', '.slide-counter', '.footer-btn', '.code-actions',
+            '.slide-breadcrumbs'
+          ];
+          removeSelectors.forEach(sel => iframeDoc.querySelectorAll(sel).forEach(el => el.remove()));
+
+          // Apply syntax highlighting styles to code spans in preview iframe
+          const hljsPreviewStyles = {
+            'hljs-keyword': 'color: #d73a49; font-weight: bold;',
+            'hljs-doctag': 'color: #d73a49; font-weight: bold;',
+            'hljs-type': 'color: #d73a49; font-weight: bold;',
+            'hljs-title': 'color: #6f42c1; font-weight: bold;',
+            'hljs-attr': 'color: #005cc5;',
+            'hljs-attribute': 'color: #005cc5;',
+            'hljs-literal': 'color: #005cc5; font-weight: bold;',
+            'hljs-number': 'color: #005cc5;',
+            'hljs-variable': 'color: #005cc5;',
+            'hljs-string': 'color: #032f62;',
+            'hljs-regexp': 'color: #032f62;',
+            'hljs-built_in': 'color: #e36209; font-weight: bold;',
+            'hljs-symbol': 'color: #e36209;',
+            'hljs-comment': 'color: #6a737d; font-style: italic;',
+            'hljs-quote': 'color: #6a737d; font-style: italic;',
+            'hljs-name': 'color: #22863a; font-weight: bold;',
+            'hljs-selector-tag': 'color: #22863a; font-weight: bold;',
+            'hljs-selector-pseudo': 'color: #22863a; font-weight: bold;',
+            'hljs-section': 'color: #005cc5; font-weight: bold;',
+            'hljs-params': 'color: #24292e;'
+          };
+          iframeDoc.querySelectorAll('pre code span').forEach(span => {
+            let extra = '';
+            for (const [cls, styleStr] of Object.entries(hljsPreviewStyles)) {
+              if (span.classList.contains(cls)) extra += styleStr + ' ';
+            }
+            if (extra) span.setAttribute('style', ((span.getAttribute('style') || '') + '; ' + extra).trim());
+          });
+
+          if (deck) {
+            deck.style.display = 'block';
+            deck.style.overflow = 'visible';
+            deck.style.height = 'auto';
+            deck.style.maxWidth = '900px';
+            deck.style.margin = '0 auto';
+            deck.style.padding = '2rem 1rem';
+          }
+          iframeDoc.querySelectorAll('.slide').forEach(s => {
+            s.style.display = 'block';
+            s.style.opacity = '1';
+            s.style.visibility = 'visible';
+            s.style.position = 'relative';
+            s.style.height = 'auto';
+            s.style.width = '100%';
+            s.style.margin = '0 0 2.5rem 0';
+            s.style.padding = '2.5rem';
+            s.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
+            s.style.borderRadius = '6px';
+            s.style.background = '#ffffff';
+            s.style.color = '#000000';
+          });
+        } else if (mode === 'html') {
+          if (deck) {
+            deck.style.display = 'flex';
+            deck.style.height = '100%';
+            deck.style.width = '100%';
+          }
+          const slides = iframeDoc.querySelectorAll('.deck-container > .slide');
+          const hasActive = Array.from(slides).some(s => s.classList.contains('active'));
+          if (!hasActive && slides.length > 0) {
+            slides[0].classList.add('active');
+          }
+        }
+      } catch (e) {
+        console.warn("Iframe preview init error:", e);
       }
-    };
+    }
+
+    iframe.onload = initIframePreview;
+    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+      initIframePreview();
+    }
 
     
     document.getElementById('cancelExportBtn').addEventListener('click', () => {
@@ -152,44 +268,109 @@
           });
         }
       } else if (mode === 'doc') {
-        // MS Word doesn't support CSS variables or complex modern CSS.
-        // We inject a highly compatible fallback stylesheet explicitly for Word.
+        // Prepare DOM for Word Document export
+        const parser = new DOMParser();
+        const docDom = parser.parseFromString(htmlString, 'text/html');
+
+        // 1. Remove page number / slide-counter, navigation, breadcrumbs, and code actions
+        docDom.querySelectorAll('.slide-counter, .footer-nav, .footer-btn, .code-actions, .slide-breadcrumbs').forEach(el => el.remove());
+
+        // 2. Inline syntax highlighting styles on code spans for full Word compatibility
+        const hljsStylesMap = {
+          'hljs-keyword': 'color: #d73a49; font-weight: bold;',
+          'hljs-doctag': 'color: #d73a49; font-weight: bold;',
+          'hljs-type': 'color: #d73a49; font-weight: bold;',
+          'hljs-title': 'color: #6f42c1; font-weight: bold;',
+          'hljs-attr': 'color: #005cc5;',
+          'hljs-attribute': 'color: #005cc5;',
+          'hljs-literal': 'color: #005cc5; font-weight: bold;',
+          'hljs-number': 'color: #005cc5;',
+          'hljs-variable': 'color: #005cc5;',
+          'hljs-string': 'color: #032f62;',
+          'hljs-regexp': 'color: #032f62;',
+          'hljs-built_in': 'color: #e36209; font-weight: bold;',
+          'hljs-symbol': 'color: #e36209;',
+          'hljs-comment': 'color: #6a737d; font-style: italic;',
+          'hljs-quote': 'color: #6a737d; font-style: italic;',
+          'hljs-name': 'color: #22863a; font-weight: bold;',
+          'hljs-selector-tag': 'color: #22863a; font-weight: bold;',
+          'hljs-selector-pseudo': 'color: #22863a; font-weight: bold;',
+          'hljs-section': 'color: #005cc5; font-weight: bold;',
+          'hljs-params': 'color: #24292e;'
+        };
+
+        docDom.querySelectorAll('pre code span').forEach(span => {
+          let extra = '';
+          for (const [cls, styleStr] of Object.entries(hljsStylesMap)) {
+            if (span.classList.contains(cls)) extra += styleStr + ' ';
+          }
+          if (extra) {
+            span.setAttribute('style', ((span.getAttribute('style') || '') + '; ' + extra).trim());
+          }
+        });
+
+        // 3. Inject Word Compatible Styles
         const wordStyles = `
-          <style>
-            /* Microsoft Word Compatible Fallback Styles */
-            body { font-family: "Calibri", "Arial", sans-serif; color: #000000; background: #ffffff; }
-            h1 { color: #1e3a8a; font-size: 24pt; margin-top: 24pt; margin-bottom: 12pt; border-bottom: 1pt solid #cccccc; page-break-after: avoid; }
-            h2 { color: #1e3a8a; font-size: 18pt; margin-top: 18pt; margin-bottom: 9pt; page-break-after: avoid; }
-            h3 { color: #333333; font-size: 14pt; font-weight: bold; margin-top: 14pt; margin-bottom: 7pt; page-break-after: avoid; }
-            pre { 
-              background-color: #f4f4f4; 
-              border: 1pt solid #dddddd; 
-              padding: 10pt; 
-              font-family: "Consolas", "Courier New", monospace; 
-              font-size: 10pt;
-              white-space: pre-wrap; 
-              word-break: break-all;
-            }
-            code { font-family: "Consolas", "Courier New", monospace; background-color: #f4f4f4; padding: 2pt; }
-            
-            /* Syntax Highlighting for Word */
-            .token.comment, .token.prolog, .token.doctype, .token.cdata { color: #008000; font-style: italic; }
-            .token.punctuation { color: #999999; }
-            .token.namespace { opacity: .7; }
-            .token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { color: #905; }
-            .token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: #690; }
-            .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: #9a6e3a; }
-            .token.atrule, .token.attr-value, .token.keyword { color: #07a; font-weight: bold; }
-            .token.function, .token.class-name { color: #dd4a68; font-weight: bold; }
-            .token.regex, .token.important, .token.variable { color: #e90; }
-            
-            /* Slide Breaks */
-            .slide { margin-bottom: 30pt; page-break-after: always; }
-            .slide-title { text-align: left; }
-          </style>
+          /* Microsoft Word Compatible Fallback Styles */
+          body { font-family: "Calibri", "Arial", sans-serif; color: #000000; background: #ffffff; }
+          h1 { color: #1e3a8a; font-size: 24pt; margin-top: 24pt; margin-bottom: 12pt; border-bottom: 1pt solid #cccccc; page-break-after: avoid; }
+          h2 { color: #1e3a8a; font-size: 18pt; margin-top: 18pt; margin-bottom: 9pt; page-break-after: avoid; }
+          h3 { color: #333333; font-size: 14pt; font-weight: bold; margin-top: 14pt; margin-bottom: 7pt; page-break-after: avoid; }
+          pre, .code-block-container pre { 
+            background-color: #f6f8fa !important; 
+            border: 1pt solid #d0d7de !important; 
+            padding: 10pt !important; 
+            font-family: "Consolas", "Courier New", monospace !important; 
+            font-size: 10pt !important;
+            white-space: pre-wrap !important; 
+            word-break: break-all !important;
+            border-radius: 4pt !important;
+          }
+          code, .code-block-container code { 
+            font-family: "Consolas", "Courier New", monospace !important; 
+            font-size: 10pt !important; 
+          }
+          .code-language-badge {
+            color: #57606a !important;
+            font-size: 9pt !important;
+            font-family: "Consolas", "Courier New", monospace !important;
+            font-weight: bold !important;
+            text-transform: uppercase !important;
+            margin-bottom: 4pt !important;
+          }
+          .code-actions { display: none !important; }
+          
+          /* Highlight.js Syntax Highlighting for Word */
+          .hljs, pre code { color: #24292e; background-color: #f6f8fa; }
+          .hljs-keyword, .hljs-doctag, .hljs-type { color: #d73a49 !important; font-weight: bold; }
+          .hljs-title, .hljs-title.function_, .hljs-title.class_ { color: #6f42c1 !important; font-weight: bold; }
+          .hljs-attr, .hljs-attribute, .hljs-literal, .hljs-meta, .hljs-number, .hljs-operator, .hljs-variable { color: #005cc5 !important; }
+          .hljs-string, .hljs-regexp { color: #032f62 !important; }
+          .hljs-built_in, .hljs-symbol { color: #e36209 !important; font-weight: bold; }
+          .hljs-comment, .hljs-quote, .hljs-code { color: #6a737d !important; font-style: italic; }
+          .hljs-name, .hljs-selector-tag, .hljs-selector-pseudo { color: #22863a !important; font-weight: bold; }
+          .hljs-section { color: #005cc5 !important; font-weight: bold; }
+          .hljs-params { color: #24292e !important; }
+          
+          /* Slide Breaks & Hide Page Numbers / Breadcrumbs */
+          .slide-counter, .footer-nav, .footer-btn, .slide-breadcrumbs { display: none !important; }
+          .deck-container { display: block !important; }
+          .slide { 
+            display: block !important; 
+            opacity: 1 !important; 
+            visibility: visible !important; 
+            position: static !important; 
+            margin-bottom: 30pt; 
+            page-break-after: always; 
+          }
+          .slide-title { text-align: left; }
         `;
-        
-        let docHtmlString = htmlString.replace('</head>', wordStyles + '</head>');
+
+        const styleEl = docDom.createElement('style');
+        styleEl.textContent = wordStyles;
+        docDom.head.appendChild(styleEl);
+
+        const docHtmlString = "<!DOCTYPE html>\n" + docDom.documentElement.outerHTML;
         
         const a = document.createElement('a');
         const blob = new Blob([docHtmlString], { type: 'application/msword' });
