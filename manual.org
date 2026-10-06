@@ -1,20 +1,20 @@
-#+TITLE: OrgSlide: The Complete Manual & Guide
-#+SUBTITLE: A Comprehensive Interactive Handbook for the Org-Mode Presentation Engine
+#+TITLE: OrgSlide: The Complete Org-Mode Manual & Architecture Guide
+#+SUBTITLE: A Comprehensive Handbook & Technical Reference for the Org-Mode Presentation Engine
 #+AUTHOR: Cisco Ramon
-#+DATE: 2026-10-04
-#+END_MESSAGE: Thank you for listening...
+#+DATE: 2026-10-05
+#+END_MESSAGE: Thank you for exploring OrgSlide!
 
-* Introduction to OrgSlide
-Welcome to *OrgSlide*, the modern presentation engine and continuous document reader built natively for Emacs Org-mode documents!
+* 1. Executive Introduction to OrgSlide
+Welcome to *OrgSlide*, the high-performance presentation engine and continuous document reader designed specifically for GNU Emacs Org-mode documents!
 
-OrgSlide eliminates the pain and friction of traditional presentation software by transforming plain-text Org files directly into interactive, beautifully styled slide decks, academic papers, and continuous books—running 100% in your web browser with zero server dependencies or build steps.
+OrgSlide eliminates the pain and friction of traditional slide software by transforming plain-text Org files directly into interactive, beautifully styled slide decks, academic papers, and continuous books.
 
-This entire manual is an Org-mode file rendered live by OrgSlide.
+It runs 100% in your web browser with zero server dependencies, no compilation build steps, and complete offline capability.
 
 [[https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80]]
 
-* Meet the Developer: Cisco Ramon
-OrgSlide was architected and built with passion by *Cisco Ramon*, an open-source software engineer dedicated to crafting clean, developer-first productivity tools.
+* 2. Meet the Developer: Cisco Ramon (Abhi)
+OrgSlide was architected, designed, and engineered by *Cisco Ramon* (Abhi), an open-source software engineer dedicated to building distraction-free developer tools.
 
 [[https://github.com/CISSSCO][https://avatars.githubusercontent.com/u/60824572?v=4]]
 
@@ -27,48 +27,73 @@ OrgSlide was architected and built with passion by *Cisco Ramon*, an open-source
 
 Click any badge or the avatar above to open the respective link directly in a new tab!
 
-* Learning Org-Mode: Official Docs & Tutorials
-If you are new to Org-mode or want to expand your markup knowledge, the Emacs Org-mode ecosystem offers extensive documentation and tutorials.
+* 3. The Philosophy of Plain-Text Presentations
+Traditional presentation software locks knowledge into proprietary binary formats. OrgSlide is built on the philosophy that plain text is the superior format for technical communication:
 
-[[https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=80]]
+- *Version Control*: Store presentations in Git alongside your code; track diffs line-by-line.
+- *Speed of Thought*: Type ideas quickly in Org-mode without mouse gymnastics or pixel-nudging.
+- *Longevity*: Plain text never goes obsolete and will remain readable decades from now.
+- *Device Independence*: Edit on any operating system, phone, terminal, or editor.
 
-** Official Documentation & Manuals
-- *Official Org Mode Website*: [[https://orgmode.org][orgmode.org]] — The home of Org Mode for Emacs.
-- *The Complete Org Manual*: [[https://orgmode.org/manual/][orgmode.org/manual]] — The comprehensive reference covering all markup, tags, drawers, and export features.
-- *Org Mode Compact Guide*: [[https://orgmode.org/guide/][orgmode.org/guide]] — A concise, beginner-friendly introduction to core syntax.
+* 4. Core Architecture of the Org-Mode Engine
+OrgSlide uses a modern, client-side compilation pipeline:
 
-** Recommended Tutorials & Community Resources
-- *David O'Toole's Beginner Tutorial*: [[https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html][Beginner Org Tutorial]] — A friendly step-by-step introduction to Org outlines and notes.
-- *Worg Community Guides & Hacks*: [[https://orgmode.org/worg/][Worg Community Portal]] — Hundreds of community tutorials, syntax tips, and workflow setups.
-- *Babel Multi-Language Execution*: [[https://orgmode.org/worg/org-contrib/babel/][Org Babel Introduction]] — Guide to managing and executing multi-language source blocks.
+- *Parser Layer*: Scans `.org` text line-by-line, parsing metadata, drawers, heading trees, code blocks, tables, and links.
+- *Data Normalizer*: Emits structured JavaScript slide objects containing hierarchy levels and breadcrumbs.
+- *Render Engine*: Renders interactive PowerPoint DOM slides, applies syntax highlighting, and configures image handlers.
+- *Export Matrix*: Emits standalone PDF, PPTX, Word, and single-file HTML distributions.
 
-* Org-Mode Syntax Fundamentals
-Writing presentations in OrgSlide is intuitive and adheres to standard Org-mode markup conventions.
+* 5. Quickstart Guide: Writing Your First Org Deck
+Creating an OrgSlide presentation is simple and intuitive:
 
-** Document Header Metadata
-Place metadata at the very beginning of your file to configure global presentation properties:
-- =#+TITLE: Main Presentation Title= — Displayed prominently on the title slide.
-- =#+SUBTITLE: Descriptive Subtitle= — Renders below the title.
+1. Create a plain-text file named =presentation.org=.
+2. Define document metadata at the top:
+   =#+TITLE: My Presentation=
+   =#+AUTHOR: Your Name=
+3. Add Level 1 headings using asterisks to define slides:
+   =* Slide 1 Title=
+   =Here is the content of slide 1.=
+   =* Slide 2 Title=
+   =Here is the content of slide 2.=
+4. Drag and drop the file onto OrgSlide or upload it via the main menu!
+
+* 6. Document Metadata Headers
+Configure global document properties at the very top of your Org file:
+
+- =#+TITLE: Main Presentation Title= — Prominently displayed on Slide 1.
+- =#+SUBTITLE: Secondary Subtitle= — Rendered beneath the main title in secondary blue.
 - =#+AUTHOR: Presenter Name= — Displayed on the title slide and exported metadata.
 - =#+DATE: YYYY-MM-DD= — Displayed on the title slide.
+- =#+END_MESSAGE: Custom Closing Message= — Headline on the final thank-you slide.
 
-** Heading Depth & Slide Generation
+* 7. Heading Hierarchy & Slide Generation
 OrgSlide automatically generates and numbers slides based on your heading structure:
+
 - =* Heading (Level 1)=: Creates a primary slide or major section slide.
 - =** Subheading (Level 2)=: Creates an in-depth topic slide inside the active section.
-- =*** Sub-subheading (Level 3)=: Creates a focused child slide with full breadcrumb tracking.
+- =*** Sub-subheading (Level 3)=: Creates a focused child slide with full breadcrumbs.
 
-Dynamic breadcrumbs are shown in the upper-left of every slide so your audience always knows where they are in the presentation hierarchy.
+Every slide features dynamic breadcrumbs in the upper-left, keeping your audience anchored in your presentation outline.
 
-* Typography, Emphasis & Lists
-Format plain text with instant visual hierarchy and readable typography.
+* 8. Navigation Breadcrumbs & Clickable Hierarchy
+Notice the breadcrumbs above the slide title:
+=TITLE ❯ CHAPTER ❯ SLIDE=
 
-** Text Styling
-- *Bold*: Wrap text in single asterisks like =**bold concept**=.
-- *Inline Code*: Wrap text in equals signs or tildes like ~~console.log()~~ or = =.
-- *Standard Paragraphs*: Plain text lines automatically flow with balanced line heights and theme contrast.
+Every breadcrumb button is clickable:
+- Click the document title to jump back to Slide 1.
+- Click a parent chapter to jump to the start of that topic.
+- Use during Q&A sessions to seamlessly navigate your deck.
 
-** Structured Lists
+* 9. Text Formatting & Inline Markup
+Format plain text with instant visual hierarchy using standard Org markup:
+
+- *Bold*: Wrap text in asterisks like =*bold concept*=.
+- =Verbatim / Code=: Wrap text in equals signs like ==variable_name==.
+- ~Code Snippets~: Wrap text in tildes like =~npm run build~=.
+- *Inline Code*: Monospace font highlights commands and keywords cleanly.
+- Standard Paragraphs: Plain text lines automatically flow with balanced line heights and theme contrast.
+
+* 10. Structured Lists & Deep Nesting
 OrgSlide cleanly renders nested ordered and unordered lists:
 
 1. Primary workflow step
@@ -77,183 +102,392 @@ OrgSlide cleanly renders nested ordered and unordered lists:
    - sub task 2
 3. Final phase
 
-* Working with Links & Social Profiles
-Links in OrgSlide connect your slides to the web and allow customized presenter attribution.
+Lists support deep indentation levels with automatic square and circular bullet styles.
 
-** Hyperlinks in Body Text
-Use standard Org bracket syntax to create links:
-- *Text Links*: =[[https://github.com][Visit GitHub]]= renders as [[https://github.com][Visit GitHub]].
-- *Direct URLs*: Enclosing naked web addresses inside brackets generates clickable hyperlinks.
-- *Linked Images*: Enclose an image URL inside a link =[[https://github.com][https://avatar.png]]= to create a clickable image card!
+* 11. Hyperlinks & Web Addresses
+Connect your slides to documentation and websites using Org bracket syntax:
 
-** Presenter Social Links & Profile Editor (Alt + E)
-Press *Alt + E* anytime during a presentation to open the *Profile & Social Links Modal*:
-- Customize your *GitHub*, *Portfolio*, *Repository*, and *LinkedIn* links.
-- Type =NA= in any field to hide that icon from the footer and end slide.
-- Custom links persist in browser storage and dynamically populate the bottom-left footer icons across all slides!
+- *Descriptive Link*: =[[https://orgmode.org][Official Org-Mode Website]]= renders as [[https://orgmode.org][Official Org-Mode Website]].
+- *Direct URL*: =[[https://github.com]]= renders as a direct clickable link.
+- *Relative Paths*: Link to local files, documentation notes, or repository scripts.
 
-* Rich Image Manipulation Engine
-OrgSlide features a professional, interactive image engine that gives you full freedom over image positioning and sizing.
+Links are styled in high-visibility tech blue with subtle hover animations.
 
-[[https://www.lifewire.com/thmb/yrj047KsBf6-GI0iFHAKyo_ZEOE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Physicalkeyboard_TarikKizilkaya_GettyImages-160948868-6eb87698bb2f4ece9bfca400ddbca30f.jpg]]
+* 12. Working with Images & Graphics
+Embed images using bracket syntax:
 
-** How to Insert Images
-Insert images using standard bracket notation:
-- Web image: [[https://example.com/photo.jpg]]
-- Local folder image: [[./assets/diagram.png]] or [[screenshot.png]]
+#+begin_src emacs-lisp :eval no
+[[https://images.unsplash.com/photo-1557804506-669a67965ba0?w=700]]
+#+end_src
 
-** Interactive Hover Control Dock
-Hover your mouse over any image on a slide to reveal the floating control dock:
-1. *4 Alignment Modes*: Left (float left, text wraps right), Center (block center), Middle (inline centered), and Right (float right, text wraps left).
-2. *Fine Sizing (-15% / +15%)*: Scale images up or down in smooth 15% increments.
-3. *Width Presets (100% / 1:1)*: Snap to full slide width (=100%=) or reset to native image dimensions (=1:1=).
-4. *Free Move & 8-Way Resize*: Drag the image anywhere on the slide canvas and resize using 8 directional bounding-box handles.
-5. *Position Lock*: Click the padlock icon to lock the position and dimensions permanently.
-6. *Refresh Persistence*: All custom image moves, scales, and alignments are automatically saved to your browser storage and restored upon page reload!
+[[https://images.unsplash.com/photo-1557804506-669a67965ba0?w=700&auto=format&fit=crop]]
 
-* Workspace & Folder Explorer
-Presenting offline with local images and multi-file presentations is seamless with OrgSlide's Folder Manager.
+OrgSlide automatically detects image extensions (.png, .jpg, .svg, .webp) and instantiates the interactive image engine.
 
-[[https://images.unsplash.com/photo-1544396821-4dd40b938ad3?auto=format&fit=crop&w=1200&q=80]]
+* 13. Interactive Image Controls & Floating Toolbar
+Hover over any image in OrgSlide to reveal the floating glassmorphic toolbar:
 
-** How to Upload a Folder
-1. On the landing menu or top toolbar, click *Upload Folder*.
-2. Select any folder on your computer containing your =.org= presentation and images.
-3. OrgSlide reads all files and stores them securely in browser *IndexedDB* storage for the entire session.
+- *Alignment*: Float images to the Left, Center, Middle, or Right with automatic text wrapping.
+- *Scaling*: Adjust dimensions in 15% increments or snap to 100% full slide width.
+- *Corner Handle*: Drag the bottom-right handle for fluid custom resizing.
+- *Persistence*: All custom dimensions and alignments automatically persist in browser storage!
 
-** Automatic Relative Path Resolution
-If your document references local paths like =[[./images/architecture.png]]= or =[[chart.jpg]]=, OrgSlide automatically matches the filename to assets in your uploaded folder and displays them without any manual configuration!
+* 14. Free-Move Canvas Mode & 8-Way Resize
+Need complete control over image placement on the slide?
 
-** Workspace Explorer Modal
-Click *View Uploaded Folder* or the folder icon in top controls to view all files, copy relative links, or inspect asset dimensions.
+1. Click the *Free Move* button on the image toolbar.
+2. Eight circular handles appear around the image borders.
+3. Drag the central handle to position the image anywhere on the slide!
+4. Drag any handle to resize freely without aspect ratio restrictions.
+5. Click the *Lock Position* button to lock your image in place for presentation mode!
 
-* Tables & Data Formatting
-OrgSlide formats Org pipe tables into clean, high-contrast presentation tables with zebra striping and borders.
-
-| Shortcut | Function | Category |
-| Alt + J / Space | Next Slide | Presentation Navigation |
-| Alt + K / PageUp | Previous Slide | Presentation Navigation |
-| Alt + . | Open Table of Contents (Tree View) | Document Structure |
-| Alt + M | Switch Render Mode | Layout Engine |
-| Alt + T | Open Theme Command Palette | Visual Styling |
-| Alt + E | Open Social Links / Profile Editor | Presenter Attribution |
-| Alt + I | Manage Presentation Brand Logos | Branding & Watermark |
-| Alt + G | Go to Slide Number (or Click Counter) | Rapid Navigation |
-| + / - / 0 | Zoom Code Font / TOC Hierarchy | View Scaling |
-| Alt + ? | Toggle Keyboard Shortcuts Help | In-App Help Dialogue |
-| Esc | Close Open Modals / Exit Fullscreen | Safety Shortcut |
-
-Tables automatically inherit theme styling, border colors, and alternate row contrasts.
-
-* Interactive Code Blocks
-Code blocks in OrgSlide are designed for technical walk-throughs and live demos. Wrap code inside =#+begin_src= and =#+end_src=.
+* 15. Source Code Blocks: Syntax Highlighting
+Write multi-language source code blocks using =#+begin_src= and =#+end_src=:
 
 #+begin_src python
 import math
 
-def calculate_fibonacci(n):
-    """Generates the Fibonacci sequence up to n terms."""
-    sequence = [0, 1]
-    while len(sequence) < n:
-        sequence.append(sequence[-1] + sequence[-2])
-    return sequence[:n]
+def calculate_hypotenuse(a: float, b: float) -> float:
+    """Calculate hypotenuse using the Pythagorean theorem."""
+    return math.sqrt(a**2 + b**2)
 
-print(calculate_fibonacci(8))
+print("Hypotenuse:", calculate_hypotenuse(3.0, 4.0))
+#+end_src
+
+Highlight.js automatically detects the language and formats keywords, strings, and types.
+
+* 16. Code Block Actions: Copy, Fullscreen & Font Sizing
+Every code block features an upper-right action toolbar:
+
+- *Font Resizing (A+ / A-)*: Dynamically enlarge code for back-row audience members.
+- *Reset Font (↺)*: Restores default font sizing.
+- *Copy Code*: Copies code to clipboard with 1-click confirmation.
+- *Fullscreen Mode (⛶)*: Expands the code block to fill the entire monitor for live walkthroughs!
+
+* 17. Multi-Language Code: JavaScript & TypeScript
+Present modern web algorithms and frontend interfaces:
+
+#+begin_src javascript
+async function fetchPresentationData(docPath) {
+  try {
+    const response = await fetch(docPath);
+    if (!response.ok) throw new Error("HTTP error " + response.status);
+    const text = await response.text();
+    return window.parseOrgMode(text);
+  } catch (err) {
+    console.error("Failed to load deck:", err);
+  }
+}
+#+end_src
+
+* 18. Multi-Language Code: Systems Programming in Rust
+Present systems-level Rust code with memory safety:
+
+#+begin_src rust
+#[derive(Debug)]
+struct SlideNode {
+    id: usize,
+    title: String,
+    level: u8,
+}
+
+fn main() {
+    let slide = SlideNode {
+        id: 1,
+        title: String::from("Introduction"),
+        level: 1,
+    };
+    println!("Rendered: {:?}", slide);
+}
+#+end_src
+
+* 19. Multi-Language Code: Systems Programming in C & C++
+Display high-performance algorithms in C and C++:
+
+#+begin_src c
+#include <stdio.h>
+
+int main() {
+    printf("OrgSlide Engine: Fast, lightweight, and modern.\n");
+    return 0;
+}
+#+end_src
+
+* 20. Multi-Language Code: Shell & Automation Scripts
+Format deployment scripts and command-line pipelines:
+
+#+begin_src bash
+#!/usr/bin/env bash
+echo "Starting OrgSlide standalone server..."
+python3 -m http.server 8000
+#+end_src
+
+* 21. Multi-Language Code: Database Queries in SQL
+Present SQL database queries, aggregations, and joins:
+
+#+begin_src sql
+SELECT 
+    deck_id, 
+    deck_title, 
+    COUNT(slide_id) AS total_slides 
+FROM presentations 
+GROUP BY deck_id, deck_title 
+ORDER BY total_slides DESC;
+#+end_src
+
+* 22. Code Execution Outputs: #+RESULTS:
+Org-mode documents can embed execution results using =#+RESULTS:=:
+
+#+begin_src python
+print("Result of evaluation: 42")
 #+end_src
 
 #+RESULTS:
-: [0, 1, 1, 2, 3, 5, 8, 13]
+: Result of evaluation: 42
 
-** Sticky Toolbar & Corner Badge Features
-- *Dimmed Corner Badge*: The language name is pinned to the top-right corner in subtle typography. When you hover over the code block, it smoothly fades out to reveal the actions.
-- *Font Zoom*: Click =+= or =-= to dynamically adjust font size during live presentations so every attendee can read clearly.
-- *1-Click Copy*: Copies raw code to your clipboard with temporary checkmark feedback.
-- *Fullscreen Mode*: Expands code to fill the entire screen with a single expand/collapse toggle icon. Press =Esc= to exit.
+OrgSlide renders an emerald green =#+RESULTS:= badge followed by clean verbatim output.
 
-* Multi-Language Code Showcase
-OrgSlide supports syntax highlighting for over 15 programming languages.
+* 23. Verbatim & Colon Blocks
+Display literal text, terminal traces, and ASCII logs using colon blocks:
 
-** Modern Systems Programming in Rust
-#+begin_src rust
-fn main() {
-    let framework = "OrgSlide";
-    let render_modes = 7;
-    println!("Welcome to {}, supporting {} presentation modes!", framework, render_modes);
-}
+: [INFO] 2026-10-05 10:00:00 - Server initialized on port 8080
+: [DEBUG] Memory allocation: 12.4 MB
+: [SUCCESS] Presentation deck successfully loaded!
+
+Colon blocks automatically render with clean monospace styling.
+
+* 24. Org-Mode Tables: Syntax & Structure
+Create responsive data tables using pipe syntax:
+
+| Feature | OrgSlide | Traditional PowerPoint |
+|---------+----------+------------------------|
+| Plain Text Source | Yes | No |
+| Version Control | 100% Git Friendly | Difficult Binary Diffs |
+| Multiple Render Modes | 6 Modes | 1 Mode |
+| Client-Side Runtime | Yes | Requires App Install |
+
+OrgSlide automatically detects table headers, row dividers, and stripes rows.
+
+* 25. Advanced Data Tables & Matrix Views
+Present complex technical benchmarks and comparison matrices:
+
+| Component | Technology | Latency | Status |
+|-----------+------------+---------+--------|
+| Org Parser | Pure JS Regex | < 2ms | Optimal |
+| Markdown Parser | Standalone Engine | < 2ms | Optimal |
+| Syntax Highlighting | Highlight.js | < 5ms | Ready |
+| Math Engine | KaTeX | < 1ms | Active |
+| Image Layouts | IndexedDB Cache | Instant | Synchronized |
+
+* 26. Property Drawers & Metadata Handling
+Org-mode property drawers are cleanly supported:
+
+:PROPERTIES:
+:ID: slide-architecture-intro
+:CUSTOM_ID: arch-intro
+:END:
+
+OrgSlide automatically filters out internal properties drawers so your slides remain uncluttered!
+
+* 27. Special Org-Mode Tags
+Organize slides using tags:
+
+* Technical Architecture :backend:architecture:
+This slide has tags in its source heading. OrgSlide automatically strips tags from the visual title while keeping them available for indexing!
+
+* 28. Presenter Social Links & Profile Editor (Alt + E)
+Press *Alt + E* anytime during a presentation to open the *Profile & Social Links Modal*:
+
+- Customize your *GitHub*, *Portfolio*, *Repository*, and *LinkedIn* links.
+- Enter your presenter name, slogan, and closing message.
+- Type =NA= in any field to hide that icon from the footer.
+- Custom links persist in browser storage and populate the bottom-left footer across all slides!
+
+* 29. Interactive Table of Contents: Tree View (Alt + .)
+Press *Alt + .* to launch the interactive *Presentation Outline Modal*:
+
+- *Mindmap Tree View*: Infinite-canvas orthogonal tree diagram connecting chapters to slides.
+- *Compact List View*: Traditional linear outline with slide numbers.
+- *Details View*: Indented hierarchical outline with chapter headers.
+- *Card View*: Responsive grid of visual slide cards.
+- *Overview Mode*: Live scaled visual previews of all slides on an infinite canvas!
+
+* 30. Keyboard Shortcuts: Complete Navigation Reference
+Navigate effortlessly during presentations with keyboard shortcuts:
+
+| Shortcut | Action | Description |
+|----------+--------+-------------|
+| Alt + J / Space | Next Slide | Advance presentation |
+| Alt + K | Previous Slide | Return to previous slide |
+| Alt + . | Table of Contents | Open Tree View outline |
+| Alt + G | Go to Slide | Jump directly to slide number |
+| Alt + E | Profile Editor | Edit presenter social links |
+| Alt + ? | Help Dialog | Show all keyboard shortcuts |
+| Home / End | First / Last Slide | Jump to beginning / end |
+
+* 31. Presentation Themes: Light & Dark Modes
+Toggle between themes with 1-click or via the top controls:
+
+- *Light Theme*: High-contrast Navy Blue primary accents, tech blue secondary headers, and crisp light code blocks.
+- *Dark Theme*: Deep Catppuccin workspace background, pastel blue and violet accents, and Dracula dark code tokens.
+
+Theme settings persist in session storage across page reloads.
+
+* 32. Typography Engine: Custom Fonts & Pairs
+Select presentation fonts using the built-in typography selector:
+
+- *Headings & Body*: Inter, Roboto, Poppins, Nunito, Montserrat, Lora, Playfair Display.
+- *Monospace Code*: Fira Code, JetBrains Mono, Inconsolata, Source Code Pro, IBM Plex Mono.
+
+All fonts are loaded from Google Fonts with instant live preview.
+
+* 33. Render Mode: Classic PowerPoint Slide Mode
+The default presentation perspective:
+
+- Clean 16:9 widescreen canvas.
+- Top breadcrumbs and slide header logos.
+- Bottom footer with presenter social icons, documentation links, and slide counters.
+- Built for projectors, conference screens, and Zoom presentations.
+
+* 34. Render Mode: LaTeX Beamer Presentation
+Switch to Beamer mode for academic lectures:
+
+- Classic LaTeX Beamer top navigation bars and section progress dots.
+- Blue header and footer bands.
+- Theorem-style block cards.
+- Ideal for university lectures, research defenses, and paper presentations.
+
+* 35. Render Mode: Continuous LaTeX Book Mode
+Read your presentation as a digital book or whitepaper:
+
+- Converts slides into continuous numbered book chapters and sections.
+- Formats code blocks, tables, and images into a single flowing document.
+- Ideal for reading presentation notes as a continuous manual or textbook.
+
+* 36. Render Mode: Hierarchical Outline Mode
+View your entire document as a collapsible tree:
+
+- Clean, expandable hierarchical outline.
+- Expand or collapse individual chapters with a single click.
+- Excellent for executive overviews, table of contents reviews, and rapid document browsing.
+
+* 37. Export Ecosystem: 1-Click PDF Generation
+Export your slides to publication-quality PDF:
+
+1. Click the *Export* button or press *Ctrl + P*.
+2. OrgSlide's print stylesheet formats every slide into a distinct landscape page.
+3. Select *Save as PDF*, set Margins to *None*, and check *Background Graphics*.
+4. Save your presentation as a vector PDF document!
+
+* 38. Export Ecosystem: Microsoft PowerPoint (PPTX)
+Export your slides to native Microsoft PowerPoint format:
+
+- Powered by *PptxGenJS*.
+- Converts slide titles, text, bullet lists, and images into editable PowerPoint objects.
+- Automatically generates slide masters with slide numbers and footers.
+- Compatible with Microsoft PowerPoint, Apple Keynote, and Google Slides.
+
+* 39. Export Ecosystem: Microsoft Word (DOCX)
+Export your presentation into a clean Word document:
+
+- Compiles slides into a paginated Word report.
+- Removes slide counters and navigation buttons for document readability.
+- Retains syntax highlighting on all source code blocks!
+
+* 40. Export Ecosystem: Standalone Single-File HTML
+Distribute your presentation as a single, zero-dependency HTML file:
+
+- Embeds all slides, styles, scripts, and fonts.
+- Openable in any web browser without internet access or local servers.
+- Perfect for emailing to clients or hosting on GitHub Pages.
+
+* 41. Folder Manager & IndexedDB Asset Bundling
+Present local diagrams and images completely offline:
+
+1. Click *Upload Folder* on the main menu.
+2. Select your presentation folder containing `.org` files and images.
+3. OrgSlide stores all files in an isolated **IndexedDB** database in your browser.
+4. Relative image paths (e.g., `./images/diag.png`) resolve automatically!
+
+* 42. Offline Resilience & Browser Storage
+OrgSlide guarantees that you never lose your presentation:
+
+- Current document text is stored in `sessionStorage` and `localStorage`.
+- Current slide index is preserved in the URL hash (`#1`, `#5`).
+- Refreshing your browser immediately restores your exact slide and presentation state!
+
+* 43. Clearing Session Storage: Clean Slate Feature
+Need to clear your browser session and return to the main menu?
+
+- Click the red *Clear Session* button on the landing page.
+- Purges cached drafts, resets the URL hash, and resets presenter states.
+- Ensures refreshing lands cleanly on the main menu for a new presentation!
+
+* 44. Emacs Integration & Workflow Tips
+Seamlessly author in GNU Emacs and present in OrgSlide:
+
+- Edit your files in Emacs using standard `org-mode`.
+- Use `org-babel` to test and execute source code blocks.
+- Save your file and drag it into OrgSlide to preview live!
+
+* 45. Developer API: Programmatic Slide Control
+Interact with OrgSlide using the browser console or custom scripts:
+
+#+begin_src javascript
+// Jump to slide 5 programmatically (0-indexed)
+window.updateSlide(4);
+
+// Get total slide count
+console.log("Total slides:", window.globalSlideData.length);
+
+// Toggle presentation theme
+toggleTheme();
 #+end_src
 
-** Backend Development in Go
-#+begin_src go
-package main
+* 46. Custom CSS & Extensibility
+Customize OrgSlide's appearance using modular stylesheets:
 
-import "fmt"
+- =css/base.css=: Global CSS variables, reset, and layout.
+- =css/slides.css=: Presentation slide canvas and navigation.
+- =css/code.css=: Highlight.js styles and action toolbar buttons.
+- =css/content.css=: Image engine, resize handles, and tables.
 
-func main() {
-    deck := []string{"Slide 1", "Slide 2", "Slide 3"}
-    fmt.Printf("Loaded deck with %d slides successfully.\n", len(deck))
-}
-#+end_src
+* 47. Troubleshooting & Presentation Checklist
+Before delivering your presentation, run through this quick checklist:
 
-* 7 Dynamic Render Layouts (Alt + M)
-Press *Alt + M* or click the layout icon in the top toolbar to switch between 7 distinct presentation layouts:
+1. Verify document title and metadata headers on Slide 1.
+2. Test code blocks and ensure syntax highlighting renders correctly.
+3. Check image alignments and preview fullscreen zoom.
+4. Press *Alt + .* to review the Table of Contents outline.
+5. Practice navigation using *Alt + J* and *Alt + K*.
 
-1. *Presentation Slide*: The default 16:9 widescreen presentation layout optimized for projectors, conference screens, and slide talks.
-2. *LaTeX Beamer*: Formal academic presentation style with persistent top navigation headers and structured slide framing.
-3. *Book / Continuous Article*: An elegant, continuous-scroll layout with classic serif typography, ideal for reading documentation or long papers.
-4. *Hierarchical Outline*: Minimalist, tree-structured document flow emphasizing heading organization.
-5. *Computational Notebook*: Jupyter-style linear cell format ideal for technical walk-throughs and code review sessions.
-6. *Scientific IEEE Paper*: Classic two-column academic research paper format with formal typography and dense technical layout.
-7. *Retro Terminal*: Developer-focused phosphor green-on-black terminal aesthetic featuring monospaced typography.
+* 48. Comparison: Org-Mode vs Markdown in OrgSlide
+Both formats are first-class citizens in OrgSlide:
 
-* Themes & Typography (Alt + T)
-Customize visual appearance to match your venue or personal preference.
+| Feature          | Org-Mode Engine    | Markdown Engine   |
+|------------------+--------------------+-------------------|
+| Heading Syntax   | =* Heading=        | =# Heading=       |
+| Code Blocks      | =#+begin_src lang= | =```lang=         |
+| Table Syntax     | =| col1 | col2 |=  | =| col1 | col2 |= |
+| Bold Text        | =*bold*=           | =**bold**=        |
+| Inline Code      | =~code~= or =code= | =`code`=          |
+| Image Syntax     | =[[url]]=          | =![alt](url)=     |
+| Slide Delimiters | Headings           | Headings or =---= |
 
-[[https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80]]
+* 49. Community & Contributing to OrgSlide
+OrgSlide is an active open-source project hosted on GitHub:
 
-** 60+ Curated Themes
-Press *Alt + T* or click the palette icon to open the Theme Command Palette:
-- *Instant Live Preview*: Use arrow keys to cycle through themes and see the entire presentation update in real time.
-- *Fuzzy Search*: Search themes like Dracula, Nord, Gruvbox, Tokyo Night, Catppuccin, Monokai, Cyberpunk, Solarized, or GitHub Dark.
-- *Light & Dark Modes*: Click the Sun/Moon icon to toggle between light and dark variants with curated contrast ratios.
-- *Consistent UI*: Theme colors automatically apply across slides, code blocks, tables, navigation controls, and the landing page!
+- *Repository*: [[https://github.com/CISSSCO/OrgSlide][github.com/CISSSCO/OrgSlide]]
+- *Issues & Feature Requests*: Submit bugs, proposals, and feature ideas via GitHub Issues.
+- *Pull Requests*: Contributions, new themes, and export enhancements are welcomed!
+- *License*: MIT Open Source License.
 
-** 30+ Web Fonts
-Click the Font icon in top controls to choose from over 30 Google fonts across Sans-Serif (Inter, Poppins, Montserrat), Serif (Playfair, Lora), and Monospace (Fira Code, JetBrains Mono).
+* 50. Conclusion & Final Acknowledgments
+Thank you for using **OrgSlide** for your presentations!
 
-* Navigation & Slide Visibility (Alt + .)
-Navigating complex decks is instantaneous with the interactive Tree View.
+- *Architect & Developer*: Cisco Ramon (Abhi)
+- *GitHub*: [[https://github.com/CISSSCO][github.com/CISSSCO]]
+- *Portfolio*: [[https://ciscoramon.netlify.app][ciscoramon.netlify.app]]
+- *LinkedIn*: [[https://www.linkedin.com/in/abhi581b/][linkedin.com/in/abhi581b]]
 
-** Hierarchical Table of Contents
-Press *Alt + .* or click the list icon to open the Table of Contents:
-- Jump to any slide with a single click.
-- Zoom the navigation tree in or out using =+= and =-= keys.
-
-** Slide Visibility Toggles (Hiding Slides)
-Every slide entry in the Tree View features a visibility checkbox:
-- *Tailor Your Presentation*: Uncheck slides you wish to omit for shorter talks or specific audiences.
-- *Seamless Navigation*: Hidden slides are skipped automatically when using keyboard navigation keys.
-- *Clean Continuous Reading*: Hidden slides are completely suppressed in Book, Paper, and Outline render layouts.
-
-* Rapid Slide Jump (Alt + G & Click Counter)
-Navigating directly to a specific slide is fast and intuitive:
-
-1. *Click Slide Numbering*: Click the slide counter in the bottom-right footer (e.g., =Slide 15 of 32=) to open the *Go to Slide* dialogue.
-2. *Keyboard Shortcut*: Press *Alt + G* anywhere in the presentation.
-3. *Quick Jump*: Enter the target slide number and press =Enter= or click *Go* to jump immediately. Press =Esc= to cancel.
-
-* Universal Multi-Format Export Engine
-Click the Export icon in the top navigation toolbar to export your presentation into universal formats for colleagues and clients:
-
-1. *Standalone Interactive HTML*: Downloads a self-contained single-file HTML application containing your presentation, styles, and full interactive engine for offline viewing.
-2. *Microsoft PowerPoint (.pptx)*: Converts slides into native PowerPoint presentation format with full graphical fidelity.
-3. *Word Document (.doc)*: Generates a structured document compatible with Microsoft Word, LibreOffice, and Google Docs with embedded code and tables.
-4. *Printable PDF*: Produces a clean 16:9 PDF document formatted for printing and distribution.
-
-* Session Persistence & Landing Page
-OrgSlide protects your work and presentation state across browser sessions:
-
-- *Landing Page Recent Documents*: The home menu automatically saves your 10 most recently opened documents with title previews, slide counts, and open timestamps for quick 1-click reloading.
-- *Active Slide Memory*: Refreshing the page maintains your exact active slide via URL hash anchors (e.g., =#12=) and session storage.
-- *Clean Re-Upload Reset*: Uploading a new document automatically resets your view to Slide 1 and clears previous image overrides for a pristine presentation start.
-- *Full Theme Compatibility*: The landing home menu dynamically reflects whichever color theme is selected in the theme engine.
-
+Star the repository on GitHub and enjoy your distraction-free presentations!

@@ -25,7 +25,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
 
 
+  <!-- KaTeX for Math Formulas -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="markdown/markdown.css">
 </head>
 <body>
 
@@ -85,11 +90,12 @@
       <p style="margin-bottom: 2rem;">A lightweight, responsive presentation renderer for Org-mode files.</p>
       
       <div style="margin-bottom: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <button onclick="const fi = document.getElementById('fileInput'); if (fi) { fi.value = ''; fi.click(); }" class="load-btn">Upload .org File</button>
-        <button onclick="document.getElementById('folderInput').click()" class="load-btn" title="Upload a folder containing your .org file and local images">Upload Folder</button>
+        <button onclick="const fi = document.getElementById('fileInput'); if (fi) { fi.value = ''; fi.click(); }" class="load-btn" title="Upload an .org or .md presentation file">Upload .org / .md File</button>
+        <button onclick="document.getElementById('folderInput').click()" class="load-btn" title="Upload a folder containing your .org or .md file and local images">Upload Folder</button>
         <button id="viewFolderBtn" onclick="window.FolderManager.showModal()" class="load-btn" style="display: none; background: #10b981;" title="View contents of the currently uploaded folder">View Uploaded Folder</button>
         <button id="returnToSlidesBtn" class="load-btn" style="display: none; background: var(--secondary);" onclick="document.getElementById('landingPage').classList.remove('active')" title="Return to current presentation">Resume Presentation</button>
         <button onclick="window.loadManual()" class="load-btn" style="background: var(--secondary);" title="Read OrgSlide Manual">Read Manual</button>
+        <button onclick="window.loadMarkdownSample()" class="load-btn" style="background: #0284c7;" title="View Markdown Presentation Demo">Markdown Demo</button>
         <button id="clearSessionBtn" onclick="window.clearSession ? window.clearSession() : (sessionStorage.clear(), localStorage.removeItem('orgSlide_savedText'), alert('Session cleared!'))" class="load-btn" style="background: #ef4444;" title="Clear session storage">Clear Session</button>
       </div>
 
@@ -170,7 +176,7 @@
       <svg class="icon-expand-page" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
       <svg class="icon-collapse-page" style="display:none;" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
     </button>
-    <input type="file" id="fileInput" accept=".org,.txt" />
+    <input type="file" id="fileInput" accept=".org,.md,.markdown,.txt" />
     <input type="file" id="folderInput" webkitdirectory multiple style="display: none;" />
   </div>
 
@@ -192,6 +198,8 @@
   <script src="js/image_manager.js"></script>
   <script src="js/recent_docs.js"></script>
   <script src="js/main.js"></script>
+  <script src="markdown/markdown_parser.js"></script>
+  <script src="markdown/markdown_engine.js"></script>
   <script src="js/tree_view.js"></script>
   <script src="js/logo_manager.js"></script>
     <script src="render/render_mode_engine.js"></script>

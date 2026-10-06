@@ -1,0 +1,303 @@
+/* ==========================================================================
+   OrgSlide - Markdown Extension Stylesheet
+   Provides styling for Markdown-specific features without altering Org styles
+   ========================================================================== */
+
+/* Task Lists (Checkboxes) */
+ul.task-list, ol.task-list {
+  list-style: none !important;
+  padding-left: 0.5rem !important;
+}
+
+li.task-list-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.65rem !important;
+  margin: 0.45rem 0 !important;
+  list-style: none !important;
+}
+
+li.task-list-item::marker {
+  content: "" !important;
+}
+
+.task-checkbox {
+  appearance: auto;
+  -webkit-appearance: auto;
+  margin-top: 0.35rem;
+  width: 17px;
+  height: 17px;
+  min-width: 17px;
+  cursor: pointer;
+  accent-color: var(--primary, #2563eb);
+}
+
+.task-list-item.checked {
+  color: var(--text-muted, #64748b);
+}
+
+.task-list-item.checked > span.task-text {
+  text-decoration: line-through;
+  opacity: 0.85;
+}
+
+/* Admonitions / Callouts (GitHub Flavored Markdown) */
+.markdown-callout {
+  margin: 1.25rem 0;
+  padding: 1rem 1.35rem;
+  border-left: 4px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.markdown-callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.45rem;
+}
+
+.markdown-callout-title svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.markdown-callout.note {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  color: inherit;
+}
+.markdown-callout.note .markdown-callout-title { color: #2563eb; }
+
+.markdown-callout.tip {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  color: inherit;
+}
+.markdown-callout.tip .markdown-callout-title { color: #059669; }
+
+.markdown-callout.important {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+  color: inherit;
+}
+.markdown-callout.important .markdown-callout-title { color: #7c3aed; }
+
+.markdown-callout.warning {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.09);
+  color: inherit;
+}
+.markdown-callout.warning .markdown-callout-title { color: #d97706; }
+
+.markdown-callout.caution {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  color: inherit;
+}
+.markdown-callout.caution .markdown-callout-title { color: #dc2626; }
+
+/* Markdown Blockquotes */
+blockquote.markdown-quote {
+  margin: 1.25rem 0;
+  padding: 0.85rem 1.25rem;
+  border-left: 4px solid var(--secondary, #3b82f6);
+  background: rgba(0, 0, 0, 0.03);
+  font-style: italic;
+  border-radius: 0 6px 6px 0;
+  color: var(--text-color, inherit);
+}
+
+body.theme-dark blockquote.markdown-quote {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Keyboard Tags (<kbd>) */
+kbd.markdown-kbd {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.85em;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-color, #1e293b);
+  background-color: var(--bg-card, #f8fafc);
+  border: 1px solid var(--border-color, #cbd5e1);
+  border-radius: 4px;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+}
+
+body.theme-dark kbd.markdown-kbd {
+  color: #f8fafc;
+  background-color: #1e293b;
+  border-color: #475569;
+}
+
+/* Highlight / Mark */
+mark.markdown-mark {
+  background: #fef08a;
+  color: #713f12;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+body.theme-dark mark.markdown-mark {
+  background: #854d0e;
+  color: #fef08a;
+}
+
+/* Footnotes */
+.markdown-footnotes {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-color, rgba(148, 163, 184, 0.4));
+  font-size: 0.88rem;
+  color: var(--text-muted, #64748b);
+}
+
+.markdown-footnotes ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.footnote-ref {
+  font-size: 0.75rem;
+  vertical-align: super;
+  font-weight: 700;
+  color: var(--primary, #2563eb);
+  text-decoration: none;
+  padding: 0 0.15rem;
+}
+
+.footnote-backref {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--secondary, #3b82f6);
+  margin-left: 0.35rem;
+}
+
+/* Table Alignments */
+.ppt-table th.align-center, .ppt-table td.align-center {
+  text-align: center !important;
+}
+.ppt-table th.align-right, .ppt-table td.align-right {
+  text-align: right !important;
+}
+.ppt-table th.align-left, .ppt-table td.align-left {
+  text-align: left !important;
+}
+
+/* Image Toolbar & Container Styling for Markdown */
+.org-image-container {
+  position: relative;
+  display: inline-block;
+  margin: 1.25rem auto;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.org-image-container.align-center {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 1.5rem auto !important;
+  text-align: center;
+}
+
+.org-image-container.align-center img.org-image {
+  margin: 0 auto !important;
+}
+
+.org-image-container:hover .image-toolbar {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.image-toolbar {
+  position: absolute !important;
+  top: 0.6rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  background: rgba(15, 23, 42, 0.92) !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 8px !important;
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+  z-index: 30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(8px) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
+  white-space: nowrap !important;
+}
+
+.image-toolbar .toolbar-divider {
+  width: 1px !important;
+  height: 16px !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  margin: 0 3px !important;
+}
+
+.image-toolbar button {
+  background: transparent !important;
+  color: #f8fafc !important;
+  border: none !important;
+  padding: 0.25rem 0.4rem !important;
+  cursor: pointer !important;
+  border-radius: 5px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  transition: background 0.15s, color 0.15s, transform 0.1s !important;
+}
+
+.image-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  transform: scale(1.08) !important;
+}
+
+.image-toolbar button.active {
+  background: var(--secondary, #3b82f6) !important;
+  color: #ffffff !important;
+}
+
+/* Inline Math & Display Math (KaTeX Integration) */
+.math-display {
+  display: block;
+  text-align: center;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  font-size: 1.25em;
+  padding: 0.4rem 0;
+}
+.math-inline {
+  padding: 0 0.25rem;
+  font-size: 1.1em;
+}
+
+.katex-display {
+  margin: 1.25rem 0 !important;
+  text-align: center !important;
+}
+.katex {
+  font-size: 1.2em !important;
+  color: var(--text-main, inherit);
+}
+body.theme-dark .katex {
+  color: #cdd6f4 !important;
+}
+
