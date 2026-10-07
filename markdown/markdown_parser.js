@@ -172,81 +172,96 @@
   function formatInlineMarkdown(str) {
     if (!str) return '';
 
-    // 1. Stash all inline code blocks (`code` or ``code``) so their contents are NEVER parsed as images, links, math, bold, etc.!
-    const codeStash = [];
-    str = str.replace(/(`+)([\s\S]*?)\1/g, (match, delimiter, codeContent) => {
-      const placeholder = `\x01MDX${codeStash.length}\x02`;
-      codeStash.push(`<code>${escapeHtml(codeContent)}</code>`);
+    const stash = [];
+    const addStash = (html) => {
+      const placeholder = `\x01MDH${stash.length}\x02`;
+      stash.push(html);
       return placeholder;
+    };
+
+    // 1. Stash all inline code blocks (`code` or ``code``) so their contents are NEVER parsed as images, links, math, bold, etc.!
+    str = str.replace(/(`+)([\s\S]*?)\1/g, (match, delimiter, codeContent) => {
+      return addStash(`<code>${escapeHtml(codeContent)}</code>`);
     });
 
     // 2. Perform all Markdown inline transformations
     // LaTeX Math display: $$math$$
     str = str.replace(/\$\$([\s\S]+?)\$\$/g, (match, formula) => {
-      return renderMath(formula, true);
+      return addStash(renderMath(formula, true));
     });
     // LaTeX Math inline: $math$
     str = str.replace(/\$([^$\n\r]+?)\$/g, (match, formula) => {
       if (/^\s*\d+(\.\d+)?\s*$/.test(formula)) return match;
-      return renderMath(formula, false);
+      return addStash(renderMath(formula, false));
     });
 
     // Images with links: [![alt](img_url)](link_url)
     str = str.replace(/\[!\[([^\]]*)\]\(([^)]+)\)\]\(([^)]+)\)/g, (match, alt, imgUrl, linkUrl) => {
-      return `<a href="${linkUrl}" target="_blank" class="image-link">${renderImageContainer(imgUrl, alt)}</a>`;
+      return addStash(`<a href="${linkUrl.trim()}" target="_blank" class="image-link">${renderImageContainer(imgUrl.trim(), alt)}</a>`);
     });
 
     // Images: ![alt](url)
     str = str.replace(/!\[([^\]]*)\]\(([^)]+)\)\]/g, (match, alt, url) => {
       const cleanUrl = url.trim();
-      return renderImageContainer(cleanUrl, alt);
+      return addStash(renderImageContainer(cleanUrl, alt));
     });
     str = str.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
       const cleanUrl = url.trim();
-      return renderImageContainer(cleanUrl, alt);
+      return addStash(renderImageContainer(cleanUrl, alt));
+    });
+
+    // Autolinks: <https://...> or <http://...>
+    str = str.replace(/<(https?:\/\/[^>]+)>/g, (match, url) => {
+      const cleanUrl = url.trim();
+      return addStash(`<a href="${cleanUrl}" target="_blank" style="color: var(--secondary);">${escapeHtml(cleanUrl)}</a>`);
     });
 
     // Links: [text](url)
     str = str.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
-      const trimmed = text.trim();
-      if (isImageSource(trimmed)) {
-        return `<a href="${url}" target="_blank">${renderImageContainer(trimmed, 'Link Image')}</a>`;
+      const cleanUrl = url.trim();
+      const cleanText = text.trim();
+      if (isImageSource(cleanText)) {
+        return addStash(`<a href="${cleanUrl}" target="_blank">${renderImageContainer(cleanText, 'Link Image')}</a>`);
       }
-      return `<a href="${url}" target="_blank" style="color: var(--secondary);">${trimmed}</a>`;
+      const isUrlText = /^(https?:\/\/|mailto:|\/|\.\/)/i.test(cleanText);
+      const displayText = isUrlText ? escapeHtml(cleanText) : formatInlineMarkdown(cleanText);
+      return addStash(`<a href="${cleanUrl}" target="_blank" style="color: var(--secondary);">${displayText}</a>`);
+    });
+
+    // Footnote reference: [^1]
+    str = str.replace(/\[\^([^\]]+)\]/g, (match, fnId) => {
+      return addStash(`<sup class="footnote-ref"><a href="#fn-${fnId}">[${fnId}]</a></sup>`);
     });
 
     // Keyboard tags: <kbd>key</kbd>
     str = str.replace(/<kbd>([^<]+)<\/kbd>/gi, '<kbd class="markdown-kbd">$1</kbd>');
 
-    // Bold + Italic: ***text*** or ___text___
-    str = str.replace(/(\*\*\*|___)(.*?)\1/g, '<strong><em>$2</em></strong>');
+    // Bold + Italic: ***text***
+    str = str.replace(/\*\*\*([^\s*](?:[\s\S]*?[^\s*])?)\*\*\*/g, '<strong><em>$1</em></strong>');
 
-    // Bold: **text** or __text__
-    str = str.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');
+    // Bold: **text** or __text__ (with intraword boundaries for __)
+    str = str.replace(/\*\*([^\s*](?:[\s\S]*?[^\s*])?)\*\*/g, '<strong>$1</strong>');
+    str = str.replace(/(?<![a-zA-Z0-9_])__([^\s_](?:[\s\S]*?[^\s_])?)__(?![a-zA-Z0-9_])/g, '<strong>$1</strong>');
 
-    // Italic: *text* or _text_
-    str = str.replace(/(\*|_)(.*?)\1/g, '<em>$2</em>');
+    // Italic: *text* or _text_ (with intraword boundaries for _)
+    str = str.replace(/\*([^\s*](?:[\s\S]*?[^\s*])?)\*/g, '<em>$1</em>');
+    str = str.replace(/(?<![a-zA-Z0-9_])_([^\s_](?:[\s\S]*?[^\s_])?)_(?![a-zA-Z0-9_])/g, '<em>$1</em>');
 
     // Strikethrough: ~~text~~
-    str = str.replace(/~~(.*?)~~/g, '<del>$1</del>');
+    str = str.replace(/~~([^\s~](?:[\s\S]*?[^\s~])?)~~/g, '<del>$1</del>');
 
     // Highlight: ==text==
-    str = str.replace(/==(.*?)==/g, '<mark class="markdown-mark">$1</mark>');
+    str = str.replace(/==([^\s=](?:[\s\S]*?[^\s=])?)==/g, '<mark class="markdown-mark">$1</mark>');
 
     // Superscript: ^text^
     str = str.replace(/\^([^^]+)\^/g, '<sup>$1</sup>');
 
     // Subscript: ~text~
-    str = str.replace(/~([^~]+)~/g, '<sub>$1</sub>');
+    str = str.replace(/~([^~\s](?:[\s\S]*?[^~\s])?)~/g, '<sub>$1</sub>');
 
-    // Footnote reference: [^1]
-    str = str.replace(/\[\^([^\]]+)\]/g, (match, fnId) => {
-      return `<sup class="footnote-ref"><a href="#fn-${fnId}">[${fnId}]</a></sup>`;
-    });
-
-    // 3. Restore stashed inline code blocks safely!
-    str = str.replace(/\x01MDX(\d+)\x02/g, (match, index) => {
-      return codeStash[parseInt(index, 10)] || '';
+    // 3. Restore stashed inline elements safely!
+    str = str.replace(/\x01MDH(\d+)\x02/g, (match, index) => {
+      return stash[parseInt(index, 10)] || '';
     });
 
     return str;
@@ -814,17 +829,6 @@
       if (!hasTitle && !hasLines) return false;
       if (!hasLines && sec.title === finalDocTitle) return false;
       return true;
-    });
-
-    // (c) Any parent heading section that has no body lines and is immediately followed by a sub-section
-    filteredSections = filteredSections.filter((sec, idx, arr) => {
-      const hasContent = sec.lines.some(l => l.trim().length > 0);
-      if (hasContent) return true;
-      const nextSec = arr[idx + 1];
-      if (nextSec && nextSec.level > sec.level) {
-        return false; // Skip empty parent heading slide
-      }
-      return hasContent || (sec.title && sec.title !== finalDocTitle);
     });
 
     // Subsequent Slides

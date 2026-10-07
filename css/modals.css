@@ -144,6 +144,34 @@
   font-size: 1.2rem;
   font-family: inherit;
 }
+.modal-apply-btn {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.15s ease;
+  user-select: none;
+  min-height: 36px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.modal-apply-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+.modal-apply-btn:active {
+  transform: translateY(0);
+  filter: brightness(0.95);
+}
 .command-palette-list {
   max-height: 50vh;
   overflow-y: auto;
@@ -158,6 +186,36 @@
   border-radius: 8px;
   color: var(--text-muted);
   transition: background 0.1s;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.theme-option-row *, .font-option-row * {
+  pointer-events: none;
+}
+
+@media (hover: none) or (pointer: coarse), (max-width: 1024px) {
+  .command-palette-modal {
+    padding-top: 5vh;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .command-palette-content {
+    max-height: 85vh;
+  }
+  .command-palette-list {
+    max-height: 65vh;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-apply-btn {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.95rem;
+    min-height: 42px;
+  }
+  .theme-option-row, .font-option-row {
+    padding: 0.85rem 1rem;
+    min-height: 52px;
+  }
 }
 .theme-option-row.focused, .font-option-row.focused {
   background: var(--code-bg);

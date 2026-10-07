@@ -1,8 +1,8 @@
 /* OrgSlide Master Stylesheet */
-@import url('base.css');
-@import url('landing.css');
-@import url('slides.css');
-@import url('code.css');
-@import url('content.css');
-@import url('modals.css');
-@import url('print.css');
+@import url('base.css?v=2');
+@import url('landing.css?v=2');
+@import url('slides.css?v=2');
+@import url('code.css?v=2');
+@import url('content.css?v=2');
+@import url('modals.css?v=2');
+@import url('print.css?v=2');

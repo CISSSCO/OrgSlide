@@ -28,14 +28,66 @@
       </div>
     `).join('');
 
+    // Container-level delegation for robust touch and mouse handling
+    if (!container._hasDelegation) {
+      container._hasDelegation = true;
+      let startX = 0, startY = 0, startTime = 0;
+
+      container.addEventListener('pointerdown', (e) => {
+        startX = e.clientX;
+        startY = e.clientY;
+        startTime = Date.now();
+      });
+
+      const updateFocusedExportUI = () => {
+        container.querySelectorAll('.theme-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
+      };
+
+      container.addEventListener('pointerup', (e) => {
+        const dx = Math.abs(e.clientX - startX);
+        const dy = Math.abs(e.clientY - startY);
+        const elapsed = Date.now() - startTime;
+        if (dx < 30 && dy < 30 && elapsed < 800) {
+          const row = e.target.closest('.theme-option-row');
+          if (row) {
+            focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+            updateFocusedExportUI();
+            selectExport(row.getAttribute('data-opt'));
+          }
+        }
+      });
+
+      container.addEventListener('click', (e) => {
+        const row = e.target.closest('.theme-option-row');
+        if (row) {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          updateFocusedExportUI();
+          selectExport(row.getAttribute('data-opt'));
+        }
+      });
+    }
+
+    // Direct row click fallback + desktop-only hover
     container.querySelectorAll('.theme-option-row').forEach(row => {
       row.addEventListener('click', () => {
-        selectExport(row.getAttribute('data-opt'));
+        focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+        container.querySelectorAll('.theme-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
+        const opt = row.getAttribute('data-opt');
+        if (opt) selectExport(opt);
       });
-      row.addEventListener('mouseover', () => {
-        focusedIndex = parseInt(row.getAttribute('data-index'));
-        renderExportList();
-      });
+
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        row.addEventListener('mouseenter', () => {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          container.querySelectorAll('.theme-option-row').forEach(r => {
+            r.classList.toggle('focused', r === row);
+          });
+        });
+      }
     });
 
     const focusedEl = container.querySelector('.focused');
@@ -44,7 +96,12 @@
     }
   }
 
+  let lastSelectExportTime = 0;
   async function selectExport(optId) {
+    if (!optId) return;
+    const now = Date.now();
+    if (now - lastSelectExportTime < 300) return;
+    lastSelectExportTime = now;
     window.ExportEngine.closeModal();
     
     // Show generating overlay
@@ -236,20 +293,36 @@
     }
 
     
-    document.getElementById('cancelExportBtn').addEventListener('click', () => {
-      modal.remove();
-      URL.revokeObjectURL(url);
-    });
-
-    document.getElementById('confirmExportBtn').addEventListener('click', async () => {
-      if (mode === 'html') {
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'presentation_export.html';
-        a.click();
+    const cancelBtn = document.getElementById('cancelExportBtn');
+    if (cancelBtn) {
+      const handleCancel = (e) => {
+        if (e && e.type === 'touchend') e.preventDefault();
         modal.remove();
         URL.revokeObjectURL(url);
-      } else if (mode === 'pdf') {
+      };
+      cancelBtn.addEventListener('click', handleCancel);
+      cancelBtn.addEventListener('touchend', handleCancel);
+      cancelBtn.addEventListener('pointerup', handleCancel);
+    }
+
+    const confirmBtn = document.getElementById('confirmExportBtn');
+    if (confirmBtn) {
+      let isExporting = false;
+      const handleConfirm = async (e) => {
+        if (e && e.type === 'touchend') e.preventDefault();
+        if (isExporting) return;
+        isExporting = true;
+
+        if (mode === 'html') {
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'presentation_export.html';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          modal.remove();
+          URL.revokeObjectURL(url);
+        } else if (mode === 'pdf') {
         document.getElementById('pdfLoadingOverlay').style.display = 'flex';
         const iframeDoc = document.getElementById('previewIframe').contentDocument || document.getElementById('previewIframe').contentWindow.document;
         if (window.ExportPDF) {
@@ -374,11 +447,15 @@
         
         const a = document.createElement('a');
         const blob = new Blob([docHtmlString], { type: 'application/msword' });
-        a.href = URL.createObjectURL(blob);
+        const docUrl = URL.createObjectURL(blob);
+        a.href = docUrl;
         a.download = 'presentation_export.doc';
+        document.body.appendChild(a);
         a.click();
+        a.remove();
         modal.remove();
         URL.revokeObjectURL(url);
+        URL.revokeObjectURL(docUrl);
       } else if (mode === 'pptx') {
         document.getElementById('pdfLoadingOverlay').querySelector('span').textContent = 'Generating PowerPoint... Please wait';
         document.getElementById('pdfLoadingOverlay').style.display = 'flex';
@@ -393,7 +470,12 @@
            URL.revokeObjectURL(url);
         }
       }
-    });
+      };
+
+      confirmBtn.addEventListener('click', handleConfirm);
+      confirmBtn.addEventListener('touchend', handleConfirm);
+      confirmBtn.addEventListener('pointerup', handleConfirm);
+    }
   }
 
   function handleKeydown(e) {
@@ -436,12 +518,26 @@
             <div class="command-palette-search">
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path></svg>
               <input type="text" id="exportSearchInput" placeholder="Select Export Format..." autocomplete="off">
+              <button id="applyExportBtn" class="modal-apply-btn" type="button" title="Export with chosen format">Apply</button>
             </div>
             <div id="exportListContainer" class="command-palette-list">
             </div>
           </div>
         `;
         document.body.appendChild(modal);
+
+        const applyBtn = document.getElementById('applyExportBtn');
+        if (applyBtn) {
+          const handleApply = (e) => {
+            if (e && e.type === 'touchend') e.preventDefault();
+            if (filteredOptions[focusedIndex]) {
+              selectExport(filteredOptions[focusedIndex].id);
+            }
+          };
+          applyBtn.addEventListener('click', handleApply);
+          applyBtn.addEventListener('pointerup', handleApply);
+          applyBtn.addEventListener('touchend', handleApply);
+        }
 
         document.getElementById('exportSearchInput').addEventListener('input', (e) => {
           const query = e.target.value.toLowerCase();
@@ -453,6 +549,12 @@
         modal.addEventListener('click', (e) => {
           if (e.target === modal) window.ExportEngine.closeModal();
         });
+        modal.addEventListener('touchend', (e) => {
+          if (e.target === modal) {
+            e.preventDefault();
+            window.ExportEngine.closeModal();
+          }
+        });
 
         document.addEventListener('keydown', handleKeydown);
       } 
@@ -463,9 +565,11 @@
       
       renderExportList();
       
-      setTimeout(() => {
-        input.focus();
-      }, 50);
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        setTimeout(() => {
+          input.focus();
+        }, 50);
+      }
     },
     closeModal: function() {
       const modal = document.getElementById('exportEngineModal');
