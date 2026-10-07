@@ -86,14 +86,74 @@
       </div>
     `).join('');
 
+    // Container-level delegation for robust touch and mouse handling
+    if (!container._hasDelegation) {
+      container._hasDelegation = true;
+      let startX = 0, startY = 0, startTime = 0;
+
+      container.addEventListener('pointerdown', (e) => {
+        startX = e.clientX;
+        startY = e.clientY;
+        startTime = Date.now();
+      });
+
+      const updateFocusedFontUI = () => {
+        container.querySelectorAll('.font-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
+        if (filteredFonts[focusedIndex]) {
+          applyFont(filteredFonts[focusedIndex].id);
+        }
+      };
+
+      container.addEventListener('pointerup', (e) => {
+        const dx = Math.abs(e.clientX - startX);
+        const dy = Math.abs(e.clientY - startY);
+        const elapsed = Date.now() - startTime;
+        if (dx < 30 && dy < 30 && elapsed < 800) {
+          const row = e.target.closest('.font-option-row');
+          if (row) {
+            focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+            updateFocusedFontUI();
+            selectFont(row.getAttribute('data-font'));
+          }
+        }
+      });
+
+      container.addEventListener('click', (e) => {
+        const row = e.target.closest('.font-option-row');
+        if (row) {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          updateFocusedFontUI();
+          selectFont(row.getAttribute('data-font'));
+        }
+      });
+    }
+
+    // Direct row click fallback + desktop-only hover preview
     container.querySelectorAll('.font-option-row').forEach(row => {
       row.addEventListener('click', () => {
+        focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+        container.querySelectorAll('.font-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
+        if (filteredFonts[focusedIndex]) {
+          applyFont(filteredFonts[focusedIndex].id);
+        }
         selectFont(row.getAttribute('data-font'));
       });
-      row.addEventListener('mouseover', () => {
-        focusedIndex = parseInt(row.getAttribute('data-index'));
-        renderFontList();
-      });
+
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        row.addEventListener('mouseenter', () => {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          container.querySelectorAll('.font-option-row').forEach(r => {
+            r.classList.toggle('focused', r === row);
+          });
+          if (filteredFonts[focusedIndex]) {
+            applyFont(filteredFonts[focusedIndex].id);
+          }
+        });
+      }
     });
 
     const focusedEl = container.querySelector('.focused');
@@ -101,13 +161,18 @@
       focusedEl.scrollIntoView({ block: 'nearest' });
     }
 
-    // Live preview
-    if (filteredFonts[focusedIndex]) {
+    // Live preview on desktop keyboard navigation
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && filteredFonts[focusedIndex]) {
       applyFont(filteredFonts[focusedIndex].id);
     }
   }
 
+  let lastSelectFontTime = 0;
   function selectFont(fontId) {
+    if (!fontId) return;
+    const now = Date.now();
+    if (now - lastSelectFontTime < 300) return;
+    lastSelectFontTime = now;
     currentFont = fontId;
     sessionStorage.setItem('orgSlide_extFont', currentFont);
     applyFont(currentFont);
@@ -155,6 +220,7 @@
             <div class="command-palette-search">
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
               <input type="text" id="fontSearchInput" placeholder="Font..." autocomplete="off">
+              <button id="applyFontBtn" class="modal-apply-btn" type="button" title="Apply chosen font">Apply</button>
             </div>
             <div style="padding: 0.5rem 1.25rem; border-bottom: 1px solid var(--code-border); display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); background: rgba(0,0,0,0.1);">
               <input type="checkbox" id="fontApplyToCodeCheckbox" style="cursor: pointer;" ${applyToCode ? 'checked' : ''}>
@@ -165,6 +231,19 @@
           </div>
         `;
         document.body.appendChild(modal);
+
+        const applyBtn = document.getElementById('applyFontBtn');
+        if (applyBtn) {
+          const handleApply = (e) => {
+            if (e && e.type === 'touchend') e.preventDefault();
+            if (filteredFonts[focusedIndex]) {
+              selectFont(filteredFonts[focusedIndex].id);
+            }
+          };
+          applyBtn.addEventListener('click', handleApply);
+          applyBtn.addEventListener('pointerup', handleApply);
+          applyBtn.addEventListener('touchend', handleApply);
+        }
 
         document.getElementById('fontApplyToCodeCheckbox').addEventListener('change', (e) => {
           applyToCode = e.target.checked;
@@ -186,6 +265,12 @@
         modal.addEventListener('click', (e) => {
           if (e.target === modal) window.FontEngine.closeModal();
         });
+        modal.addEventListener('touchend', (e) => {
+          if (e.target === modal) {
+            e.preventDefault();
+            window.FontEngine.closeModal();
+          }
+        });
 
         document.addEventListener('keydown', handleKeydown);
       } else {
@@ -199,9 +284,11 @@
       
       renderFontList();
       
-      setTimeout(() => {
-        input.focus();
-      }, 50);
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        setTimeout(() => {
+          input.focus();
+        }, 50);
+      }
     },
     closeModal: function() {
       const modal = document.getElementById('fontEngineModal');

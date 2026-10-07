@@ -153,15 +153,74 @@
       </div>
     `).join('');
 
-    // Re-bind click events
+    // Container-level delegation for robust touch and mouse handling
+    if (!container._hasDelegation) {
+      container._hasDelegation = true;
+      let startX = 0, startY = 0, startTime = 0;
+
+      container.addEventListener('pointerdown', (e) => {
+        startX = e.clientX;
+        startY = e.clientY;
+        startTime = Date.now();
+      });
+
+      const updateFocusedThemeUI = () => {
+        container.querySelectorAll('.theme-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
+        if (filteredThemes[focusedIndex]) {
+          applyTheme(filteredThemes[focusedIndex].id);
+        }
+      };
+
+      container.addEventListener('pointerup', (e) => {
+        const dx = Math.abs(e.clientX - startX);
+        const dy = Math.abs(e.clientY - startY);
+        const elapsed = Date.now() - startTime;
+        if (dx < 30 && dy < 30 && elapsed < 800) {
+          const row = e.target.closest('.theme-option-row');
+          if (row) {
+            focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+            updateFocusedThemeUI();
+            selectTheme(row.getAttribute('data-theme'));
+          }
+        }
+      });
+
+      container.addEventListener('click', (e) => {
+        const row = e.target.closest('.theme-option-row');
+        if (row) {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          updateFocusedThemeUI();
+          selectTheme(row.getAttribute('data-theme'));
+        }
+      });
+    }
+
+    // Direct row click fallback + desktop-only hover live preview
     container.querySelectorAll('.theme-option-row').forEach(row => {
-      row.addEventListener('click', (e) => {
+      row.addEventListener('click', () => {
+        focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+        container.querySelectorAll('.theme-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
+        if (filteredThemes[focusedIndex]) {
+          applyTheme(filteredThemes[focusedIndex].id);
+        }
         selectTheme(row.getAttribute('data-theme'));
       });
-      row.addEventListener('mouseover', (e) => {
-        focusedIndex = parseInt(row.getAttribute('data-index'));
-        renderThemeList();
-      });
+
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        row.addEventListener('mouseenter', () => {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          container.querySelectorAll('.theme-option-row').forEach(r => {
+            r.classList.toggle('focused', r === row);
+          });
+          if (filteredThemes[focusedIndex]) {
+            applyTheme(filteredThemes[focusedIndex].id);
+          }
+        });
+      }
     });
 
     // Scroll focused into view if needed
@@ -170,13 +229,18 @@
       focusedEl.scrollIntoView({ block: 'nearest' });
     }
 
-    // Live preview
-    if (filteredThemes[focusedIndex]) {
+    // Live preview on desktop keyboard navigation
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && filteredThemes[focusedIndex]) {
       applyTheme(filteredThemes[focusedIndex].id);
     }
   }
 
+  let lastSelectThemeTime = 0;
   function selectTheme(themeId) {
+    if (!themeId) return;
+    const now = Date.now();
+    if (now - lastSelectThemeTime < 300) return;
+    lastSelectThemeTime = now;
     currentTheme = themeId;
     sessionStorage.setItem('orgSlide_extTheme', currentTheme);
     applyTheme(currentTheme);
@@ -225,12 +289,26 @@
             <div class="command-palette-search">
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               <input type="text" id="themeSearchInput" placeholder="Theme..." autocomplete="off">
+              <button id="applyThemeBtn" class="modal-apply-btn" type="button" title="Apply chosen theme">Apply</button>
             </div>
             <div id="themeListContainer" class="command-palette-list">
             </div>
           </div>
         `;
         document.body.appendChild(modal);
+
+        const applyBtn = document.getElementById('applyThemeBtn');
+        if (applyBtn) {
+          const handleApply = (e) => {
+            if (e && e.type === 'touchend') e.preventDefault();
+            if (filteredThemes[focusedIndex]) {
+              selectTheme(filteredThemes[focusedIndex].id);
+            }
+          };
+          applyBtn.addEventListener('click', handleApply);
+          applyBtn.addEventListener('pointerup', handleApply);
+          applyBtn.addEventListener('touchend', handleApply);
+        }
 
         // Styles for command palette
 
@@ -245,6 +323,12 @@
         modal.addEventListener('click', (e) => {
           if (e.target === modal) window.ThemeEngine.closeModal();
         });
+        modal.addEventListener('touchend', (e) => {
+          if (e.target === modal) {
+            e.preventDefault();
+            window.ThemeEngine.closeModal();
+          }
+        });
 
         document.addEventListener('keydown', handleKeydown);
       } 
@@ -255,9 +339,11 @@
       
       renderThemeList();
       
-      setTimeout(() => {
-        input.focus();
-      }, 50);
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        setTimeout(() => {
+          input.focus();
+        }, 50);
+      }
     },
     closeModal: function() {
       const modal = document.getElementById('themeEngineModal');

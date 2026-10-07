@@ -116,14 +116,65 @@
       </div>
     `).join('');
 
+    // Container-level delegation for robust touch and mouse handling
+    if (!container._hasDelegation) {
+      container._hasDelegation = true;
+      let startX = 0, startY = 0, startTime = 0;
+
+      container.addEventListener('pointerdown', (e) => {
+        startX = e.clientX;
+        startY = e.clientY;
+        startTime = Date.now();
+      });
+
+      const updateFocusedUI = () => {
+        container.querySelectorAll('.theme-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
+      };
+
+      container.addEventListener('pointerup', (e) => {
+        const dx = Math.abs(e.clientX - startX);
+        const dy = Math.abs(e.clientY - startY);
+        const elapsed = Date.now() - startTime;
+        if (dx < 30 && dy < 30 && elapsed < 800) {
+          const row = e.target.closest('.theme-option-row');
+          if (row) {
+            focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+            updateFocusedUI();
+            selectMode(row.getAttribute('data-mode'));
+          }
+        }
+      });
+
+      container.addEventListener('click', (e) => {
+        const row = e.target.closest('.theme-option-row');
+        if (row) {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          updateFocusedUI();
+          selectMode(row.getAttribute('data-mode'));
+        }
+      });
+    }
+
+    // Direct row click fallback + desktop-only hover
     container.querySelectorAll('.theme-option-row').forEach(row => {
       row.addEventListener('click', () => {
+        focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+        container.querySelectorAll('.theme-option-row').forEach((r, idx) => {
+          r.classList.toggle('focused', idx === focusedIndex);
+        });
         selectMode(row.getAttribute('data-mode'));
       });
-      row.addEventListener('mouseover', () => {
-        focusedIndex = parseInt(row.getAttribute('data-index'), 10);
-        renderModeList();
-      });
+
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        row.addEventListener('mouseenter', () => {
+          focusedIndex = parseInt(row.getAttribute('data-index'), 10);
+          container.querySelectorAll('.theme-option-row').forEach(r => {
+            r.classList.toggle('focused', r === row);
+          });
+        });
+      }
     });
 
     const focusedEl = container.querySelector('.focused');
@@ -132,7 +183,12 @@
     }
   }
 
+  let lastSelectModeTime = 0;
   function selectMode(modeId) {
+    if (!modeId) return;
+    const now = Date.now();
+    if (now - lastSelectModeTime < 300) return;
+    lastSelectModeTime = now;
     applyMode(modeId);
     window.RenderModeEngine.closeModal();
   }
@@ -189,11 +245,25 @@
                 <line x1="9" y1="21" x2="9" y2="9"></line>
               </svg>
               <input type="text" id="renderModeSearchInput" placeholder="Select Render Mode..." autocomplete="off">
+              <button id="applyRenderModeBtn" class="modal-apply-btn" type="button" title="Apply chosen render mode">Apply</button>
             </div>
             <div id="renderModeListContainer" class="command-palette-list"></div>
           </div>
         `;
         document.body.appendChild(modal);
+
+        const applyBtn = document.getElementById('applyRenderModeBtn');
+        if (applyBtn) {
+          const handleApply = (e) => {
+            if (e && e.type === 'touchend') e.preventDefault();
+            if (filteredModes[focusedIndex]) {
+              selectMode(filteredModes[focusedIndex].id);
+            }
+          };
+          applyBtn.addEventListener('click', handleApply);
+          applyBtn.addEventListener('pointerup', handleApply);
+          applyBtn.addEventListener('touchend', handleApply);
+        }
 
         document.getElementById('renderModeSearchInput').addEventListener('input', (e) => {
           const query = e.target.value.toLowerCase().trim();
@@ -209,6 +279,12 @@
         modal.addEventListener('click', (e) => {
           if (e.target === modal) window.RenderModeEngine.closeModal();
         });
+        modal.addEventListener('touchend', (e) => {
+          if (e.target === modal) {
+            e.preventDefault();
+            window.RenderModeEngine.closeModal();
+          }
+        });
 
         document.addEventListener('keydown', handleKeydown);
       }
@@ -218,9 +294,11 @@
       input.value = '';
       renderModeList();
 
-      setTimeout(() => {
-        input.focus();
-      }, 50);
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        setTimeout(() => {
+          input.focus();
+        }, 50);
+      }
     },
     closeModal: function() {
       const modal = document.getElementById('renderModeModal');
