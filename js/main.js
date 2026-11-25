@@ -533,34 +533,39 @@ let slides = [];
     function formatInlineOrg(str) {
       if (!str) return '';
 
-      // 1. Stash all inline code blocks (=code=, ==code==, ~code~, ~~code~~, or `code`) so their contents are never parsed as images, links, or bold!
-      const codeStash = [];
-      str = str.replace(/(=+|~+|`+)([^\s\n\r](?:[\s\S]*?[^\s\n\r])?)\1/g, (match, delimiter, codeContent) => {
-        const placeholder = `\x01ORGX${codeStash.length}\x02`;
-        codeStash.push(`<code>${escapeHtml(codeContent)}</code>`);
+      const stash = [];
+      const addStash = (html) => {
+        const placeholder = `\x01ORGX${stash.length}\x02`;
+        stash.push(html);
         return placeholder;
+      };
+
+      // 1. Stash all inline code blocks (=code=, ==code==, ~code~, ~~code~~, or `code`) so their contents are never parsed as images, links, bold, or italic!
+      str = str.replace(/(=+|~+|`+)([^\s\n\r](?:[\s\S]*?[^\s\n\r])?)\1/g, (match, delimiter, codeContent) => {
+        return addStash(`<code>${escapeHtml(codeContent)}</code>`);
       });
 
-      // 2. Format *bold*
-      str = str.replace(/\*([^*\n\r]+)\*/g, '<strong>$1</strong>');
-
-      // 3. [[url][text]] or [[url][image_url]] -> link
+      // 2. [[url][text]] or [[url][image_url]] -> link (stashed to protect any URLs or tags)
       str = str.replace(/\[\[([^\]]+)\]\[([^\]]+)\]\]/g, (match, href, content) => {
         const trimmed = content.trim();
         if (isImageSource(trimmed)) {
           const isAvatar = trimmed.includes('avatars.githubusercontent.com');
           if (isAvatar) {
-            return `<div class="developer-avatar-container" style="float: left; margin: 0.3rem 2.2rem 1.2rem 0;"><a href="${href}" target="_blank" title="Click to view Cisco Ramon on GitHub" class="developer-avatar-link"><img src="${trimmed}" alt="Cisco Ramon" class="developer-avatar-img" style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: transform 0.2s; border: 3.5px solid var(--primary); display: block;" onmouseover="this.style.transform='scale(1.06)';" onmouseout="this.style.transform='scale(1)';" /></a></div>`;
+            return addStash(`<div class="developer-avatar-container" style="float: left; margin: 0.3rem 2.2rem 1.2rem 0;"><a href="${href}" target="_blank" title="Click to view Cisco Ramon on GitHub" class="developer-avatar-link"><img src="${trimmed}" alt="Cisco Ramon" class="developer-avatar-img" style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: transform 0.2s; border: 3.5px solid var(--primary); display: block;" onmouseover="this.style.transform='scale(1.06)';" onmouseout="this.style.transform='scale(1)';" /></a></div>`);
           }
-          return `<a href="${href}" target="_blank" title="Open ${href}" style="display: inline-block; cursor: pointer; text-decoration: none; margin: 0.3rem;"><img src="${trimmed}" alt="Link" style="vertical-align: middle; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" /></a>`;
+          return addStash(`<a href="${href}" target="_blank" title="Open ${href}" style="display: inline-block; cursor: pointer; text-decoration: none; margin: 0.3rem;"><img src="${trimmed}" alt="Link" style="vertical-align: middle; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" /></a>`);
         }
-        return `<a href="${href}" target="_blank" style="color: var(--secondary);">${content}</a>`;
+        let formattedContent = content
+          .replace(/\*([^*\n\r]+)\*/g, '<strong>$1</strong>')
+          .replace(/(?<![a-zA-Z0-9_/:])\/([^\s\n\r/](?:[^\n\r/]*?[^\s\n\r/])?)\/(?![a-zA-Z0-9_/:])/g, '<em>$1</em>');
+        return addStash(`<a href="${href}" target="_blank" style="color: var(--secondary);">${formattedContent}</a>`);
       });
-      // [[url]] -> image or link
+
+      // 3. [[url]] -> image or link (stashed to protect image toolbar tags and URL slashes)
       str = str.replace(/\[\[([^\]]+)\]\]/g, (match, url) => {
         const cleanUrl = url.trim();
         if (!isImageSource(cleanUrl)) {
-          return `<a href="${cleanUrl}" target="_blank" style="color: var(--secondary);">${cleanUrl}</a>`;
+          return addStash(`<a href="${cleanUrl}" target="_blank" style="color: var(--secondary);">${cleanUrl}</a>`);
         }
 
         let src = cleanUrl;
@@ -604,7 +609,7 @@ let slides = [];
         }
                         
         // Treat confirmed image [[url]] tags as images with interactive container
-        return `<div class="org-image-container align-center">
+        return addStash(`<div class="org-image-container align-center">
           <div class="image-toolbar">
             <button onclick="window.ImageManager.setAlignment(this, 'left')" data-align="left" title="Align Left (Float Left)">
               <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="13" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -651,13 +656,26 @@ let slides = [];
           </div>
           <img src="${src}" alt="${escapeHtml(url)}" data-original-url="${escapeHtml(originalUrl)}" class="org-image" referrerpolicy="no-referrer" />
           <div class="inline-resize-handle" title="Drag to resize"></div>
-        </div>`;
+        </div>`);
       });
 
-      // 4. Restore stashed inline code blocks safely!
-      str = str.replace(/\x01ORGX(\d+)\x02/g, (match, index) => {
-        return codeStash[parseInt(index, 10)] || '';
-      });
+      // 4. Format *bold*
+      str = str.replace(/\*([^*\n\r]+)\*/g, '<strong>$1</strong>');
+
+      // 5. Stash any HTML tags (e.g. <strong>, </strong>, <kbd>, etc.) so slashes in </tag> or attributes are never matched
+      str = str.replace(/<[^>]+>/g, (tag) => addStash(tag));
+
+      // 6. Format /italic/
+      // Requires preceding non-word non-slash boundary and following non-word non-slash boundary,
+      // non-whitespace border characters inside, and never matches consecutive slashes (//)
+      str = str.replace(/(?<![a-zA-Z0-9_/:])\/([^\s\n\r/](?:[^\n\r/]*?[^\s\n\r/])?)\/(?![a-zA-Z0-9_/:])/g, '<em>$1</em>');
+
+      // 7. Restore stashed inline elements iteratively to handle any nested tags safely
+      while (/\x01ORGX(\d+)\x02/.test(str)) {
+        str = str.replace(/\x01ORGX(\d+)\x02/g, (match, index) => {
+          return stash[parseInt(index, 10)] || '';
+        });
+      }
 
       return str;
     }
@@ -734,8 +752,8 @@ let slides = [];
           slideEl.innerHTML = `
             <div class="slide-breadcrumbs" style="position: absolute; top: 1.5rem; left: 1.5rem;">${breadcrumbHtml}</div>
             <div class="title-center">
-              <h1 class="main-title">${s.title}</h1>
-              ${s.subtitle ? `<h2 class="main-subtitle">${s.subtitle}</h2>` : ''}
+              <h1 class="main-title">${formatInlineOrg(escapeHtml(s.title))}</h1>
+              ${s.subtitle ? `<h2 class="main-subtitle">${formatInlineOrg(escapeHtml(s.subtitle))}</h2>` : ''}
               ${s.meta ? `<div class="main-meta">${s.meta}</div>` : ''}
             </div>
             ${footerHtml}
@@ -745,7 +763,7 @@ let slides = [];
             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
               <div style="flex: 1;">
                 <div class="slide-breadcrumbs">${breadcrumbHtml}</div>
-                <h2 class="slide-title">${escapeHtml(s.title)}</h2>
+                <h2 class="slide-title">${formatInlineOrg(escapeHtml(s.title))}</h2>
               </div>
               <div class="slide-header-logos" style="display: flex; gap: 1rem; align-items: center; justify-content: flex-end; height: 55px;"></div>
             </div>
