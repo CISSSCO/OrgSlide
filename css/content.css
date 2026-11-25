@@ -438,3 +438,14 @@
 .org-image-container.free-mode {
   border: 2px dashed var(--secondary) !important;
 }
+
+/* Org-mode & Markdown Italic Typography */
+.slide-body em,
+.slide-title em,
+.main-title em,
+.main-subtitle em,
+.ppt-list em,
+.ppt-table em {
+  font-style: italic;
+}
+
