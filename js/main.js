@@ -287,13 +287,14 @@ let slides = [];
 
       return slideObjects;
     }
+    window.parseOrgMode = parseOrgMode;
 
     // Format Org-mode body syntax to clean PowerPoint HTML with Syntax Highlighting
     function formatOrgLinesToHtml(lines) {
       let html = "";
-      let inCodeBlock = false;
-      let codeLang = "bash";
-      let codeBuffer = [];
+      let inBlock = null; // 'src' | 'example' | 'quote' | 'note' | 'tip' | 'warning' | etc.
+      let blockArg = "";
+      let blockBuffer = [];
       let inColonBlock = false;
       let colonBuffer = [];
       let inTable = false;
@@ -307,36 +308,129 @@ let slides = [];
         }
       };
 
+      function getOrgCalloutSvg(type) {
+        if (type === 'note' || type === 'info') {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+        } else if (type === 'tip') {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>';
+        } else if (type === 'warning') {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+        } else if (type === 'caution') {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+        } else {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+        }
+      }
+
+      const flushBlock = () => {
+        if (!inBlock) return;
+
+        if (inBlock === 'comment') {
+          // Comment blocks are hidden from slides
+        } else if (inBlock === 'src' || inBlock === 'example') {
+          const rawCode = blockBuffer.join('\n');
+          const lang = inBlock === 'example' ? 'plaintext' : ((blockArg ? blockArg.trim().split(/\s+/)[0] : '') || 'plaintext').toLowerCase();
+          html += generateCodeBlockHTML(lang, rawCode);
+        } else if (inBlock === 'export') {
+          const expType = (blockArg ? blockArg.trim().split(/\s+/)[0] : '').toLowerCase();
+          if (expType === 'html') {
+            html += blockBuffer.join('\n');
+          }
+        } else if (inBlock === 'center') {
+          const content = blockBuffer.map(l => formatInlineOrg(l.trim())).filter(l => l.length > 0).join('<br>');
+          html += `<div class="org-center">${content}</div>`;
+        } else if (inBlock === 'verse') {
+          const content = blockBuffer.map(l => formatInlineOrg(l)).join('<br>');
+          html += `<div class="org-verse">${content}</div>`;
+        } else {
+          // quote, note, tip, warning, caution, important, info, or custom blocks
+          while (blockBuffer.length > 0 && blockBuffer[0].trim() === '') blockBuffer.shift();
+          while (blockBuffer.length > 0 && blockBuffer[blockBuffer.length - 1].trim() === '') blockBuffer.pop();
+
+          let calloutType = null;
+          let title = '';
+
+          if (['note', 'tip', 'warning', 'caution', 'important', 'info'].includes(inBlock)) {
+            calloutType = inBlock === 'info' ? 'note' : inBlock;
+            title = blockArg ? formatInlineOrg(blockArg.trim()) : calloutType.toUpperCase();
+            if (blockBuffer.length > 0) {
+              const m = blockBuffer[0].trim().match(/^(?:\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]|(Note|Tip|Important|Warning|Caution|Info):?)\s*(.*)$/i);
+              if (m) {
+                if (m[3]) blockBuffer[0] = m[3];
+                else blockBuffer.shift();
+              }
+            }
+          } else if (inBlock === 'quote') {
+            if (blockBuffer.length > 0) {
+              const m = blockBuffer[0].trim().match(/^(?:\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]|(Note|Tip|Important|Warning|Caution):?)\s*(.*)$/i);
+              if (m) {
+                calloutType = (m[1] || m[2]).toLowerCase();
+                if (calloutType === 'info') calloutType = 'note';
+                title = blockArg ? formatInlineOrg(blockArg.trim()) : calloutType.toUpperCase();
+                if (m[3]) blockBuffer[0] = m[3];
+                else blockBuffer.shift();
+              }
+            }
+          }
+
+          while (blockBuffer.length > 0 && blockBuffer[0].trim() === '') blockBuffer.shift();
+
+          const content = blockBuffer.map(l => {
+            const mList = l.match(/^(\s*)([-+*])\s+(.*)$/);
+            if (mList) {
+              return `<div style="display: flex; gap: 0.5rem; margin: 0.2rem 0;"><span style="color: var(--secondary, #3b82f6);">&bull;</span><span>${formatInlineOrg(mList[3])}</span></div>`;
+            }
+            return formatInlineOrg(l);
+          }).join('<br>');
+
+          if (calloutType) {
+            html += `<div class="markdown-callout org-callout ${calloutType}"><div class="markdown-callout-title">${getOrgCalloutSvg(calloutType)}<span>${title}</span></div><div class="markdown-callout-body">${content}</div></div>`;
+          } else if (inBlock === 'quote') {
+            const cite = blockArg ? `<cite class="org-quote-cite">— ${formatInlineOrg(blockArg.trim())}</cite>` : '';
+            html += `<blockquote class="org-quote markdown-quote">${content}${cite}</blockquote>`;
+          } else {
+            html += `<div class="org-block org-block-${escapeHtml(inBlock)}">${content}</div>`;
+          }
+        }
+
+        inBlock = null;
+        blockArg = '';
+        blockBuffer = [];
+      };
+
       for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
 
-        // Code block begin: #+begin_src bash or #+begin_example
-        let srcStart = line.match(/^\s*#\+begin_src(?:\s+([a-zA-Z0-9_-]+))?/i);
-        let exStart = line.match(/^\s*#\+begin_example/i);
-        if (srcStart || exStart) {
+        // Block end: #+end_src, #+end_quote, #+end_example, #+end_note, or any #+end_... or #+end
+        let endMatch = line.match(/^\s*#\+end(?:_([a-zA-Z0-9_-]+))?\b/i);
+        if (endMatch && inBlock) {
+          const endType = endMatch[1] ? endMatch[1].toLowerCase() : null;
+          if (!endType || endType === inBlock) {
+            flushBlock();
+            continue;
+          }
+        }
+
+        // Block begin: #+begin_src, #+begin_example, #+begin_quote, #+begin_note, #+begin_...
+        let beginMatch = line.match(/^\s*#\+begin_([a-zA-Z0-9_-]+)(?:\s+(.*))?$/i);
+        if (beginMatch) {
           if (inTable) { html += renderTable(tableRows); tableRows = []; inTable = false; }
           if (inColonBlock) {
             html += generateCodeBlockHTML("plaintext", colonBuffer.join('\n'));
             inColonBlock = false;
             colonBuffer = [];
           }
-          inCodeBlock = true;
-          codeLang = srcStart && srcStart[1] ? srcStart[1].toLowerCase() : "plaintext";
-          codeBuffer = [];
+          closeList();
+          if (inBlock) flushBlock();
+
+          inBlock = beginMatch[1].toLowerCase();
+          blockArg = beginMatch[2] ? beginMatch[2].trim() : '';
+          blockBuffer = [];
           continue;
         }
 
-        // Code block end: #+end_src or #+end_example
-        if (line.match(/^\s*#\+end_src/i) || line.match(/^\s*#\+end_example/i)) {
-          inCodeBlock = false;
-          let rawCode = codeBuffer.join('\n');
-          html += generateCodeBlockHTML(codeLang, rawCode);
-          codeBuffer = [];
-          continue;
-        }
-
-        if (inCodeBlock) {
-          codeBuffer.push(line);
+        if (inBlock) {
+          blockBuffer.push(line);
           continue;
         }
 
@@ -487,6 +581,7 @@ let slides = [];
         html += generateCodeBlockHTML("plaintext", colonBuffer.join('\n'));
       }
       closeList();
+      if (inBlock) flushBlock();
 
       return html;
     }

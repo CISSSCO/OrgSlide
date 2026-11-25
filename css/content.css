@@ -449,3 +449,119 @@
   font-style: italic;
 }
 
+/* Org-mode Quotes, Callouts, Centered Blocks, and Verses */
+blockquote.org-quote,
+blockquote.markdown-quote {
+  margin: 1.25rem 0;
+  padding: 0.85rem 1.25rem;
+  border-left: 4px solid var(--secondary, #3b82f6);
+  background: rgba(0, 0, 0, 0.03);
+  font-style: italic;
+  border-radius: 0 6px 6px 0;
+  color: var(--text-color, inherit);
+}
+
+body.dark blockquote.org-quote,
+body.dark blockquote.markdown-quote {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.org-quote-cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: normal;
+  font-weight: 600;
+  text-align: right;
+  color: var(--text-muted, #64748b);
+}
+
+.org-center {
+  text-align: center;
+  margin: 1.25rem 0;
+}
+
+.org-verse {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--secondary, #3b82f6);
+  font-style: italic;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.org-block {
+  margin: 1.25rem 0;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.dark .org-block {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Callouts in Org Mode */
+.org-callout {
+  margin: 1.25rem 0;
+  padding: 1rem 1.35rem;
+  border-left: 4px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.org-callout .markdown-callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.45rem;
+}
+
+.org-callout .markdown-callout-title svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.org-callout.note {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  color: inherit;
+}
+.org-callout.note .markdown-callout-title { color: #2563eb; }
+
+.org-callout.tip {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  color: inherit;
+}
+.org-callout.tip .markdown-callout-title { color: #059669; }
+
+.org-callout.important {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+  color: inherit;
+}
+.org-callout.important .markdown-callout-title { color: #7c3aed; }
+
+.org-callout.warning {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.09);
+  color: inherit;
+}
+.org-callout.warning .markdown-callout-title { color: #d97706; }
+
+.org-callout.caution {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  color: inherit;
+}
+.org-callout.caution .markdown-callout-title { color: #dc2626; }
+
